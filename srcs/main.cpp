@@ -1,9 +1,37 @@
 #include <iostream>
 #include <vector>
+#include <time.h>
+#include <unistd.h>
 
 #include "vector.hpp"
 
-int     main(void)
+void	test_vector_iterators(void)
+{
+	ft::vector<int>		mine;
+	std::vector<int>	their;
+
+
+	srand(time(NULL));
+	for (int i = 0; i < 5; i++){
+		int random = rand() % 42;
+		mine.push_back(random * i + random);
+		their.push_back(random * i + random);
+	}
+
+	for (int i = 0; i < 5; i++){
+		std::cout << "mine: " << mine[i] << " their: " << their[i] << std::endl;
+	}
+
+	Iterator<int>		it;
+	it = mine.begin();
+	while (it < mine.end())
+	{
+		std::cout << it << std::endl;
+		it++;
+	}
+}
+
+void	test_vector(void)
 {
 	ft::vector<int>     mine;
 	std::vector<int>    their;
@@ -72,6 +100,10 @@ int     main(void)
 	std::cout <<  std::endl << "** print value of mine and their **" << std::endl;
 	for (int i = 0; i < 1; i++)
 		std::cout << mine[i] << " " << their[i] << std::endl;
+}
 
+int     main(void)
+{
+	test_vector_iterators();
 	return (0);
 }
