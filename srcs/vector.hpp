@@ -19,6 +19,88 @@ class Iterator: public std::iterator<std::random_access_iterator_tag, T>
 			this->_index++;
 			this->_position++;
 		}
+		void	operator--(int)
+		{
+			this->_index--;
+			this->_position--;
+		}
+		bool	operator!=(Iterator<T> src)
+		{
+			if ((src.getPosition() -1) == this->_position)
+				return (false);
+			return (true);
+		}
+		bool	operator==(Iterator<T> src)
+		{
+			if ((src.getPosition() -1) == this->_position)
+				return (true);
+			return (false);
+		}
+		bool	operator<(Iterator<T> src)
+		{
+			if (this->_position < src.getPosition() -1)
+				return (true);
+			return (false);
+		}
+		T		getIndex(void)
+		{
+			return (this->_index[0]);
+		}
+		void	*getAddress(void)
+		{
+			return (this->_index);
+		}
+		T		getPosition(void)
+		{
+			return (this->_position);
+		}
+		void	setPosition(T position)
+		{
+			this->_position = position;
+		}
+		void	setArray(T *array)
+		{
+			this->_index = array;
+		}
+	private:
+		T		*_index;
+		T		_position;
+};
+
+template <typename T>
+std::ostream	&operator<<(std::ostream &o, Iterator<T> &src)
+{
+	o << src.getIndex();
+	return (o);
+}
+
+template <typename T>
+class RIterator: public std::iterator<std::random_access_iterator_tag, T>
+{
+	public:
+		RIterator(void): _index(NULL), _position(-1){};
+		~RIterator(void){};
+		RIterator	operator=(int *new_index)
+		{
+			if (new_index)
+				this->_index = new_index;
+			return (*this);
+		}
+		void		setPosition(unsigned int pos) const
+		{
+			this->_position = pos;
+		}
+		void	operator++(int)
+		{
+			this->_index--;
+			this->_position--;
+		}
+		void	operator--(int)
+		{
+			if (this->_position != -1)
+				this->_index++;
+			this->_position++;
+		}
 		T		getIndex(void)
 		{
 			return (this->_index[0]);
@@ -37,7 +119,7 @@ class Iterator: public std::iterator<std::random_access_iterator_tag, T>
 };
 
 template <typename T>
-std::ostream	&operator<<(std::ostream &o, Iterator<T> &src)
+std::ostream	&operator<<(std::ostream &o, RIterator<T> &src)
 {
 	o << src.getIndex();
 	return (o);
@@ -57,6 +139,58 @@ namespace ft {
 			{
 				Iterator<T>		index;
 				index = this->_tab;
+				return (index);
+			}
+			const Iterator<T>		begin(void) const
+			{
+				const Iterator<T>		index;
+				index = this->_tab;
+				return (index);
+			}
+			Iterator<T>		end(void)
+			{
+				Iterator<T>		index;
+				index.setArray(this->_tab);
+				index.setPosition(this->_len + 1);
+				return (index);
+			}
+			const Iterator<T>		end(void) const
+			{
+				const Iterator<T>		index;
+				index.setArray(this->_tab);
+				index.setPosition(this->_len + 1);
+				return (index);
+			}
+			RIterator<T>			rbegin(void)
+			{
+				RIterator<T>		index;
+
+				index = this->_tab[this->_len];
+				index.setPosition(this->_len);
+				return (index);
+			}
+			const RIterator<T>			rbegin(void) const
+			{
+				const RIterator<T>		index;
+
+				index = this->_tab[this->_len];
+				index.setPosition(this->_len);
+				return (index);
+			}
+			RIterator<T>			rend(void)
+			{
+				RIterator<T>		index;
+
+				index = this->_tab[0];
+				index.setPosition(-1);
+				return (index);
+			}
+			const RIterator<T>			rend(void) const
+			{
+				const RIterator<T>		index;
+
+				index = NULL;
+				index.setPosition(-1);
 				return (index);
 			}
 
