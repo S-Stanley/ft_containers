@@ -195,17 +195,52 @@ namespace ft {
 			}
 
 			/* Capacity */
-
 			int     size(void)
 			{
 				return (this->_len);
 			}
-			T       &operator[](const unsigned int N)
+
+			/* Elements access */
+			T       &operator[](unsigned int N)
 			{
 				return (this->_tab[N]);
 			}
-
-			/* Elements access */
+			T const &operator[](unsigned int N) const
+			{
+				const T value = this->_tab[N];
+				return (value);
+			}
+			T		&front(void)
+			{
+				return (this->_tab[0]);
+			}
+			T const		&front(void) const
+			{
+				const T value = this->_tab[0];
+				return (value);
+			}
+			T		&back(void)
+			{
+				return (this->_tab[this->_len -1]);
+			}
+			T const		&back(void) const
+			{
+				const T value = this->_tab[this->_len -1];
+				return (value);
+			}
+			T       &at(unsigned int N)
+			{
+				if (N > this->_len -1)
+					throw std::out_of_range();
+				return (this->_tab[N]);
+			}
+			T const &at(unsigned int N) const
+			{
+				if (N > this->_len -1)
+					throw std::out_of_range();
+				const T value = this->_tab[N];
+				return (value);
+			}
 
 			/* Modifiers */
 
