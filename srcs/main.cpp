@@ -31,6 +31,24 @@ void	test_vector_iterators(void)
 	}
 }
 
+void	test_vector_element_access(void)
+{
+	ft::vector<int>	mine;
+	std::vector<int> their;
+
+	for (int i = 1; i < 7; i++)
+	{
+		mine.push_back(i * 2);
+		their.push_back(i * 2);
+	}
+
+	std::cout << "Elements access" << std::endl << std::endl;
+	std::cout << mine[2] << " " << their[2] << std::endl;
+	std::cout << mine.at(1) << " " << their.at(1) << std::endl;
+	std::cout << mine.front() << " " << their.front() << std::endl;
+	std::cout << mine.back() << " " << their.back() << std::endl;
+}
+
 void	test_vector(void)
 {
 	ft::vector<int>     mine;
@@ -104,6 +122,7 @@ void	test_vector(void)
 
 int     main(void)
 {
-	test_vector_iterators();
+	// test_vector_iterators();
+	test_vector_element_access();
 	return (0);
 }
