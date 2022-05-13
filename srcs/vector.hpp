@@ -1,6 +1,8 @@
 #ifndef VECTOR_HPP
 # define VECTOR_HPP
 
+#include <iostream>
+
 template <typename T>
 class Iterator: public std::iterator<std::random_access_iterator_tag, T>
 {
@@ -231,13 +233,13 @@ namespace ft {
 			T       &at(unsigned int N)
 			{
 				if (N > this->_len -1)
-					throw std::out_of_range();
+					throw std::out_of_range("out of range");
 				return (this->_tab[N]);
 			}
 			T const &at(unsigned int N) const
 			{
 				if (N > this->_len -1)
-					throw std::out_of_range();
+					throw std::out_of_range("out of range");
 				const T value = this->_tab[N];
 				return (value);
 			}
@@ -340,7 +342,7 @@ namespace ft {
 			void    push_back(const T &val)
 			{
 				T   *update = new T[this->size() + 1];
-				int     i;
+				unsigned     i;
 
 				for (i = 0; i < this->size(); i++)
 					update[i] = this->_tab[i];
