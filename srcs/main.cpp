@@ -28,6 +28,6 @@ int     main(int argc, char **argv)
 	if (strcmp(argv[1], "0") == 0)
 		ping(is_real_vector);
 	if (strcmp(argv[1], "1") == 0)
-		test_vector_max_size(is_real_vector);;
+		test_vector_max_size(is_real_vector);
 	return (0);
 }
