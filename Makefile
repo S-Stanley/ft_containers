@@ -1,4 +1,4 @@
-SRCS = srcs/main.cpp
+SRCS = srcs/main.cpp tests/test.vector.cpp
 OBJS = $(SRCS:.cpp=.o)
 DEP = $(OBJS:.o=.d)
 CC = c++
