@@ -1,10 +1,4 @@
-#include <iostream>
-#include <vector>
-#include <time.h>
-#include <unistd.h>
-#include <algorithm>
-
-#include "../srcs/vector.hpp"
+#include "test.vector.hpp"
 
 void	test_vector_iterators(void)
 {
@@ -153,7 +147,7 @@ void	test_vector_capacity(void)
 	std::cout << "Capacity: " << mine.capacity() << " " << their.capacity() << std::endl << std::endl;
 }
 
-void    test_modifiers(bool is_real_vector = false)
+void    test_modifiers(bool is_real_vector)
 {
 	if (is_real_vector)
 	{
@@ -170,5 +164,33 @@ void    test_modifiers(bool is_real_vector = false)
 		vec.push_back(42);
 		std::cout << "max size: " << vec.max_size() << std::endl;
 		std::cout << is_real_vector << std::endl;
+	}
+}
+
+void	test_vector_max_size(bool is_real_vector)
+{
+	if (is_real_vector)
+	{
+		std::vector<char>	vector_char;
+		std::vector<int>	vector_int;
+		std::vector<unsigned int>	vector_unsigned_int;
+		std::vector<long long>	vector_long_long;
+
+		std::cout << vector_long_long.max_size() << std::endl;
+		std::cout << vector_int.max_size() << std::endl;
+		std::cout << vector_char.max_size() << std::endl;
+		std::cout << vector_unsigned_int.max_size() << std::endl;
+	}
+	else
+	{
+		ft::vector<char>	vector_char;
+		ft::vector<int>	vector_int;
+		ft::vector<unsigned int>	vector_unsigned_int;
+		ft::vector<long long>	vector_long_long;
+
+		std::cout << vector_long_long.max_size() << std::endl;
+		std::cout << vector_int.max_size() << std::endl;
+		std::cout << vector_char.max_size() << std::endl;
+		std::cout << vector_unsigned_int.max_size() << std::endl;
 	}
 }

@@ -2,6 +2,8 @@
 # define VECTOR_HPP
 
 #include <iostream>
+#include <cmath>
+#include <typeinfo>
 
 template <typename T>
 class Iterator: public std::iterator<std::random_access_iterator_tag, T>
@@ -243,9 +245,9 @@ namespace ft {
 				const T value = this->_tab[N];
 				return (value);
 			}
-			unsigned int	max_size(void) const
+			unsigned long long	max_size(void) const
 			{
-				return (this->_max_cap);
+				return ((long)std::pow(2, 64))/sizeof(T) -1;
 			}
 			void	resize(unsigned int N, T val)
 			{
