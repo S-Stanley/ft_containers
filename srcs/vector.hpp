@@ -9,12 +9,16 @@
 #include "reverse_iterator.hpp"
 
 namespace ft {
-	template <typename T>
+	template <typename T, class Alloc = std::allocator<T> >
 
 	class vector {
 		public:
 			vector(void): _tab(NULL), _len(0), _max_cap(0) {};
-			~vector(void) {};
+			~vector(void)
+			{
+				if (this->_tab)
+					delete this->_tab;
+			};
 
 			/* Iterators  */
 
