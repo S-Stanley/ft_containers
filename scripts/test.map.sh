@@ -7,22 +7,22 @@ NC='\033[0m'
 mkdir .tmp/
 rm -rf .tmp/result
 
-for ((i=0; i < 2; i++))
+for ((i=0; i < 1; i++))
 do
-    ./ft_containers vector $i ft > .tmp/res.vector
-    ./ft_containers vector $i std > .tmp/res.vector.std
+    ./ft_containers map $i ft > .tmp/res.map
+    ./ft_containers map $i std > .tmp/res.map.std
 
-    diff .tmp/res.vector .tmp/res.vector.std > /dev/null
+    diff .tmp/res.map .tmp/res.map.std > /dev/null
     if [ $? -eq 0 ]
     then
         echo -e "${GREEN} TEST $i OK" >> .tmp/result
     else
         echo -e "${RED} TEST $i KO" >> .tmp/result
-        diff .tmp/res.vector .tmp/res.vector.std
+        diff .tmp/res.map .tmp/res.map.std
         echo "TEST FT"
-        ./ft_containers vector $i ft
+        ./ft_containers map $i ft
         echo "TEST STD"
-        ./ft_containers vector $i std
+        ./ft_containers map $i std
     fi
 done
 
