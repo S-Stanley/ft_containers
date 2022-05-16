@@ -1,6 +1,8 @@
 #ifndef ITERATORS_TRAITS_HPP
 #define ITERATORS_TRAITS_HPP
 
+#include <iostream>
+
 template <typename T>
 class Iterator: public std::iterator<std::random_access_iterator_tag, T>
 {
