@@ -1,6 +1,8 @@
 #ifndef ITERATORS_TRAITS_HPP
 #define ITERATORS_TRAITS_HPP
 
+#include <iostream>
+
 template <typename T>
 class Iterator: public std::iterator<std::random_access_iterator_tag, T>
 {
@@ -11,6 +13,12 @@ class Iterator: public std::iterator<std::random_access_iterator_tag, T>
 		{
 			if (new_index)
 				this->_index = new_index;
+			this->_position = 0;
+			return (*this);
+		}
+		Iterator	operator=(void	*tmp)
+		{
+			this->_index = static_cast<T *>(tmp);
 			this->_position = 0;
 			return (*this);
 		}
@@ -61,6 +69,12 @@ class Iterator: public std::iterator<std::random_access_iterator_tag, T>
 		void	setArray(T *array)
 		{
 			this->_index = array;
+		}
+		bool	isNull(void)
+		{
+			if (this->_index)
+				return (false);
+			return (true);
 		}
 	private:
 		T		*_index;

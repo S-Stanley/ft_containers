@@ -1,5 +1,5 @@
-#ifndef MAIN_CPP
-# define MAIN_CPP
+#ifndef TEST_VECTOR_CPP
+# define TEST_VECTOR_CPP
 
 #include <vector>
 #include <limits>

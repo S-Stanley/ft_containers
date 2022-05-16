@@ -1,6 +1,8 @@
-#include "../tests/test.vector.hpp"
 #include <string.h>
 #include <iostream>
+
+#include "../tests/test.map.hpp"
+#include "../tests/test.vector.hpp"
 
 void	ping(bool is_real_vector = false)
 {
@@ -10,24 +12,39 @@ void	ping(bool is_real_vector = false)
 		std::cout << "Hello world" << std::endl;
 }
 
+int	handl_err_usage(std::string message = "Unknow error")
+{
+	std::cout << message << std::endl;
+	std::cout << "Usage:" << std::endl;
+	std::cout << "./ft_containers [container_name] [test_number] [type (std or ft)]" << std::endl;
+	return (1);
+}
 
 int     main(int argc, char **argv)
 {
-	bool is_real_vector = false;
-	if (argc != 2 && argc != 3)
-	{
-		std::cout << "Wrong Usage" << std::endl;
-		std::cout << "./ft_containers [test_number] [using std (optional)]" << std::endl;
-		return (1);
+	bool is_real_container = false;
+	if (argc != 4) {
+		return (handl_err_usage("Wrong usage"));
 	}
-	if (argc == 3) {
-		if (strcmp(argv[2], "std") == 0) {
-			is_real_vector = true;
-		}
+	if (strcmp(argv[3], "std") != 0 && strcmp(argv[3], "ft") != 0) {
+		return (handl_err_usage("unknow type"));
 	}
-	if (strcmp(argv[1], "0") == 0)
-		ping(is_real_vector);
-	if (strcmp(argv[1], "1") == 0)
-		test_vector_max_size(is_real_vector);
+	if (strcmp(argv[3], "std") == 0) {
+		is_real_container = true;
+	}
+	if (strcmp(argv[1], "vector") == 0) {
+		if (strcmp(argv[1], "0") == 0)
+			ping(is_real_container);
+		if (strcmp(argv[1], "1") == 0)
+			test_vector_max_size(is_real_container);
+	}
+	else if (strcmp(argv[1], "map") == 0) {
+		if (strcmp(argv[2], "0") == 0)
+			test_map_compile(is_real_container);
+		if (strcmp(argv[2], "1") == 0)
+			test_map_insert(is_real_container);
+	} else {
+		return (handl_err_usage("unknow container name"));
+	}
 	return (0);
 }
