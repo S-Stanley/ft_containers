@@ -3,11 +3,11 @@
 
 #include <iostream>
 
-template <typename T>
+template <typename T, typename K = std::string>
 class Iterator: public std::iterator<std::random_access_iterator_tag, T>
 {
 	public:
-		Iterator(void): _index(NULL), _position(-1){};
+		Iterator(void): _index(NULL), _position(-1), _keys(NULL){};
 		~Iterator(void){};
 		Iterator	operator=(int *new_index)
 		{
@@ -70,6 +70,20 @@ class Iterator: public std::iterator<std::random_access_iterator_tag, T>
 		{
 			this->_index = array;
 		}
+		T		*getArray(void)
+		{
+			T	*arr = this->_index;
+			return (arr);
+		}
+		K		*getKeys(void)
+		{
+			K	*arr = this->_keys;
+			return (arr);
+		}
+		void	setKeys(K *keys)
+		{
+			this->_keys = keys;
+		}
 		bool	isNull(void)
 		{
 			if (this->_index)
@@ -79,6 +93,7 @@ class Iterator: public std::iterator<std::random_access_iterator_tag, T>
 	private:
 		T		*_index;
 		T		_position;
+		K		*_keys;
 };
 
 template <typename T>

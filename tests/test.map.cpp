@@ -28,6 +28,7 @@ void    test_map_insert(bool is_real_container)
 
     if (is_real_container) {
         std::map<std::string, int>    map_std;
+        std::map<std::string, int>    map_std_2;
         std::map<std::string, int>::iterator it;
 
         map_std.insert(val1);
@@ -37,8 +38,13 @@ void    test_map_insert(bool is_real_container)
         std::cout << map_std["cpp"] << std::endl;
         std::cout << map_std["ts"] << std::endl;
         std::cout << map_std["py"] << std::endl;
+        map_std_2.insert(map_std.begin(), map_std.end());
+        std::cout << map_std_2["cpp"] << std::endl;
+        std::cout << map_std_2["ts"] << std::endl;
+        std::cout << map_std_2["py"] << std::endl;
     } else {
         ft::map<std::string, int>     map_ft;
+        ft::map<std::string, int>     map_ft_2;
         Iterator<int>                   it;
 
         map_ft.insert(val1);
@@ -48,5 +54,9 @@ void    test_map_insert(bool is_real_container)
         std::cout << map_ft["cpp"] << std::endl;
         std::cout << map_ft["ts"] << std::endl;
         std::cout << map_ft["py"] << std::endl;
+        map_ft_2.insert(map_ft.begin(), map_ft.end());
+        std::cout << map_ft_2["cpp"] << std::endl;
+        std::cout << map_ft_2["ts"] << std::endl;
+        std::cout << map_ft_2["py"] << std::endl;
     }
 }
