@@ -7,5 +7,6 @@
 #include "../srcs/map.hpp"
 
 void    test_map_compile(bool is_real_container);
+void    test_map_insert(bool is_real_container);
 
 #endif

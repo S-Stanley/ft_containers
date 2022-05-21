@@ -41,6 +41,8 @@ int     main(int argc, char **argv)
 	else if (strcmp(argv[1], "map") == 0) {
 		if (strcmp(argv[2], "0") == 0)
 			test_map_compile(is_real_container);
+		if (strcmp(argv[2], "1") == 0)
+			test_map_insert(is_real_container);
 	} else {
 		return (handl_err_usage("unknow container name"));
 	}
