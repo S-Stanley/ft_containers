@@ -70,7 +70,7 @@ void    test_map_insert(bool is_real_container)
     }
 }
 
-void    test_map_rbegin(bool is_real_container)
+void    test_map_rbegin_and_rend(bool is_real_container)
 {
     std::pair<std::string, std::string>     val1 = create_std_pair("test", "value test");
     std::pair<std::string, std::string>     val2 = create_std_pair("test 1", "value test 1");
@@ -93,7 +93,8 @@ void    test_map_rbegin(bool is_real_container)
         map_ft.insert(val1);
         map_ft.insert(val2);
         RIterator<std::string>    rit = map_ft.rbegin();
-        std::cout << map_ft["test"] << std::endl;
-        std::cout << map_ft["test 1"] << std::endl;
+        map_ft_2.insert(rit, map_ft.rend());
+        std::cout << map_ft_2["test"] << std::endl;
+        std::cout << map_ft_2["test 1"] << std::endl;
     }
 }
