@@ -123,7 +123,7 @@ namespace ft {
                     i++;
                 }
                 it = tmp;
-                it.setPosition(this->_getLen());
+                it.setPosition(this->_getLen() - 1);
                 it.setIndex(arr_values);
                 it.setKeys(arr_keys);
                 return (it);
@@ -144,9 +144,52 @@ namespace ft {
                     i++;
                 }
                 it = tmp;
-                it.setPosition(this->_getLen());
+                it.setPosition(this->_getLen() - 1);
                 it.setIndex(arr_values);
                 it.setKeys(arr_keys);
+                return (it);
+            }
+            RIterator<T>   rend(void)
+            {
+                RIterator<T>    it;
+                ft::map_values<Key, T>  *tmp = this->_values;
+                unsigned int    i = 0;
+                Key *arr_keys = new Key[this->_getLen()];
+                T   *arr_values = new T[this->_getLen()];
+
+                while (tmp)
+                {
+                    arr_keys[i] = tmp->key;
+                    arr_values[i] = tmp->value;
+                    tmp = tmp->next;
+                    i++;
+                }
+                it = tmp;
+                it.setIndex(arr_values);
+                it.setKeys(arr_keys);
+                it.setPosition(-1);
+                return (it);
+            }
+            const RIterator<T>   rend(void) const
+            {
+                const RIterator<T>    it;
+                ft::map_values<Key, T>  *tmp = this->_values;
+                unsigned int    i = 0;
+                Key *arr_keys = new Key[this->_getLen()];
+                T   *arr_values = new T[this->_getLen()];
+
+                while (tmp)
+                {
+                    arr_keys[i] = tmp->key;
+                    arr_values[i] = tmp->value;
+                    tmp = tmp->next;
+                    i++;
+                }
+                it = tmp;
+                it.setIndex(arr_values);
+                it.setKeys(arr_keys);
+                it.setPosition(-1);
+                return (it);
             }
 
             /* elements access */
@@ -226,6 +269,22 @@ namespace ft {
                 return (to_return.first);
             }
             void    insert(Iterator<T> first, Iterator<T> last)
+            {
+                std::pair<Key, T>   to_add;
+                Key *keys = first.getKeys();
+                T   *values = first.getArray();
+                (void)keys;
+                (void)values;
+
+                while (first.getPosition() != last.getPosition())
+                {
+                    to_add.first = keys[first.getPosition()];
+                    to_add.second = values[first.getPosition()];
+                    this->insert(to_add);
+                    first++;
+                }
+            }
+            void    insert(RIterator<T> first, RIterator<T> last)
             {
                 std::pair<Key, T>   to_add;
                 Key *keys = first.getKeys();

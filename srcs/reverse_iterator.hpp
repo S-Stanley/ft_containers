@@ -60,6 +60,16 @@ class RIterator: public std::iterator<std::random_access_iterator_tag, T>
 				delete this->_keys;
 			this->_keys = new_keys;
 		}
+		T		*getArray(void)
+		{
+			T	*arr = this->_index;
+			return (arr);
+		}
+		K		*getKeys(void)
+		{
+			K	*arr = this->_keys;
+			return (arr);
+		}
 	private:
 		T				*_index;
 		unsigned int	_position;
