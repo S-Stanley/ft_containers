@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "iterators_traits.hpp"
+#include "reverse_iterator.hpp"
 
 namespace ft {
     template <typename Key, typename T>
@@ -105,6 +106,47 @@ namespace ft {
                 it.setArray(arr_values);
                 it.setKeys(arr_keys);
                 return (it);
+            }
+            RIterator<T>   rbegin(void)
+            {
+                RIterator<T>    it;
+                ft::map_values<Key, T>  *tmp = this->_values;
+                unsigned int    i = 0;
+                Key *arr_keys = new Key[this->_getLen()];
+                T   *arr_values = new T[this->_getLen()];
+
+                while (tmp)
+                {
+                    arr_keys[i] = tmp->key;
+                    arr_values[i] = tmp->value;
+                    tmp = tmp->next;
+                    i++;
+                }
+                it = tmp;
+                it.setPosition(this->_getLen());
+                it.setIndex(arr_values);
+                it.setKeys(arr_keys);
+                return (it);
+            }
+            const RIterator<T>   rbegin(void) const
+            {
+                const RIterator<T>    it;
+                ft::map_values<Key, T>  *tmp = this->_values;
+                unsigned int    i = 0;
+                Key *arr_keys = new Key[this->_getLen()];
+                T   *arr_values = new T[this->_getLen()];
+
+                while (tmp)
+                {
+                    arr_keys[i] = tmp->key;
+                    arr_values[i] = tmp->value;
+                    tmp = tmp->next;
+                    i++;
+                }
+                it = tmp;
+                it.setPosition(this->_getLen());
+                it.setIndex(arr_values);
+                it.setKeys(arr_keys);
             }
 
             /* elements access */
@@ -236,6 +278,8 @@ namespace ft {
                 const Iterator<T>    it = tmp;
                 return (it);
             }
+            Iterator<T>    iterator_traits;
+            RIterator<T>   reverse_iterator;
         private:
             ft::map_values<Key, T> *_values;
 
