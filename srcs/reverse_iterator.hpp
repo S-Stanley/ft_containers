@@ -3,11 +3,11 @@
 
 #include <iostream>
 
-template <typename T>
+template <typename T, typename K = std::string>
 class RIterator: public std::iterator<std::random_access_iterator_tag, T>
 {
 	public:
-		RIterator(void): _index(NULL), _position(-1){};
+		RIterator(void): _index(NULL), _position(-1), _keys(NULL){};
 		~RIterator(void){};
 		RIterator	operator=(int *new_index)
 		{
@@ -15,7 +15,13 @@ class RIterator: public std::iterator<std::random_access_iterator_tag, T>
 				this->_index = new_index;
 			return (*this);
 		}
-		void		setPosition(unsigned int pos) const
+		RIterator	operator=(void	*tmp)
+		{
+			this->_index = static_cast<T *>(tmp);
+			this->_position = 0;
+			return (*this);
+		}
+		void		setPosition(unsigned int pos)
 		{
 			this->_position = pos;
 		}
@@ -38,13 +44,26 @@ class RIterator: public std::iterator<std::random_access_iterator_tag, T>
 		{
 			return (this->_index);
 		}
-		T		getPosition(void)
+		unsigned int	getPosition(void)
 		{
 			return (this->_position);
 		}
+		void	setIndex(T *new_index)
+		{
+			if (this->_index)
+				delete this->_index;
+			this->_index = new_index;
+		}
+		void	setKeys(K *new_keys)
+		{
+			if (this->_keys)
+				delete this->_keys;
+			this->_keys = new_keys;
+		}
 	private:
-		T		*_index;
-		T		_position;
+		T				*_index;
+		unsigned int	_position;
+		K				*_keys;
 };
 
 template <typename T>

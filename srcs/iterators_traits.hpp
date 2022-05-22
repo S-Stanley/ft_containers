@@ -58,7 +58,7 @@ class Iterator: public std::iterator<std::random_access_iterator_tag, T>
 		{
 			return (this->_index);
 		}
-		T		getPosition(void)
+		unsigned int	getPosition(void)
 		{
 			return (this->_position);
 		}
@@ -91,9 +91,9 @@ class Iterator: public std::iterator<std::random_access_iterator_tag, T>
 			return (true);
 		}
 	private:
-		T		*_index;
-		T		_position;
-		K		*_keys;
+		T				*_index;
+		unsigned int	_position;
+		K				*_keys;
 };
 
 template <typename T>
