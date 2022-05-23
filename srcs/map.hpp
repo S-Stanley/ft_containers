@@ -199,6 +199,20 @@ namespace ft {
                     return (true);
                 return (false);
             }
+            unsigned int    size(void) const
+            {
+                ft::map_values<Key, T>  *tmp = this->_values;
+                unsigned int count = 0;
+
+                if (!tmp)
+                    return (count);
+                while (tmp)
+                {
+                    tmp = tmp->next;
+                    count++;
+                }
+                return (count);
+            }
 
             /* elements access */
             T   operator[](const Key &k)
