@@ -192,6 +192,14 @@ namespace ft {
                 return (it);
             }
 
+            /* capacity */
+            bool    empty(void) const
+            {
+                if (!this->_values)
+                    return (true);
+                return (false);
+            }
+
             /* elements access */
             T   operator[](const Key &k)
             {

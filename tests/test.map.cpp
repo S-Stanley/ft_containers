@@ -98,3 +98,22 @@ void    test_map_rbegin_and_rend(bool is_real_container)
         std::cout << map_ft_2["test 1"] << std::endl;
     }
 }
+
+void    test_map_empty(bool is_real_container)
+{
+    std::pair<std::string, std::string> val = create_std_pair("hello", "world");
+
+    if (is_real_container) {
+        std::map<std::string, std::string>  map_std;
+
+        std::cout << map_std.empty() << std::endl;
+        map_std.insert(val);
+        std::cout << map_std.empty() << std::endl;
+    } else {
+        ft::map<std::string, std::string>  map_ft;
+
+        std::cout << map_ft.empty() << std::endl;
+        map_ft.insert(val);
+        std::cout << map_ft.empty() << std::endl;
+    }
+}
