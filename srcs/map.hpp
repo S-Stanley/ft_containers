@@ -365,6 +365,21 @@ namespace ft {
                 const Iterator<T>    it = tmp;
                 return (it);
             }
+            unsigned int    count(const Key &k) const
+            {
+                ft::map_values<Key, T>    *tmp = this->_values;
+
+                if (!tmp)
+                    return (0);
+                while (tmp)
+                {
+                    if (tmp->key == k)
+                        return (1);
+                    tmp = tmp->next;
+                }
+                return (0);
+            }
+
             Iterator<T>    iterator_traits;
             RIterator<T>   reverse_iterator;
         private:
