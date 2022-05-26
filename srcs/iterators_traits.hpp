@@ -62,7 +62,7 @@ class Iterator: public std::iterator<std::random_access_iterator_tag, T>
 		{
 			return (this->_position);
 		}
-		void	setPosition(T position)
+		void	setPosition(unsigned int position)
 		{
 			this->_position = position;
 		}

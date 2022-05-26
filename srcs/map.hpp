@@ -362,6 +362,7 @@ namespace ft {
                     }
                     tmp = tmp->next;
                 }
+                // return (this->end());
                 const Iterator<T>    it = tmp;
                 return (it);
             }
