@@ -322,6 +322,12 @@ namespace ft {
                     first++;
                 }
             }
+            void    clear(void)
+            {
+                if (this->_values)
+                    delete this->_values;
+                this->_values = NULL;
+            }
 
             /* operation */
             Iterator<T>    find(const Key &k)
