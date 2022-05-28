@@ -53,6 +53,8 @@ int     main(int argc, char **argv)
 			test_map_clear(is_real_container);
 		if (strcmp(argv[2], "6") == 0)
 			test_map_count(is_real_container);
+		if (strcmp(argv[2], "7") == 0)
+			test_map_erase(is_real_container);
 	} else {
 		return (handl_err_usage("unknow container name"));
 	}

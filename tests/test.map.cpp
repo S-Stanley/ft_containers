@@ -189,3 +189,83 @@ void    test_map_count(bool is_real_container)
         std::cout << map_ft.count("do no exist") << std::endl;
     }
 }
+
+void    test_map_erase(bool is_real_container)
+{
+    std::pair<std::string, std::string> val = create_std_pair("hello", "world");
+    std::pair<std::string, std::string> val1 = create_std_pair("container", "map");
+    std::pair<std::string, std::string> val2 = create_std_pair("cout", "std");
+    std::pair<std::string, std::string> val3 = create_std_pair("cin", "std");
+
+    if (is_real_container) {
+        std::map<std::string, std::string>  map_std;
+
+        std::cout << "TEST MAP ERASE WITH ONE IT" << std::endl;
+        map_std.insert(val);
+        map_std.insert(val1);
+        std::cout << map_std.size() << std::endl;
+        std::map<std::string, std::string>::iterator it = map_std.begin();
+        map_std.erase(it);
+        std::cout << map_std.size() << std::endl;
+
+        std::cout << "TEST MAP ERASE WITH KEY" << std::endl;
+        map_std.clear();
+        map_std.insert(val);
+        map_std.insert(val1);
+        std::cout << map_std.size() << std::endl;
+        map_std.erase("hello");
+        std::cout << map_std.size() << std::endl;
+        map_std.erase("container");
+        std::cout << map_std.size() << std::endl;
+
+        std::cout << "TEST MAP ERASE WITH RANGE OF IT" << std::endl;
+        map_std.clear();
+        map_std.insert(val);
+        map_std.insert(val1);
+        map_std.insert(val2);
+        map_std.insert(val3);
+        std::map<std::string, std::string>::iterator it1 = map_std.begin();
+        std::map<std::string, std::string>::iterator it2 = map_std.begin();
+        it2++;
+        it2++;
+        std::cout << map_std.size() << std::endl;
+        map_std.erase(it1, it2);
+        std::cout << map_std.size() << std::endl;
+
+
+    } else {
+        ft::map<std::string, std::string>  map_ft;
+
+        std::cout << "TEST MAP ERASE WITH ONE IT" << std::endl;
+        map_ft.insert(val);
+        map_ft.insert(val1);
+        std::cout << map_ft.size() << std::endl;
+        Iterator<std::string, std::string>  it = map_ft.begin();
+        map_ft.erase(it);
+        std::cout << map_ft.size() << std::endl;
+
+        std::cout << "TEST MAP ERASE WITH KEY" << std::endl;
+        map_ft.clear();
+        map_ft.insert(val);
+        map_ft.insert(val1);
+        std::cout << map_ft.size() << std::endl;
+        map_ft.erase("hello");
+        std::cout << map_ft.size() << std::endl;
+        map_ft.erase("container");
+        std::cout << map_ft.size() << std::endl;
+
+        std::cout << "TEST MAP ERASE WITH RANGE OF IT" << std::endl;
+        map_ft.clear();
+        map_ft.insert(val);
+        map_ft.insert(val1);
+        map_ft.insert(val2);
+        map_ft.insert(val3);
+        Iterator<std::string, std::string>  it1 = map_ft.begin();
+        Iterator<std::string, std::string>  it2 = map_ft.begin();
+        it2++;
+        it2++;
+        std::cout << map_ft.size() << std::endl;
+        map_ft.erase(it1, it2);
+        std::cout << map_ft.size() << std::endl;
+    }
+}

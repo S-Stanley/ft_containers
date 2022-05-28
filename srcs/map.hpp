@@ -328,6 +328,93 @@ namespace ft {
                     delete this->_values;
                 this->_values = NULL;
             }
+            void    erase(Iterator<Key, T> pos)
+            {
+                Iterator<Key, T>  first = this->begin();
+                ft::map_values<Key, T>  *tmp = this->_values;
+                ft::map_values<Key, T> *buffer = this->_values;
+                ft::map_values<Key, T> *start = this->_values;
+
+                if (!this->_values)
+                    return ;
+                while (first.getPosition() <= pos.getPosition())
+                {
+                    if (first.getPosition() == pos.getPosition())
+                    {
+                        buffer->next = tmp->next;
+                        if (first.getPosition() == 0){
+                            this->_values = tmp->next;
+                            delete tmp;
+                        } else {
+                            delete tmp;
+                            this->_values = start;
+                        }
+                        return ;
+                    }
+                    first++;
+                    buffer = tmp;
+                    tmp = tmp->next;
+                }
+            }
+            unsigned int    erase(const Key &k)
+            {
+                ft::map_values<Key, T>  *tmp = this->_values;
+                ft::map_values<Key, T>  *buff = this->_values;
+                unsigned int            pos = 0;
+
+                if (!tmp)
+                    return (0);
+                while (tmp)
+                {
+                    if (tmp->key == k)
+                    {
+                        if (pos == 0) {
+                            if (this->size() == 1) {
+                                this->_values = NULL;
+                            } else {
+                                this->_values = this->_values->next;
+                            }
+                            delete tmp;
+                            return (1);
+                        } else {
+                            buff->next = tmp->next;
+                            delete tmp;
+                            return (1);
+                        }
+                    }
+                    buff = tmp;
+                    tmp = tmp->next;
+                    pos++;
+                }
+                return (0);
+            }
+            void        erase(Iterator<Key, T> first, Iterator<Key, T> last)
+            {
+                Iterator<Key, T>    it = this->begin();
+                ft::map_values<Key, T>  *tmp = this->_values;
+                ft::map_values<Key, T>  *buff = this->_values;
+                unsigned int            pos_started = first.getPosition();
+
+                while (it.getPosition() != first.getPosition())
+                {
+                    if (!tmp)
+                        return;
+                    tmp = tmp->next;
+                    it++;
+                }
+                while (first.getPosition() != last.getPosition())
+                {
+                    if (!tmp)
+                        return ;
+                    buff = tmp->next;
+                    delete tmp;
+                    tmp = buff;
+                    first++;
+                }
+                if (pos_started == 0){
+                    this->_values = buff;
+                }
+            }
 
             /* operation */
             Iterator<T>    find(const Key &k)

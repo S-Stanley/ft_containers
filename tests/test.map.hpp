@@ -14,5 +14,6 @@ void    test_map_empty(bool is_real_container);
 void    test_map_size(bool is_real_container);
 void    test_map_clear(bool is_real_container);
 void    test_map_count(bool is_real_container);
+void    test_map_erase(bool is_real_container);
 
 #endif
