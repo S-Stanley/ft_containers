@@ -24,13 +24,27 @@ class Iterator: public std::iterator<std::random_access_iterator_tag, T>
 		}
 		void	operator++(int)
 		{
+			std::pair<K, T>	*new_it = new std::pair<K, T>;
+
 			this->_index++;
 			this->_position++;
+			if (this->_keys && this->_index && this->getPosition() < (sizeof(K)/sizeof(*this->_keys)) && this->getPosition() < sizeof(T)/sizeof(*this->_index)) {
+				new_it->first = this->_keys[this->getPosition()];
+				new_it->second = this->_index[this->getPosition()];
+				this->it = new_it;
+			}
 		}
 		void	operator--(int)
 		{
+			std::pair<K, T>	*new_it = new std::pair<K, T>;
+
 			this->_index--;
 			this->_position--;
+			if (this->_keys && this->_index && this->getPosition() <= (sizeof(K)/sizeof(*this->_keys)) && this->getPosition() <= sizeof(T)/sizeof(*this->_index)) {
+				new_it->first = this->_keys[this->getPosition()];
+				new_it->second = this->_index[this->getPosition()];
+				this->it = new_it;
+			}
 		}
 		bool	operator!=(Iterator<T> src)
 		{
@@ -62,9 +76,16 @@ class Iterator: public std::iterator<std::random_access_iterator_tag, T>
 		{
 			return (this->_position);
 		}
-		void	setPosition(T position)
+		void	setPosition(unsigned int position)
 		{
+			std::pair<K, T>	*new_it = new std::pair<K, T>;
+
 			this->_position = position;
+			if (this->_keys && this->_index && this->getPosition() <= (sizeof(K)/sizeof(*this->_keys)) && this->getPosition() <= sizeof(T)/sizeof(*this->_index)) {
+				new_it->first = this->_keys[this->getPosition()];
+				new_it->second = this->_index[this->getPosition()];
+				this->it = new_it;
+			}
 		}
 		void	setArray(T *array)
 		{
@@ -78,7 +99,54 @@ class Iterator: public std::iterator<std::random_access_iterator_tag, T>
 		K		*getKeys(void)
 		{
 			K	*arr = this->_keys;
+			std::pair<K, T>	*new_it = new std::pair<K, T>;
+
+			if (this->_keys && this->_index && this->getPosition() <= (sizeof(K)/sizeof(*this->_keys)) && this->getPosition() <= sizeof(T)/sizeof(*this->_index)) {
+				new_it->first = this->_keys[this->getPosition()];
+				new_it->second = this->_index[this->getPosition()];
+				this->it = new_it;
+			}
 			return (arr);
+		}
+		void	addToArr(T to_add)
+		{
+			unsigned int	size = sizeof(T)/sizeof(this->_index);
+			unsigned int	i = 0;
+			T				*new_arr = new T[size + 1];
+
+			if (!this->_index)
+			{
+				new_arr[0] = to_add;
+				this->_index = new_arr;
+			} else {
+				while (i != size)
+				{
+					new_arr[i] = this->_index[i];
+					i++;
+				}
+				new_arr[i] = to_add;
+				this->_index = new_arr;
+			}
+		}
+		void	addToKeys(K to_add)
+		{
+			unsigned int	size = sizeof(K)/sizeof(this->_keys);
+			unsigned int	i = 0;
+			K				*new_arr = new T[size + 1];
+
+			if (!this->_keys)
+			{
+				new_arr[0] = to_add;
+				this->_keys = new_arr;
+			} else {
+				while (i != size)
+				{
+					new_arr[i] = this->_keys[i];
+					i++;
+				}
+				new_arr[i] = to_add;
+				this->_keys = new_arr;
+			}
 		}
 		void	setKeys(K *keys)
 		{
@@ -90,6 +158,7 @@ class Iterator: public std::iterator<std::random_access_iterator_tag, T>
 				return (false);
 			return (true);
 		}
+		std::pair<K, T>	*it;
 	private:
 		T				*_index;
 		unsigned int	_position;

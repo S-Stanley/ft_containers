@@ -17,6 +17,9 @@ namespace ft {
     template <typename Key, typename T, class Compare = std::less<Key>, class Alloc = std::allocator<std::pair<const Key, T> > >
     class map {
         public:
+
+            class const_iterator: public Iterator<T> {};
+
             map(void): _values(NULL) {};
             ~map(void) {};
 
@@ -41,25 +44,19 @@ namespace ft {
                 it.setKeys(arr_keys);
                 return (it);
             }
-            const Iterator<T>    begin(void) const
+            std::pair<Key, T>    *begin1(void) const
             {
-                const Iterator<T>    it;
+                Iterator<T>    it;
                 ft::map_values<Key, T>  *tmp = this->_values;
-                Key *arr_keys = new Key[this->_getLen()];
-                T   *arr_values = new T[this->_getLen()];
-                unsigned int    i = 0;
 
-                it = tmp;
                 while (tmp)
                 {
-                    arr_keys[i] = tmp->key;
-                    arr_values[i] = tmp->value;
+                    it.addToArr(tmp->value);
+                    it.addToKeys(tmp->key);
                     tmp = tmp->next;
-                    i++;
                 }
-                it.setArray(arr_values);
-                it.setKeys(arr_keys);
-                return (it);
+                it.setPosition(0);
+                return (it.it);
             }
             Iterator<T>    end(void)
             {
@@ -237,6 +234,7 @@ namespace ft {
                 std::pair<Iterator<T>, bool>   to_return;
                 Iterator<T>    it;
                 ft::map_values<Key, T>  *tmp = this->_values;
+                ft::map_values<Key, T>  *previous = NULL;
                 ft::map_values<Key, T>  *to_add = new ft::map_values<Key, T>;
                 bool    inserted = false;
 
@@ -249,12 +247,29 @@ namespace ft {
                         this->_values = to_add;
                     else
                     {
-                        while (tmp->next)
+                        while (tmp)
+                        {
+                            if (to_add->key < tmp->key) {
+                                to_add->next = tmp;
+                                if (previous) {
+                                    previous->next = to_add;
+                                    it = previous->next;
+                                } else {
+                                    this->_values = to_add;
+                                    it = this->_values;
+                                }
+                                to_return.first = it;
+                                to_return.second = inserted;
+                                return (to_return);
+                            }
+                            previous = tmp;
                             tmp = tmp->next;
-                        tmp->next = to_add;
-                        it = tmp->next;
+                        }
+                        previous->next = to_add;
+                        it = to_add;
                         to_return.first = it;
                         to_return.second = true;
+                        return (to_return);
                     }
                 }
                 to_return.first = it;
@@ -295,8 +310,6 @@ namespace ft {
                 std::pair<Key, T>   to_add;
                 Key *keys = first.getKeys();
                 T   *values = first.getArray();
-                (void)keys;
-                (void)values;
 
                 while (first.getPosition() != last.getPosition())
                 {
@@ -416,6 +429,14 @@ namespace ft {
                 }
             }
 
+            /* observers */
+            std::less<Key>     key_comp(void) const
+            {
+                std::less<Key>  comp;
+
+                return (comp);
+            }
+
             /* operation */
             Iterator<T>    find(const Key &k)
             {
@@ -465,6 +486,30 @@ namespace ft {
                     tmp = tmp->next;
                 }
                 return (0);
+            }
+            Iterator<T>    lower_bound(const Key &k)
+            {
+                ft::map_values<Key, T>      *tmp = this->_values;
+                Iterator<T>                 it = this->begin();
+                unsigned int                i = 0;
+                std::less<std::string>      key_comp = this->key_comp();
+
+                while (tmp)
+                {
+                    if (key_comp(k, tmp->key) == 0 && k == tmp->key)
+                    {
+                        it.setPosition(i);
+                        return (it);
+                    }
+                    if (k < tmp->key)
+                    {
+                        it.setPosition(i);
+                        return (it);
+                    }
+                    tmp = tmp->next;
+                    i++;
+                }
+                return (it);
             }
 
             Iterator<T>    iterator_traits;
