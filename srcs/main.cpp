@@ -55,6 +55,12 @@ int     main(int argc, char **argv)
 			test_map_count(is_real_container);
 		if (strcmp(argv[2], "7") == 0)
 			test_map_erase(is_real_container);
+		if (strcmp(argv[2], "8") == 0)
+			test_key_comp(is_real_container);
+		if (strcmp(argv[2], "9") == 0)
+			test_map_lower_bound(is_real_container);
+		if (strcmp(argv[2], "10") == 0)
+			test_map_sorted(is_real_container);
 	} else {
 		return (handl_err_usage("unknow container name"));
 	}
