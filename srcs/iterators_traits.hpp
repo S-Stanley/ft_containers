@@ -168,7 +168,7 @@ class Iterator: public std::iterator<std::random_access_iterator_tag, T>
 template <typename T>
 std::ostream	&operator<<(std::ostream &o, Iterator<T> &src)
 {
-	o << src.getIndex();
+	o << src.it;
 	return (o);
 }
 

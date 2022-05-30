@@ -280,27 +280,31 @@ void    test_key_comp(bool is_real_container)
     std::pair<std::string, std::string> val3 = create_std_pair("cin", "std");
 
     if (is_real_container) {
-        std::map<std::string, std::string>  map_std;
+        std::map<std::string, std::string>                  map_std;
+        std::map<std::string, std::string>::const_iterator  it;
 
         map_std.insert(val);
         map_std.insert(val1);
         map_std.insert(val2);
         map_std.insert(val3);
+        it = map_std.begin();
+        std::cout << it->first << std::endl;
         std::less<std::string>    key_comp = map_std.key_comp();
-        std::cout << map_std.begin()->first << std::endl;
-        std::cout << key_comp(map_std.begin()->first, "hello world") << std::endl;
-        std::cout << key_comp(map_std.begin()->first, "cin") << std::endl;
+        std::cout << key_comp(it->first, "hello world") << std::endl;
+        std::cout << key_comp(it->first, "cin") << std::endl;
     } else {
-        ft::map<std::string, std::string>  map_ft;
+        ft::map<std::string, std::string>                   map_ft;
+        ft::map<std::string, std::string>::const_iterator   it;
 
         map_ft.insert(val);
         map_ft.insert(val1);
         map_ft.insert(val2);
         map_ft.insert(val3);
-        std::cout << map_ft.begin1()->first << std::endl;
+        it = map_ft.begin1();
+        std::cout << it->first << std::endl;
         std::less<std::string>    key_comp = map_ft.key_comp();
-        std::cout << key_comp( map_ft.begin1()->first, "hello world") << std::endl;
-        std::cout << key_comp( map_ft.begin1()->first, "cin") << std::endl;
+        std::cout << key_comp(it->first, "hello world") << std::endl;
+        std::cout << key_comp(it->first, "cin") << std::endl;
     }
 }
 

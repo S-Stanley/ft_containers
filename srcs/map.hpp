@@ -18,7 +18,7 @@ namespace ft {
     class map {
         public:
 
-            class const_iterator: public Iterator<T> {};
+            typedef const std::pair<Key, T>* const_iterator;
 
             map(void): _values(NULL) {};
             ~map(void) {};
@@ -44,9 +44,9 @@ namespace ft {
                 it.setKeys(arr_keys);
                 return (it);
             }
-            std::pair<Key, T>    *begin1(void) const
+            const_iterator    begin1(void) const
             {
-                Iterator<T>    it;
+                Iterator<T>  it;
                 ft::map_values<Key, T>  *tmp = this->_values;
 
                 while (tmp)
