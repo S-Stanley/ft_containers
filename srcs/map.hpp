@@ -498,15 +498,31 @@ namespace ft {
 
                 while (tmp)
                 {
-                    if (key_comp(k, tmp->key) == 0 && k == tmp->key)
+                    if (key_comp(k, tmp->key) == 1)
                     {
                         it->setPosition(i);
                         return (it);
                     }
-                    if (k < tmp->key)
+                    tmp = tmp->next;
+                    i++;
+                }
+                it->setPosition(i - 1);
+                return (it);
+            }
+            iterator    upper_bound(const Key &k)
+            {
+                ft::map_values<Key, T>      *tmp = this->_values;
+                iterator                    it = this->begin();
+                unsigned int                i = 0;
+                std::less<std::string>      key_comp = this->key_comp();
+
+                it->setPosition(-1);
+                while (tmp)
+                {
+                    if (key_comp(k, tmp->key) == 1)
                     {
                         it->setPosition(i);
-                        return (it);
+                        break ;
                     }
                     tmp = tmp->next;
                     i++;
