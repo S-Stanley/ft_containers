@@ -63,6 +63,8 @@ int     main(int argc, char **argv)
 			test_map_sorted(is_real_container);
 		if (strcmp(argv[2], "11") == 0)
 			test_map_iterator(is_real_container);
+		if (strcmp(argv[2], "12") == 0)
+			test_map_upper_bound(is_real_container);
 	} else {
 		return (handl_err_usage("unknow container name"));
 	}
