@@ -18,5 +18,6 @@ void    test_map_erase(bool is_real_container);
 void    test_key_comp(bool is_real_container);
 void    test_map_lower_bound(bool is_real_container);
 void    test_map_sorted(bool is_real_container);
+void    test_map_iterator(bool is_real_container);
 
 #endif
