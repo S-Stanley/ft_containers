@@ -445,3 +445,31 @@ void    test_map_upper_bound(bool is_real_container)
         std::cout << map_ft.upper_bound("cin")->first << std::endl;
     }
 }
+
+void    test_map_find(bool is_real_container)
+{
+    std::pair<std::string, std::string> val3 = create_std_pair("cin", "std");
+    std::pair<std::string, std::string> val1 = create_std_pair("container", "map");
+    std::pair<std::string, std::string> val2 = create_std_pair("cout", "std");
+    std::pair<std::string, std::string> val = create_std_pair("hello", "world");
+
+    if (is_real_container) {
+        std::map<std::string, std::string>  map_std;
+
+        map_std.insert(val);
+        map_std.insert(val1);
+        map_std.insert(val2);
+        map_std.insert(val3);
+        std::cout << map_std.find("container")->second << std::endl;
+        std::cout << map_std.find("cin")->second << std::endl;
+    } else {
+        ft::map<std::string, std::string>  map_ft;
+
+        map_ft.insert(val);
+        map_ft.insert(val1);
+        map_ft.insert(val2);
+        map_ft.insert(val3);
+        std::cout << map_ft.find("container")->second << std::endl;
+        std::cout << map_ft.find("cin")->second << std::endl;
+    }
+}
