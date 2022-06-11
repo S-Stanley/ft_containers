@@ -95,14 +95,8 @@ class Iterator: public std::iterator<std::random_access_iterator_tag, T>
 		}
 		void	setPosition(unsigned int position)
 		{
-			std::pair<K, T>	*new_it = new std::pair<K, T>;
 
 			this->_position = position;
-			if (this->_keys && this->_index && this->getPosition() <= (sizeof(K)/sizeof(*this->_keys)) && this->getPosition() <= sizeof(T)/sizeof(*this->_index)) {
-				new_it->first = this->_keys[this->getPosition()];
-				new_it->second = this->_index[this->getPosition()];
-				this->it = new_it;
-			}
 			if (position < this->_len) {
 				this->first = this->_keys[position];
 				this->second = this->_index[position];

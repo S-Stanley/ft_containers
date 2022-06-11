@@ -20,5 +20,6 @@ void    test_map_lower_bound(bool is_real_container);
 void    test_map_sorted(bool is_real_container);
 void    test_map_iterator(bool is_real_container);
 void    test_map_upper_bound(bool is_real_container);
+void    test_map_find(bool is_real_container);
 
 #endif

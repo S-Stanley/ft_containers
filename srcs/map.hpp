@@ -226,47 +226,43 @@ namespace ft {
             std::pair<iterator, bool> insert(const std::pair<Key, T> &val)
             {
                 std::pair<iterator, bool>   to_return;
-                iterator    it;
+                iterator    it = this->begin();
                 ft::map_values<Key, T>  *tmp = this->_values;
                 ft::map_values<Key, T>  *previous = NULL;
                 ft::map_values<Key, T>  *to_add = new ft::map_values<Key, T>;
                 bool    inserted = false;
                 unsigned int i = 0;
 
-                it = this->find(val.first);
-                if (it->isNull()) {
-                    to_add->key = val.first;
-                    to_add->value = val.second;
-                    to_add->next = NULL;
-                    if (!this->_values)
-                        this->_values = to_add;
-                    else
+                to_add->key = val.first;
+                to_add->value = val.second;
+                to_add->next = NULL;
+                if (!this->_values) {
+                    this->_values = to_add;
+                } else {
+                    while (tmp)
                     {
-                        while (tmp)
-                        {
-                            if (to_add->key < tmp->key) {
-                                to_add->next = tmp;
-                                if (previous) {
-                                    previous->next = to_add;
-                                    it->setPosition(i - 1);
-                                } else {
-                                    this->_values = to_add;
-                                    it->setPosition(0);
-                                }
-                                to_return.first = it;
-                                to_return.second = inserted;
-                                return (to_return);
+                        if (to_add->key < tmp->key) {
+                            to_add->next = tmp;
+                            if (previous) {
+                                previous->next = to_add;
+                                it->setPosition(i - 1);
+                            } else {
+                                this->_values = to_add;
+                                it->setPosition(0);
                             }
-                            previous = tmp;
-                            tmp = tmp->next;
-                            i++;
+                            to_return.first = it;
+                            to_return.second = inserted;
+                            return (to_return);
                         }
-                        previous->next = to_add;
-                        it->setPosition(i);
-                        to_return.first = it;
-                        to_return.second = true;
-                        return (to_return);
+                        previous = tmp;
+                        tmp = tmp->next;
+                        i++;
                     }
+                    previous->next = to_add;
+                    it->setPosition(i);
+                    to_return.first = it;
+                    to_return.second = true;
+                    return (to_return);
                 }
                 to_return.first = it;
                 to_return.second = inserted;
@@ -280,27 +276,28 @@ namespace ft {
                 ft::map_values<Key, T>  *to_add = new ft::map_values<Key, T>;
                 unsigned int i = 0;
 
-                (void)position;
                 it = this->find(val.first);
-                if (it->isNull()) {
-                    to_add->key = val.first;
-                    to_add->value = val.second;
-                    to_add->next = NULL;
-                    if (!this->_values)
-                        this->_values = to_add;
-                    else
+                to_add->key = val.first;
+                to_add->value = val.second;
+                to_add->next = NULL;
+                if (!this->_values)
+                    this->_values = to_add;
+                else
+                {
+                    while (tmp->next)
                     {
-                        while (tmp->next)
-                        {
-                            tmp = tmp->next;
-                            i++;
+                        if (i > position->getPosition()){
+                            to_add->next = tmp->next->next;
+                            break;
                         }
-                        tmp->next = to_add;
-                        it->setPosition(i);
-                        to_return.first = it;
-                        to_return.second = true;
-                        return (to_return.first);
+                        tmp = tmp->next;
+                        i++;
                     }
+                    tmp->next = to_add;
+                    it->setPosition(i);
+                    to_return.first = it;
+                    to_return.second = true;
+                    return (to_return.first);
                 }
                 to_return.first = it;
                 return (to_return.first);
@@ -440,11 +437,10 @@ namespace ft {
             /* operation */
             iterator    find(const Key &k)
             {
-                ft::map_values<Key, T> *tmp;
-                Iterator<T>             *it = new Iterator<T>;
+                ft::map_values<Key, T> *tmp = this->_values;
+                Iterator<T>             *it = this->begin();
                 unsigned int    i = 0;
 
-                tmp = this->_values;
                 while (tmp)
                 {
                     if (tmp->key == k)
