@@ -67,6 +67,8 @@ int     main(int argc, char **argv)
 			test_map_upper_bound(is_real_container);
 		if (strcmp(argv[2], "13") == 0)
 			test_map_find(is_real_container);
+		if (strcmp(argv[2], "14") == 0)
+			test_map_element_access(is_real_container);
 	} else {
 		return (handl_err_usage("unknow container name"));
 	}
