@@ -23,6 +23,12 @@ namespace ft {
 
             map(void): _values(NULL) {};
             ~map(void) {};
+            map &operator=(const map &x)
+            {
+                delete this->_values;
+                this->_values = x._values;
+                return *(this);
+            }
 
             iterator    begin(void)
             {
