@@ -431,6 +431,14 @@ namespace ft {
                     this->_values = buff;
                 }
             }
+            void    swap(map &x)
+            {
+                map buff;
+
+                buff._values = x._values;
+                x._values = this->_values;
+                this->_values = buff._values;
+            }
 
             /* observers */
             std::less<Key>     key_comp(void) const
