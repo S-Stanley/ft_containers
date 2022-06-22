@@ -539,6 +539,72 @@ namespace ft {
                 }
                 return (it);
             }
+            std::pair<iterator, iterator>  equal_range(const Key &k)
+            {
+                std::pair<iterator, iterator>   to_return;
+                iterator                        it_first;
+                iterator                        it_second;
+                ft::map_values<Key, T>          *tmp = this->_values;
+                unsigned int                    i = 0;
+
+                while (tmp)
+                {
+                    if (tmp->key == k)
+                    {
+                        it_first->setPosition(i);
+                        it_second->setPosition(i);
+                        to_return.first = it_first;
+                        to_return.second = it_second;
+                        return (to_return);
+                    }
+                    if (tmp->key > k)
+                    {
+                        it_first->setPosition(i);
+                        it_second->setPosition(i);
+                        to_return.first = it_first;
+                        to_return.second = it_second;
+                        return (to_return);
+                    }
+                    i++;
+                    tmp = tmp->next;
+                }
+                to_return.first = it_first;
+                to_return.second = it_second;
+                return (to_return);
+            }
+            std::pair<const_iterator, const_iterator>  equal_range(const Key &k) const
+            {
+                std::pair<const iterator, const iterator>   to_return;
+                const iterator                              it_first;
+                const iterator                              it_second;
+                ft::map_values<Key, T>          *tmp = this->_values;
+                unsigned int                    i = 0;
+
+                while (tmp)
+                {
+                    if (tmp->key == k)
+                    {
+                        it_first->setPosition(i);
+                        it_second->setPosition(i);
+                        to_return.first = it_first;
+                        to_return.second = it_second;
+                        return (to_return);
+                    }
+                    if (tmp->key > k)
+                    {
+                        it_first->setPosition(i);
+                        it_second->setPosition(i);
+                        to_return.first = it_first;
+                        to_return.second = it_second;
+                        return (to_return);
+                    }
+                    i++;
+                    tmp = tmp->next;
+                }
+                to_return.first = it_first;
+                to_return.second = it_second;
+                return (to_return);
+            }
 
             Iterator<T>    iterator_traits;
             RIterator<T>   reverse_iterator;
