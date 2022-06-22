@@ -589,3 +589,33 @@ void    test_map_swap(bool is_real_container)
         std::cout << map_ft_2["d"] << std::endl;
     }
 }
+
+void    test_map_equal_range(bool is_real_container)
+{
+    std::pair<std::string, std::string> val3 = create_std_pair("cin", "std");
+    std::pair<std::string, std::string> val1 = create_std_pair("container", "map");
+    std::pair<std::string, std::string> val2 = create_std_pair("cout", "std::");
+    std::pair<std::string, std::string> val = create_std_pair("hello", "world");
+
+    if (is_real_container) {
+        std::map<std::string, std::string>  map_std;
+
+        map_std.insert(val);
+        map_std.insert(val1);
+        map_std.insert(val2);
+        map_std.insert(val3);
+
+        std::cout << map_std.equal_range("cin").first->first << std::endl;
+        std::cout << map_std.equal_range("hello").first->first << std::endl;
+    } else {
+        std::map<std::string, std::string>  map_ft;
+
+        map_ft.insert(val);
+        map_ft.insert(val1);
+        map_ft.insert(val2);
+        map_ft.insert(val3);
+
+        std::cout << map_ft.equal_range("cin").first->first << std::endl;
+        std::cout << map_ft.equal_range("hello").first->first << std::endl;
+    }
+}

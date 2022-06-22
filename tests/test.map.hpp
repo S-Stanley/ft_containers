@@ -24,5 +24,6 @@ void    test_map_find(bool is_real_container);
 void    test_map_element_access(bool is_real_container);
 void    test_map_operator_equal(bool is_real_container);
 void    test_map_swap(bool is_real_container);
+void    test_map_equal_range(bool is_real_container);
 
 #endif
