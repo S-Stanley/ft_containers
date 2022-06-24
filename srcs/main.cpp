@@ -3,6 +3,7 @@
 
 #include "../tests/test.map.hpp"
 #include "../tests/test.vector.hpp"
+#include "../tests/test.pair.hpp"
 
 void	ping(bool is_real_vector = false)
 {
@@ -75,6 +76,9 @@ int     main(int argc, char **argv)
 			test_map_swap(is_real_container);
 		if (strcmp(argv[2], "17") == 0)
 			test_map_equal_range(is_real_container);
+	} else if (strcmp(argv[1], "others") == 0) {
+		if (strcmp(argv[2], "0") == 0)
+			test_pair(is_real_container);
 	} else {
 		return (handl_err_usage("unknow container name"));
 	}

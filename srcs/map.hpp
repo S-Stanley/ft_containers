@@ -14,11 +14,11 @@ namespace ft {
         map_values  *next;
     };
 
-    template <typename Key, typename T, class Compare = std::less<Key>, class Alloc = std::allocator<std::pair<const Key, T> > >
+    template <typename Key, typename T, class Compare = std::less<Key>, class Alloc = std::allocator<ft::pair<const Key, T> > >
     class map {
         public:
 
-            typedef const std::pair<Key, T>*    const_iterator;
+            typedef const ft::pair<Key, T>*    const_iterator;
             typedef Iterator<T>*                iterator;
 
             map(void): _values(NULL) {};
@@ -229,9 +229,9 @@ namespace ft {
             }
 
             /* modifiers */
-            std::pair<iterator, bool> insert(const std::pair<Key, T> &val)
+            ft::pair<iterator, bool> insert(const ft::pair<Key, T> &val)
             {
-                std::pair<iterator, bool>   to_return;
+                ft::pair<iterator, bool>   to_return;
                 iterator    it = this->begin();
                 ft::map_values<Key, T>  *tmp = this->_values;
                 ft::map_values<Key, T>  *previous = NULL;
@@ -274,9 +274,9 @@ namespace ft {
                 to_return.second = inserted;
                 return (to_return);
             }
-            iterator insert(iterator position, const std::pair<Key, T> &val)
+            iterator insert(iterator position, const ft::pair<Key, T> &val)
             {
-                std::pair<iterator, bool>   to_return;
+                ft::pair<iterator, bool>   to_return;
                 iterator    it;
                 ft::map_values<Key, T>  *tmp = this->_values;
                 ft::map_values<Key, T>  *to_add = new ft::map_values<Key, T>;
@@ -310,7 +310,7 @@ namespace ft {
             }
             void    insert(iterator first, iterator last)
             {
-                std::pair<Key, T>   to_add;
+                ft::pair<Key, T>   to_add;
                 Key *keys = first->getKeys();
                 T   *values = first->getArray();
 
@@ -324,7 +324,7 @@ namespace ft {
             }
             void    insert(RIterator<T> first, RIterator<T> last)
             {
-                std::pair<Key, T>   to_add;
+                ft::pair<Key, T>   to_add;
                 Key *keys = first.getKeys();
                 T   *values = first.getArray();
                 (void)keys;
@@ -539,9 +539,9 @@ namespace ft {
                 }
                 return (it);
             }
-            std::pair<iterator, iterator>  equal_range(const Key &k)
+            ft::pair<iterator, iterator>  equal_range(const Key &k)
             {
-                std::pair<iterator, iterator>   to_return;
+                ft::pair<iterator, iterator>   to_return;
                 iterator                        it_first;
                 iterator                        it_second;
                 ft::map_values<Key, T>          *tmp = this->_values;
@@ -572,9 +572,9 @@ namespace ft {
                 to_return.second = it_second;
                 return (to_return);
             }
-            std::pair<const_iterator, const_iterator>  equal_range(const Key &k) const
+            ft::pair<const_iterator, const_iterator>  equal_range(const Key &k) const
             {
-                std::pair<const iterator, const iterator>   to_return;
+                ft::pair<const iterator, const iterator>   to_return;
                 const iterator                              it_first;
                 const iterator                              it_second;
                 ft::map_values<Key, T>          *tmp = this->_values;

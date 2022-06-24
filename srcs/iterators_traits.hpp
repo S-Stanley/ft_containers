@@ -25,7 +25,7 @@ class Iterator: public std::iterator<std::random_access_iterator_tag, T>
 		}
 		void	operator++(int)
 		{
-			std::pair<K, T>	*new_it = new std::pair<K, T>;
+			ft::pair<K, T>	*new_it = new ft::pair<K, T>;
 
 			this->_index++;
 			this->_position++;
@@ -41,7 +41,7 @@ class Iterator: public std::iterator<std::random_access_iterator_tag, T>
 		}
 		void	operator--(int)
 		{
-			std::pair<K, T>	*new_it = new std::pair<K, T>;
+			ft::pair<K, T>	*new_it = new ft::pair<K, T>;
 
 			this->_index--;
 			this->_position--;
@@ -114,7 +114,7 @@ class Iterator: public std::iterator<std::random_access_iterator_tag, T>
 		K		*getKeys(void)
 		{
 			K	*arr = this->_keys;
-			std::pair<K, T>	*new_it = new std::pair<K, T>;
+			ft::pair<K, T>	*new_it = new ft::pair<K, T>;
 
 			if (this->_keys && this->_index && this->getPosition() <= (sizeof(K)/sizeof(*this->_keys)) && this->getPosition() <= sizeof(T)/sizeof(*this->_index)) {
 				new_it->first = this->_keys[this->getPosition()];
@@ -173,7 +173,7 @@ class Iterator: public std::iterator<std::random_access_iterator_tag, T>
 				return (false);
 			return (true);
 		}
-		std::pair<K, T>	*it;
+		ft::pair<K, T>	*it;
 		K				first;
 		T				second;
 	private:

@@ -1,17 +1,17 @@
 #include "test.map.hpp"
 
-std::pair<std::string, int> create_std_pair(std::string key, int value)
+ft::pair<std::string, int> create_std_pair(std::string key, int value)
 {
-    std::pair<std::string, int> to_return;
+    ft::pair<std::string, int> to_return;
 
     to_return.first = key;
     to_return.second = value;
     return (to_return);
 }
 
-std::pair<std::string, std::string> create_std_pair(std::string key, std::string value)
+ft::pair<std::string, std::string> create_std_pair(std::string key, std::string value)
 {
-    std::pair<std::string, std::string> to_return;
+    ft::pair<std::string, std::string> to_return;
 
     to_return.first = key;
     to_return.second = value;
@@ -31,9 +31,9 @@ void    test_map_insert(bool is_real_container)
 {
     std::cout << "TESTING MAP INSERT" << std::endl;
 
-    std::pair<std::string, int>     val1 = create_std_pair("cpp", 7);
-    std::pair<std::string, int>     val2 = create_std_pair("ts", 8);
-    std::pair<std::string, int>     val3 = create_std_pair("py", 8);
+    ft::pair<std::string, int>     val1 = create_std_pair("cpp", 7);
+    ft::pair<std::string, int>     val2 = create_std_pair("ts", 8);
+    ft::pair<std::string, int>     val3 = create_std_pair("py", 8);
 
     if (is_real_container) {
         std::map<std::string, int>    map_std;
@@ -74,8 +74,8 @@ void    test_map_insert(bool is_real_container)
 
 void    test_map_rbegin_and_rend(bool is_real_container)
 {
-    std::pair<std::string, std::string>     val1 = create_std_pair("test", "value test");
-    std::pair<std::string, std::string>     val2 = create_std_pair("test 1", "value test 1");
+    ft::pair<std::string, std::string>     val1 = create_std_pair("test", "value test");
+    ft::pair<std::string, std::string>     val2 = create_std_pair("test 1", "value test 1");
 
     if (is_real_container)
     {
@@ -103,7 +103,7 @@ void    test_map_rbegin_and_rend(bool is_real_container)
 
 void    test_map_empty(bool is_real_container)
 {
-    std::pair<std::string, std::string> val = create_std_pair("hello", "world");
+    ft::pair<std::string, std::string> val = create_std_pair("hello", "world");
 
     if (is_real_container) {
         std::map<std::string, std::string>  map_std;
@@ -122,8 +122,8 @@ void    test_map_empty(bool is_real_container)
 
 void    test_map_size(bool is_real_container)
 {
-    std::pair<std::string, std::string> val = create_std_pair("hello", "world");
-    std::pair<std::string, std::string> val1 = create_std_pair("container", "map");
+    ft::pair<std::string, std::string> val = create_std_pair("hello", "world");
+    ft::pair<std::string, std::string> val1 = create_std_pair("container", "map");
 
     if (is_real_container) {
         std::map<std::string, std::string>  map_std;
@@ -146,8 +146,8 @@ void    test_map_size(bool is_real_container)
 
 void    test_map_clear(bool is_real_container)
 {
-    std::pair<std::string, std::string> val = create_std_pair("hello", "world");
-    std::pair<std::string, std::string> val1 = create_std_pair("container", "map");
+    ft::pair<std::string, std::string> val = create_std_pair("hello", "world");
+    ft::pair<std::string, std::string> val1 = create_std_pair("container", "map");
 
     if (is_real_container) {
         std::map<std::string, std::string>  map_std;
@@ -170,8 +170,8 @@ void    test_map_clear(bool is_real_container)
 
 void    test_map_count(bool is_real_container)
 {
-    std::pair<std::string, std::string> val = create_std_pair("hello", "world");
-    std::pair<std::string, std::string> val1 = create_std_pair("container", "map");
+    ft::pair<std::string, std::string> val = create_std_pair("hello", "world");
+    ft::pair<std::string, std::string> val1 = create_std_pair("container", "map");
 
     if (is_real_container) {
         std::map<std::string, std::string>  map_std;
@@ -194,10 +194,10 @@ void    test_map_count(bool is_real_container)
 
 void    test_map_erase(bool is_real_container)
 {
-    std::pair<std::string, std::string> val = create_std_pair("hello", "world");
-    std::pair<std::string, std::string> val1 = create_std_pair("container", "map");
-    std::pair<std::string, std::string> val2 = create_std_pair("cout", "std");
-    std::pair<std::string, std::string> val3 = create_std_pair("cin", "std");
+    ft::pair<std::string, std::string> val = create_std_pair("hello", "world");
+    ft::pair<std::string, std::string> val1 = create_std_pair("container", "map");
+    ft::pair<std::string, std::string> val2 = create_std_pair("cout", "std");
+    ft::pair<std::string, std::string> val3 = create_std_pair("cin", "std");
 
     if (is_real_container) {
         std::map<std::string, std::string>  map_std;
@@ -274,10 +274,10 @@ void    test_map_erase(bool is_real_container)
 
 void    test_key_comp(bool is_real_container)
 {
-    std::pair<std::string, std::string> val = create_std_pair("hello", "world");
-    std::pair<std::string, std::string> val1 = create_std_pair("container", "map");
-    std::pair<std::string, std::string> val2 = create_std_pair("cout", "std");
-    std::pair<std::string, std::string> val3 = create_std_pair("cin", "std");
+    ft::pair<std::string, std::string> val = create_std_pair("hello", "world");
+    ft::pair<std::string, std::string> val1 = create_std_pair("container", "map");
+    ft::pair<std::string, std::string> val2 = create_std_pair("cout", "std");
+    ft::pair<std::string, std::string> val3 = create_std_pair("cin", "std");
 
     if (is_real_container) {
         std::map<std::string, std::string>                  map_std;
@@ -310,10 +310,10 @@ void    test_key_comp(bool is_real_container)
 
 void    test_map_lower_bound(bool is_real_container)
 {
-    std::pair<std::string, std::string> val = create_std_pair("hello", "world");
-    std::pair<std::string, std::string> val1 = create_std_pair("container", "map");
-    std::pair<std::string, std::string> val2 = create_std_pair("cout", "std");
-    std::pair<std::string, std::string> val3 = create_std_pair("cin", "std");
+    ft::pair<std::string, std::string> val = create_std_pair("hello", "world");
+    ft::pair<std::string, std::string> val1 = create_std_pair("container", "map");
+    ft::pair<std::string, std::string> val2 = create_std_pair("cout", "std");
+    ft::pair<std::string, std::string> val3 = create_std_pair("cin", "std");
 
     if (is_real_container) {
         std::map<std::string, std::string>              map_std;
@@ -348,10 +348,10 @@ void    test_map_lower_bound(bool is_real_container)
 
 void    test_map_sorted(bool is_real_container)
 {
-    std::pair<std::string, std::string> val = create_std_pair("hello", "world");
-    std::pair<std::string, std::string> val1 = create_std_pair("container", "map");
-    std::pair<std::string, std::string> val2 = create_std_pair("cout", "std");
-    std::pair<std::string, std::string> val3 = create_std_pair("cin", "std");
+    ft::pair<std::string, std::string> val = create_std_pair("hello", "world");
+    ft::pair<std::string, std::string> val1 = create_std_pair("container", "map");
+    ft::pair<std::string, std::string> val2 = create_std_pair("cout", "std");
+    ft::pair<std::string, std::string> val3 = create_std_pair("cin", "std");
 
     if (is_real_container) {
         std::map<std::string, std::string>              map_std;
@@ -389,9 +389,9 @@ void    test_map_sorted(bool is_real_container)
 
 void    test_map_iterator(bool is_real_container)
 {
-    std::pair<std::string, std::string> val = create_std_pair("hello", "world");
-    std::pair<std::string, std::string> val1 = create_std_pair("container", "map");
-    std::pair<std::string, std::string> val2 = create_std_pair("cout", "std");
+    ft::pair<std::string, std::string> val = create_std_pair("hello", "world");
+    ft::pair<std::string, std::string> val1 = create_std_pair("container", "map");
+    ft::pair<std::string, std::string> val2 = create_std_pair("cout", "std");
 
     if (is_real_container){
         std::map<std::string, std::string>              map_std;
@@ -420,10 +420,10 @@ void    test_map_iterator(bool is_real_container)
 
 void    test_map_upper_bound(bool is_real_container)
 {
-    std::pair<std::string, std::string> val3 = create_std_pair("cin", "std");
-    std::pair<std::string, std::string> val1 = create_std_pair("container", "map");
-    std::pair<std::string, std::string> val2 = create_std_pair("cout", "std");
-    std::pair<std::string, std::string> val = create_std_pair("hello", "world");
+    ft::pair<std::string, std::string> val3 = create_std_pair("cin", "std");
+    ft::pair<std::string, std::string> val1 = create_std_pair("container", "map");
+    ft::pair<std::string, std::string> val2 = create_std_pair("cout", "std");
+    ft::pair<std::string, std::string> val = create_std_pair("hello", "world");
 
     if (is_real_container) {
         std::map<std::string, std::string>  map_std;
@@ -448,10 +448,10 @@ void    test_map_upper_bound(bool is_real_container)
 
 void    test_map_find(bool is_real_container)
 {
-    std::pair<std::string, std::string> val3 = create_std_pair("cin", "std");
-    std::pair<std::string, std::string> val1 = create_std_pair("container", "map");
-    std::pair<std::string, std::string> val2 = create_std_pair("cout", "std");
-    std::pair<std::string, std::string> val = create_std_pair("hello", "world");
+    ft::pair<std::string, std::string> val3 = create_std_pair("cin", "std");
+    ft::pair<std::string, std::string> val1 = create_std_pair("container", "map");
+    ft::pair<std::string, std::string> val2 = create_std_pair("cout", "std");
+    ft::pair<std::string, std::string> val = create_std_pair("hello", "world");
 
     if (is_real_container) {
         std::map<std::string, std::string>  map_std;
@@ -476,10 +476,10 @@ void    test_map_find(bool is_real_container)
 
 void    test_map_element_access(bool is_real_container)
 {
-    std::pair<std::string, std::string> val3 = create_std_pair("cin", "std");
-    std::pair<std::string, std::string> val1 = create_std_pair("container", "map");
-    std::pair<std::string, std::string> val2 = create_std_pair("cout", "std::");
-    std::pair<std::string, std::string> val = create_std_pair("hello", "world");
+    ft::pair<std::string, std::string> val3 = create_std_pair("cin", "std");
+    ft::pair<std::string, std::string> val1 = create_std_pair("container", "map");
+    ft::pair<std::string, std::string> val2 = create_std_pair("cout", "std::");
+    ft::pair<std::string, std::string> val = create_std_pair("hello", "world");
 
     if (is_real_container) {
         std::map<std::string, std::string>  map_std;
@@ -506,10 +506,10 @@ void    test_map_element_access(bool is_real_container)
 
 void    test_map_operator_equal(bool is_real_container)
 {
-    std::pair<std::string, std::string> val3 = create_std_pair("cin", "std");
-    std::pair<std::string, std::string> val1 = create_std_pair("container", "map");
-    std::pair<std::string, std::string> val2 = create_std_pair("cout", "std::");
-    std::pair<std::string, std::string> val = create_std_pair("hello", "world");
+    ft::pair<std::string, std::string> val3 = create_std_pair("cin", "std");
+    ft::pair<std::string, std::string> val1 = create_std_pair("container", "map");
+    ft::pair<std::string, std::string> val2 = create_std_pair("cout", "std::");
+    ft::pair<std::string, std::string> val = create_std_pair("hello", "world");
 
     if (is_real_container) {
         std::map<std::string, std::string>  map_std;
@@ -540,10 +540,10 @@ void    test_map_operator_equal(bool is_real_container)
 
 void    test_map_swap(bool is_real_container)
 {
-    std::pair<std::string, std::string> val = create_std_pair("a", "a");
-    std::pair<std::string, std::string> val1 = create_std_pair("b", "b");
-    std::pair<std::string, std::string> val2 = create_std_pair("c", "c");
-    std::pair<std::string, std::string> val3 = create_std_pair("d", "d");
+    ft::pair<std::string, std::string> val = create_std_pair("a", "a");
+    ft::pair<std::string, std::string> val1 = create_std_pair("b", "b");
+    ft::pair<std::string, std::string> val2 = create_std_pair("c", "c");
+    ft::pair<std::string, std::string> val3 = create_std_pair("d", "d");
 
     if (is_real_container) {
         std::map<std::string, std::string>  map_std;
@@ -592,10 +592,10 @@ void    test_map_swap(bool is_real_container)
 
 void    test_map_equal_range(bool is_real_container)
 {
-    std::pair<std::string, std::string> val3 = create_std_pair("cin", "std");
-    std::pair<std::string, std::string> val1 = create_std_pair("container", "map");
-    std::pair<std::string, std::string> val2 = create_std_pair("cout", "std::");
-    std::pair<std::string, std::string> val = create_std_pair("hello", "world");
+    ft::pair<std::string, std::string> val3 = create_std_pair("cin", "std");
+    ft::pair<std::string, std::string> val1 = create_std_pair("container", "map");
+    ft::pair<std::string, std::string> val2 = create_std_pair("cout", "std::");
+    ft::pair<std::string, std::string> val = create_std_pair("hello", "world");
 
     if (is_real_container) {
         std::map<std::string, std::string>  map_std;
