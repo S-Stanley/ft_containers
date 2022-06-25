@@ -7,6 +7,7 @@
 
 #include "iterators_traits.hpp"
 #include "reverse_iterator.hpp"
+#include "../srcs/pair.hpp"
 
 namespace ft {
 	template <typename T, class Alloc = std::allocator<T> >
