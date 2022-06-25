@@ -1,4 +1,4 @@
-SRCS = srcs/main.cpp tests/test.vector.cpp tests/test.map.cpp tests/test.pair.cpp
+SRCS = srcs/main.cpp tests/test.vector.cpp tests/test.map.cpp tests/test.pair.cpp tests/test.stack.cpp
 ODIR = .obj
 OBJS = $(addprefix $(ODIR)/, $(SRCS:.cpp=.o))
 DEP = $(OBJS:.o=.d)
