@@ -3,6 +3,8 @@
 
 #include <iostream>
 
+#include "../srcs/pair.hpp"
+
 template <typename T, typename K = std::string>
 class RIterator: public std::iterator<std::random_access_iterator_tag, T>
 {

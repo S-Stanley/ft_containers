@@ -11,6 +11,7 @@
 #include <algorithm>
 
 #include "../srcs/vector.hpp"
+#include "../srcs/pair.hpp"
 
 void	test_vector_capacity(void);
 void	test_vector(void);

@@ -4,6 +4,7 @@
 #include <iostream>
 #include "iterators_traits.hpp"
 #include "reverse_iterator.hpp"
+#include "../srcs/pair.hpp"
 
 namespace ft {
     template <typename Key, typename T>
@@ -547,6 +548,8 @@ namespace ft {
                 ft::map_values<Key, T>          *tmp = this->_values;
                 unsigned int                    i = 0;
 
+                it_first = NULL;
+                it_second = NULL;
                 while (tmp)
                 {
                     if (tmp->key == k)

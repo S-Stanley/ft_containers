@@ -6,6 +6,7 @@
 
 #include "../srcs/map.hpp"
 #include "../srcs/reverse_iterator.hpp"
+#include "../srcs/pair.hpp"
 
 void    test_map_compile(bool is_real_container);
 void    test_map_insert(bool is_real_container);

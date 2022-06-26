@@ -4,6 +4,7 @@
 #include "../tests/test.map.hpp"
 #include "../tests/test.vector.hpp"
 #include "../tests/test.pair.hpp"
+#include "../tests/test.stack.hpp"
 
 void	ping(bool is_real_vector = false)
 {
@@ -79,6 +80,19 @@ int     main(int argc, char **argv)
 	} else if (strcmp(argv[1], "others") == 0) {
 		if (strcmp(argv[2], "0") == 0)
 			test_pair(is_real_container);
+	} else if (strcmp(argv[1], "stack") == 0){
+		if (strcmp(argv[2], "0") == 0)
+			compile_stack(is_real_container);
+		if (strcmp(argv[2], "1") == 0)
+			stack_empty(is_real_container);
+		if (strcmp(argv[2], "2") == 0)
+			stack_size(is_real_container);
+		if (strcmp(argv[2], "3") == 0)
+			stack_top(is_real_container);
+		if (strcmp(argv[2], "4") == 0)
+			stack_push(is_real_container);
+		if (strcmp(argv[2], "5") == 0)
+			stack_pop(is_real_container);
 	} else {
 		return (handl_err_usage("unknow container name"));
 	}
