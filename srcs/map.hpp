@@ -19,8 +19,10 @@ namespace ft {
     class map {
         public:
 
-            typedef const ft::pair<Key, T>*    const_iterator;
+            typedef const ft::pair<Key, T>*     const_iterator;
             typedef Iterator<T>*                iterator;
+            typedef Alloc                       allocator_type;
+            typedef std::pair<const Key, T>     value_type;
 
             map(void): _values(NULL) {};
             ~map(void) {};
@@ -607,6 +609,12 @@ namespace ft {
                 to_return.first = it_first;
                 to_return.second = it_second;
                 return (to_return);
+            }
+
+            /* Allocator */
+            allocator_type  get_allocator(void) const {
+                allocator_type  alloc;
+                return (alloc);
             }
 
             Iterator<T>    iterator_traits;
