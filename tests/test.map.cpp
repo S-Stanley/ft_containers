@@ -676,3 +676,22 @@ void    test_map_equal_range(bool is_real_container)
         std::cout << map_ft.equal_range("hello").first->first << std::endl;
     }
 }
+
+void    test_map_get_allocator(bool is_real_container)
+{
+    if (is_real_container) {
+        std::map<char, int>  map_std;
+        std::pair<const char, int> *p;
+
+        p = map_std.get_allocator().allocate(5);
+        std::cout << sizeof(std::map<char, int>::value_type) * 5 << std::endl;
+        map_std.get_allocator().deallocate(p, 5);
+    } else {
+        ft::map<char, int>  map_ft;
+        ft::pair<const char, int> *p;
+
+        p = map_ft.get_allocator().allocate(5);
+        std::cout << sizeof(ft::map<char, int>::value_type) * 5 << std::endl;
+        map_ft.get_allocator().deallocate(p, 5);
+    }
+}

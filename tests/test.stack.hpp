@@ -4,6 +4,8 @@
 #include <iostream>
 #include <stack>
 #include <vector>
+#include <cmath>
+#include <typeinfo>
 
 #include "../srcs/pair.hpp"
 #include "../srcs/vector.hpp"
