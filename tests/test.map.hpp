@@ -27,5 +27,6 @@ void    test_map_operator_equal(bool is_real_container);
 void    test_map_swap(bool is_real_container);
 void    test_map_equal_range(bool is_real_container);
 void    test_map_get_allocator(bool is_real_container);
+void    test_map_value_comp(bool is_real_container);
 
 #endif

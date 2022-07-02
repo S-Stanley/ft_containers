@@ -2,6 +2,7 @@
 #define MAP_HPP
 
 #include <iostream>
+#include <algorithm>
 #include "iterators_traits.hpp"
 #include "reverse_iterator.hpp"
 #include "../srcs/pair.hpp"
@@ -19,10 +20,11 @@ namespace ft {
     class map {
         public:
 
-            typedef const ft::pair<Key, T>*     const_iterator;
-            typedef Iterator<T>*                iterator;
-            typedef Alloc                       allocator_type;
-            typedef std::pair<const Key, T>     value_type;
+            typedef const ft::pair<Key, T>*         const_iterator;
+            typedef Iterator<T>*                    iterator;
+            typedef Alloc                           allocator_type;
+            typedef std::pair<const Key, T>         value_type;
+            typedef std::less<iterator>             value_compare;
 
             map(void): _values(NULL) {};
             ~map(void) {};
@@ -447,6 +449,12 @@ namespace ft {
             std::less<Key>     key_comp(void) const
             {
                 std::less<Key>  comp;
+
+                return (comp);
+            }
+            value_compare      value_comp(void) const
+            {
+                value_compare  comp;
 
                 return (comp);
             }

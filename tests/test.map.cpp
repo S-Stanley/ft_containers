@@ -695,3 +695,26 @@ void    test_map_get_allocator(bool is_real_container)
         map_ft.get_allocator().deallocate(p, 5);
     }
 }
+
+void    test_map_value_comp(bool is_real_container)
+{
+    if (is_real_container) {
+        std::map<std::string, std::string>  map_std;
+        std::map<std::string, std::string>::value_compare  value_comp = map_std.value_comp();
+        std::pair<std::string, std::string> val3 = create_std_pair("cin", "std");
+        std::pair<std::string, std::string> val = create_std_pair("hello", "world");
+
+        map_std.insert(val);
+        map_std.insert(val3);
+        std::cout << value_comp(*map_std.end(), *map_std.begin()) << std::endl;
+    } else {
+        ft::map<std::string, std::string>  map_ft;
+        ft::map<std::string, std::string>::value_compare  value_comp = map_ft.value_comp();
+        ft::pair<std::string, std::string> val3 = create_ft_pair("cin", "std");
+        ft::pair<std::string, std::string> val = create_ft_pair("hello", "world");
+
+        map_ft.insert(val);
+        map_ft.insert(val3);
+        std::cout << value_comp(map_ft.end(), map_ft.begin()) << std::endl;
+    }
+}
