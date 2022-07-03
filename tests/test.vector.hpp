@@ -19,5 +19,6 @@ void	test_vector_element_access(void);
 void	test_vector_iterators(void);
 void    test_modifiers(bool is_real_vector = false);
 void	test_vector_max_size(bool is_real_vector = false);
+void	test_vector_allocator(bool is_real_container);
 
 #endif

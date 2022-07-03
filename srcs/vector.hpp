@@ -14,6 +14,10 @@ namespace ft {
 
 	class vector {
 		public:
+
+			typedef T		value_type;
+			typedef Alloc	allocator_type;
+
 			vector(void): _tab(NULL), _len(0), _max_cap(0) {};
 			~vector(void)
 			{
@@ -328,6 +332,11 @@ namespace ft {
 			}
 
 			/* Allocator */
+			allocator_type	get_allocator(void) const
+			{
+				allocator_type	to_return;
+				return (to_return);
+			}
 
 		private:
 			T               *_tab;

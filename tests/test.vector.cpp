@@ -194,3 +194,22 @@ void	test_vector_max_size(bool is_real_vector)
 		std::cout << vector_unsigned_int.max_size() << std::endl;
 	}
 }
+
+void	test_vector_allocator(bool is_real_container)
+{
+	if (is_real_container) {
+		std::vector<int>	vector_std;
+		int					*p;
+
+		p = vector_std.get_allocator().allocate(5);
+        std::cout << sizeof(std::vector<int>::value_type) * 5 << std::endl;
+		vector_std.get_allocator().deallocate(p, 5);
+	} else {
+		ft::vector<int>	vector_ft;
+		int					*p;
+
+		p = vector_ft.get_allocator().allocate(5);
+        std::cout << sizeof(ft::vector<int>::value_type) * 5 << std::endl;
+		vector_ft.get_allocator().deallocate(p, 5);
+	}
+}

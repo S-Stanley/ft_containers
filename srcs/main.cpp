@@ -35,10 +35,12 @@ int     main(int argc, char **argv)
 		is_real_container = true;
 	}
 	if (strcmp(argv[1], "vector") == 0) {
-		if (strcmp(argv[1], "0") == 0)
+		if (strcmp(argv[2], "0") == 0)
 			ping(is_real_container);
-		if (strcmp(argv[1], "1") == 0)
+		if (strcmp(argv[2], "1") == 0)
 			test_vector_max_size(is_real_container);
+		if (strcmp(argv[2], "2") == 0)
+			test_vector_allocator(is_real_container);
 	}
 	else if (strcmp(argv[1], "map") == 0) {
 		if (strcmp(argv[2], "0") == 0)
