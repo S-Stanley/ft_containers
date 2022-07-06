@@ -32,3 +32,14 @@ void    test_pair(bool is_real_container)
         std::cout << ft_pair_2.second << std::endl;
     }
 }
+
+void    test_make_pair(bool is_real_container)
+{
+    if (is_real_container) {
+        std::cout << std::make_pair("Hello", "world").first << std::endl;
+        std::cout << std::make_pair("Hello", "world").second << std::endl;
+    } else {
+        std::cout << ft::make_pair("Hello", "world").first << std::endl;
+        std::cout << ft::make_pair("Hello", "world").second << std::endl;
+    }
+}
