@@ -86,6 +86,8 @@ int     main(int argc, char **argv)
 	} else if (strcmp(argv[1], "others") == 0) {
 		if (strcmp(argv[2], "0") == 0)
 			test_pair(is_real_container);
+		if (strcmp(argv[2], "1") == 0)
+			test_make_pair(is_real_container);
 	} else if (strcmp(argv[1], "stack") == 0){
 		if (strcmp(argv[2], "0") == 0)
 			compile_stack(is_real_container);
