@@ -43,3 +43,14 @@ void    test_make_pair(bool is_real_container)
         std::cout << ft::make_pair("Hello", "world").second << std::endl;
     }
 }
+
+void    test_is_integral(bool is_real_container)
+{
+    if (is_real_container) {
+        std::cout << std::is_integral<char>::value << std::endl;
+        std::cout << std::is_integral<float>::value << std::endl;
+    } else {
+        std::cout << ft::is_integral<char>::value << std::endl;
+        std::cout << ft::is_integral<float>::value << std::endl;
+    }
+}
