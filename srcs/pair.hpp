@@ -65,6 +65,10 @@ namespace ft {
     template<>
     struct is_integral<unsigned long long int>: public std::true_type {};
 
+    template <bool B, class T = void>
+    struct enable_if {
+        typedef T type;
+    };
 }
 
 #endif
