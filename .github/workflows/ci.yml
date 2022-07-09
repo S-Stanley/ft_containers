@@ -23,3 +23,19 @@ jobs:
         run: |
           make
           bash scripts/test.map.sh
+  tests-stack:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: tests-stack
+        run: |
+          make
+          bash scripts/test.stack.sh
+  tests-others:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: tests-others
+        run: |
+          make
+          bash scripts/test.others.sh
