@@ -1,5 +1,8 @@
 #include <iostream>
+#include <vector>
+
 #include "./test.map.hpp"
+#include "../srcs/vector.hpp"
 #include "../srcs/pair.hpp"
 
 void    test_pair(bool is_real_container)
@@ -55,23 +58,48 @@ void    test_is_integral(bool is_real_container)
     }
 }
 
-bool function_for_enable_if(typename std::enable_if<true, bool>::type = true)
-{
-    return (true);
-}
+// bool function_for_enable_if(typename std::enable_if<true, bool>::type = true)
+// {
+//     return (true);
+// }
 
-bool function_for_enable_if_ft(typename ft::enable_if<true, bool>::type = true)
-{
-    return (true);
-}
+// bool function_for_enable_if_ft(typename ft::enable_if<true, bool>::type = true)
+// {
+//     return (true);
+// }
 
-void    test_enable_if(bool is_real_container)
+// void    test_enable_if(bool is_real_container)
+// {
+//     if (is_real_container) {
+//         std::cout << function_for_enable_if(false) << std::endl;
+//         std::cout << function_for_enable_if() << std::endl;
+//     } else {
+//         std::cout << function_for_enable_if_ft(false) << std::endl;
+//         std::cout << function_for_enable_if_ft() << std::endl;
+//     }
+// }
+
+void    test_equal(bool is_real_container)
 {
     if (is_real_container) {
-        std::cout << function_for_enable_if(false) << std::endl;
-        std::cout << function_for_enable_if() << std::endl;
+        std::vector<int>            vector_std;
+        std::vector<int>::iterator  it;
+
+        vector_std.push_back(42);
+        vector_std.push_back(42);
+        vector_std.push_back(42);
+        it = vector_std.begin();
+        it++;
+        std::cout << std::equal(vector_std.begin(), vector_std.end(), it) << std::endl;
     } else {
-        std::cout << function_for_enable_if_ft(false) << std::endl;
-        std::cout << function_for_enable_if_ft() << std::endl;
+        ft::vector<int>            vector_ft;
+        ft::vector<int>::iterator  it;
+
+        vector_ft.push_back(42);
+        vector_ft.push_back(42);
+        vector_ft.push_back(42);
+        it = vector_ft.begin();
+        (*it)++;
+        std::cout << std::equal(vector_ft.begin(), vector_ft.end(), it) << std::endl;
     }
 }

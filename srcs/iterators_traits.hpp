@@ -70,6 +70,12 @@ class Iterator: public std::iterator<std::random_access_iterator_tag, T>
 				return (true);
 			return (false);
 		}
+		bool	operator==(Iterator<T> const src) const
+		{
+			if ((src.getPosition() -1) == this->_position)
+				return (true);
+			return (false);
+		}
 		bool	operator<(Iterator<T> src)
 		{
 			if (this->_position < src.getPosition() -1)
@@ -91,6 +97,10 @@ class Iterator: public std::iterator<std::random_access_iterator_tag, T>
 			return (this->_index);
 		}
 		unsigned int	getPosition(void)
+		{
+			return (this->_position);
+		}
+		unsigned int	getPosition(void) const
 		{
 			return (this->_position);
 		}
