@@ -15,8 +15,9 @@ namespace ft {
 	class vector {
 		public:
 
-			typedef T		value_type;
-			typedef Alloc	allocator_type;
+			typedef T				value_type;
+			typedef Alloc			allocator_type;
+			typedef Iterator<T>*	iterator;
 
 			vector(void): _tab(NULL), _len(0), _max_cap(0) {};
 			~vector(void)
@@ -27,30 +28,30 @@ namespace ft {
 
 			/* Iterators  */
 
-			Iterator<T>		begin(void)
+			iterator		begin(void)
 			{
-				Iterator<T>		index;
+				Iterator<T>		*index = new Iterator<T>;
+				index[0] = this->_tab;
+				return (index);
+			}
+			const iterator		begin(void) const
+			{
+				const Iterator<T>		*index = new Iterator<T>;
 				index = this->_tab;
 				return (index);
 			}
-			const Iterator<T>		begin(void) const
+			iterator		end(void)
 			{
-				const Iterator<T>		index;
-				index = this->_tab;
+				Iterator<T>		*index = new Iterator<T>;
+				index->setArray(this->_tab);
+				index->setPosition(this->_len + 1);
 				return (index);
 			}
-			Iterator<T>		end(void)
+			const iterator		end(void) const
 			{
-				Iterator<T>		index;
-				index.setArray(this->_tab);
-				index.setPosition(this->_len + 1);
-				return (index);
-			}
-			const Iterator<T>		end(void) const
-			{
-				const Iterator<T>		index;
-				index.setArray(this->_tab);
-				index.setPosition(this->_len + 1);
+				const Iterator<T>		*index = new Iterator<T>;
+				index->setArray(this->_tab);
+				index->setPosition(this->_len + 1);
 				return (index);
 			}
 			RIterator<T>			rbegin(void)
@@ -58,7 +59,7 @@ namespace ft {
 				RIterator<T>		index;
 
 				index = this->_tab[this->_len];
-				index.setPosition(this->_len);
+				index->setPosition(this->_len);
 				return (index);
 			}
 			const RIterator<T>			rbegin(void) const
@@ -66,7 +67,7 @@ namespace ft {
 				const RIterator<T>		index;
 
 				index = this->_tab[this->_len];
-				index.setPosition(this->_len);
+				index->setPosition(this->_len);
 				return (index);
 			}
 			RIterator<T>			rend(void)
@@ -293,14 +294,14 @@ namespace ft {
 				delete this->_tab;
 				std::for_each(update[first], update[last], this->push_back());
 			}
-			Iterator<T>		erase(Iterator<T> position)
+			iterator		erase(iterator position)
 			{
 				T	*update = new T[this->_len -1];
 				unsigned int count = 0;
 
 				for (unsigned int i = 0; i < this->_len; i++)
 				{
-					if (&this->_tab[i] != position.getAddress())
+					if (&this->_tab[i] != position->getAddress())
 					{
 						update[count] = this->_tab[i];
 						count++;
@@ -312,20 +313,20 @@ namespace ft {
 				this->_max_cap--;
 				return (position);
 			}
-			Iterator<T>		erase(Iterator<T> first, Iterator<T> last)
+			iterator		erase(iterator first, iterator last)
 			{
-				T	*update = new T[this->_len - (last.getPosition() - first.getPosition())];
-				Iterator<T>	index;
+				T	*update = new T[this->_len - (last->getPosition() - first->getPosition())];
+				Iterator<T>	index = new Iterator<T>;
 				int	count = 0;
 
 				for (unsigned int i = 0; i < this->_len; i++)
 				{
-					if (i < first.getPosition() && i > last.getPosition())
+					if (i < first->getPosition() && i > last->getPosition())
 					{
 						update[count] = this->_tab[i];
 						count++;
 					}
-					if (i < last.getPosition())
+					if (i < last->getPosition())
 						index++;
 				}
 				return (index);
