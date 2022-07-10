@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <algorithm>
+#include <cmath>
 #include "iterators_traits.hpp"
 #include "reverse_iterator.hpp"
 #include "../srcs/pair.hpp"
@@ -25,6 +26,8 @@ namespace ft {
             typedef Alloc                           allocator_type;
             typedef std::pair<const Key, T>         value_type;
             typedef std::less<iterator>             value_compare;
+            typedef size_t                          size_type;
+            typedef ptrdiff_t                       difference_type;
 
             map(void): _values(NULL) {};
             ~map(void) {};
@@ -214,6 +217,10 @@ namespace ft {
                     count++;
                 }
                 return (count);
+            }
+            size_type   max_size(void) const
+            {
+                return (std::numeric_limits<difference_type>::max());
             }
 
             /* elements access */
