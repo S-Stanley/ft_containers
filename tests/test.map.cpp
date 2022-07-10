@@ -718,3 +718,16 @@ void    test_map_value_comp(bool is_real_container)
         std::cout << value_comp(map_ft.end(), map_ft.begin()) << std::endl;
     }
 }
+
+void    test_map_max_size(bool is_real_container)
+{
+    if (is_real_container) {
+        std::map<std::string, std::string>  map_std;
+
+        std::cout << map_std.max_size() << std::endl;
+    } else {
+        ft::map<std::string, std::string>  map_ft;
+
+        std::cout << map_ft.max_size() << std::endl;
+    }
+}

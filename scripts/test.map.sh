@@ -7,7 +7,7 @@ NC='\033[0m'
 mkdir .tmp/
 rm -rf .tmp/result
 
-for ((i=0; i < 20; i++))
+for ((i=0; i < 21; i++))
 do
     ./ft_containers map $i ft > .tmp/res.map
     ./ft_containers map $i std > .tmp/res.map.std
