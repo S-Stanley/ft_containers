@@ -6,14 +6,6 @@
 #include "../tests/test.pair.hpp"
 #include "../tests/test.stack.hpp"
 
-void	ping(bool is_real_vector = false)
-{
-	if (is_real_vector)
-		std::cout << "Hello world" << std::endl;
-	else
-		std::cout << "Hello world" << std::endl;
-}
-
 int	handl_err_usage(std::string message = "Unknow error")
 {
 	std::cout << message << std::endl;
@@ -36,11 +28,19 @@ int     main(int argc, char **argv)
 	}
 	if (strcmp(argv[1], "vector") == 0) {
 		if (strcmp(argv[2], "0") == 0)
-			ping(is_real_container);
-		if (strcmp(argv[2], "1") == 0)
 			test_vector_max_size(is_real_container);
-		if (strcmp(argv[2], "2") == 0)
+		if (strcmp(argv[2], "1") == 0)
 			test_vector_allocator(is_real_container);
+		if (strcmp(argv[2], "2") == 0)
+			test_vector_iterators(is_real_container);
+		if (strcmp(argv[2], "3") == 0)
+			test_vector_element_access(is_real_container);
+		if (strcmp(argv[2], "4") == 0)
+			test_vector(is_real_container);
+		if (strcmp(argv[2], "5") == 0)
+			test_vector_capacity(is_real_container);
+		if (strcmp(argv[2], "6") == 0)
+			test_modifiers(is_real_container);
 	}
 	else if (strcmp(argv[1], "map") == 0) {
 		if (strcmp(argv[2], "0") == 0)

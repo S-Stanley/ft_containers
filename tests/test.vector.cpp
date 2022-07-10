@@ -1,150 +1,155 @@
 #include "test.vector.hpp"
 
-void	test_vector_iterators(void)
+void	test_vector_iterators(bool is_real_vector)
 {
-	ft::vector<int>		mine;
-	std::vector<int>	their;
+	if (is_real_vector) {
+		std::vector<int>			their;
+		std::vector<int>::iterator	it;
 
-	srand(time(NULL));
-	for (int i = 0; i < 5; i++){
-		int random = rand() % 42;
-		mine.push_back(random * i + random);
-		their.push_back(random * i + random);
-	}
+		for (int i = 0; i < 5; i++){
+			their.push_back(i);
+		}
+		for (int i = 0; i < 5; i++){
+			std::cout << their[i] << std::endl;
+		}
+		it = their.begin();
+		while (it < their.end())
+		{
+			it++;
+		}
+	} else {
+		ft::vector<int>				mine;
+		ft::vector<int>::iterator	it;
 
-	for (int i = 0; i < 5; i++){
-		std::cout << "mine: " << mine[i] << " their: " << their[i] << std::endl;
-	}
-
-	Iterator<int>		it;
-	it = mine.begin();
-	while (it < mine.end())
-	{
-		std::cout << it << std::endl;
-		it++;
+		for (int i = 0; i < 5; i++){
+			mine.push_back(i);
+		}
+		for (int i = 0; i < 5; i++){
+			std::cout << mine[i] << std::endl;
+		}
+		it = mine.begin();
+		while (it < mine.end())
+		{
+			it++;
+		}
 	}
 }
 
-void	test_vector_element_access(void)
+void	test_vector_element_access(bool is_real_vector)
 {
-	ft::vector<int>	mine;
-	std::vector<int> their;
+	if (is_real_vector) {
+		std::vector<int>	vec;
 
-	for (int i = 1; i < 7; i++)
-	{
-		mine.push_back(i * 2);
-		their.push_back(i * 2);
+		for (int i = 1; i < 7; i++)
+			vec.push_back(i * 2);
+		std::cout << vec[2] << std::endl;
+		std::cout << vec.at(1) << std::endl;
+		std::cout << vec.front() << std::endl;
+		std::cout << vec.back() << std::endl;
+	} else {
+		ft::vector<int>	vec;
+
+		for (int i = 1; i < 7; i++)
+			vec.push_back(i * 2);
+		std::cout << vec[2] << std::endl;
+		std::cout << vec.at(1) << std::endl;
+		std::cout << vec.front() << std::endl;
+		std::cout << vec.back() << std::endl;
 	}
-
-	std::cout << "Elements access" << std::endl << std::endl;
-	std::cout << mine[2] << " " << their[2] << std::endl;
-	std::cout << mine.at(1) << " " << their.at(1) << std::endl;
-	std::cout << mine.front() << " " << their.front() << std::endl;
-	std::cout << mine.back() << " " << their.back() << std::endl;
 }
 
-void	test_vector(void)
+void	test_vector(bool is_real_vector)
 {
-	ft::vector<int>     mine;
-	std::vector<int>    their;
+	if (is_real_vector) {
+		std::vector<int>	vec;
 
-	std::cout << "** size **" << std::endl;
-	std::cout << mine.size() << std::endl;
-	std::cout << their.size() << std::endl;
+		std::cout << vec.size() << std::endl;
 
-	std::cout <<  std::endl << "** push back: 4 **" << std::endl;
-	mine.push_back(4);
-	their.push_back(4);
+		vec.push_back(4);
+		std::cout << vec.size() << std::endl;
+		std::cout << vec[0] << std::endl;
 
-	std::cout <<  std::endl << "** size **" << std::endl;
-	std::cout << mine.size() << std::endl;
-	std::cout << their.size() << std::endl;
+		vec.push_back(42);
+		vec.push_back(15);
+		vec.push_back(3);
+		vec.push_back(24);
+		for (int i = 0; i < 5; i++)
+			std::cout << vec[i] << std::endl;
 
-	std::cout <<  std::endl << "** show first element **" << std::endl;
-	std::cout << mine[0] << std::endl;
-	std::cout << their[0] << std::endl;
+		vec.erase(vec.begin());
+		for (int i = 0; i < 4; i++)
+			std::cout << vec[i] << std::endl;
 
-	std::cout << "** push back: 42 **" << std::endl;
-	mine.push_back(42);
-	their.push_back(42);
-	std::cout << "** push back: 15 **" << std::endl;
-	mine.push_back(15);
-	their.push_back(15);
-	std::cout << "** push back: 3 **" << std::endl;
-	mine.push_back(3);
-	their.push_back(3);
-	std::cout << "** push back: 24 **" << std::endl;
-	mine.push_back(24);
-	their.push_back(24);
+		vec.clear();
+		vec.push_back(42);
+		vec.push_back(15);
+		std::cout << vec.size() << std::endl;
 
-	std::cout <<  std::endl << "** print value of mine and their **" << std::endl;
-	for (int i = 0; i < 5; i++)
-		std::cout << mine[i] << " " << their[i] << std::endl;
+		vec.pop_back();
+		std::cout << vec.size() << std::endl;
+		for (int i = 0; i < 1; i++)
+			std::cout << vec[i] << std::endl;
+	} else {
+		ft::vector<int>		vec;
 
-	std::cout <<  std::endl << "** erase begin **" << std::endl;
-	mine.erase(mine.begin());
-	their.erase(their.begin());
+		std::cout << vec.size() << std::endl;
 
-	std::cout <<  std::endl << "** print value of mine and their **" << std::endl;
-	for (int i = 0; i < 4; i++)
-		std::cout << mine[i] << " " << their[i] << std::endl;
+		vec.push_back(4);
+		std::cout << vec.size() << std::endl;
+		std::cout << vec[0] << std::endl;
 
-	std::cout <<  std::endl << "** clear and push 42 then 15 **" << std::endl;
-	mine.clear();
-	mine.push_back(42);
-	mine.push_back(15);
-	their.clear();
-	their.push_back(42);
-	their.push_back(15);
+		vec.push_back(42);
+		vec.push_back(15);
+		vec.push_back(3);
+		vec.push_back(24);
+		for (int i = 0; i < 5; i++)
+			std::cout << vec[i] << std::endl;
 
-	std::cout <<  std::endl << "** size **" << std::endl;
-	std::cout << mine.size() << std::endl;
-	std::cout << their.size() << std::endl;
+		vec.erase(vec.begin());
+		for (int i = 0; i < 4; i++)
+			std::cout << vec[i] << std::endl;
 
-	std::cout << "** pop back **" << std::endl;
-	mine.pop_back();
-	their.pop_back();
+		vec.clear();
+		vec.push_back(42);
+		vec.push_back(15);
+		std::cout << vec.size() << std::endl;
 
-	std::cout <<  std::endl << "** size **" << std::endl;
-	std::cout << mine.size() << std::endl;
-	std::cout << their.size() << std::endl;
-
-	std::cout <<  std::endl << "** print value of mine and their **" << std::endl;
-	for (int i = 0; i < 1; i++)
-		std::cout << mine[i] << " " << their[i] << std::endl;
+		vec.pop_back();
+		std::cout << vec.size() << std::endl;
+		for (int i = 0; i < 1; i++)
+			std::cout << vec[i] << std::endl;
+		}
 }
 
-void	test_vector_capacity(void)
+void	test_vector_capacity(bool is_real_vector)
 {
-	ft::vector<int>		mine;
-	std::vector<int>	their;
+	if (is_real_vector) {
+		std::vector<int>	vec;
 
+		srand(time(NULL));
+		for (int i = 0; i < 5; i++)
+			vec.push_back(i);
 
-	srand(time(NULL));
-	for (int i = 0; i < 5; i++)
-	{
-		int random = rand() % 42;
-		mine.push_back(random * i + random);
-		their.push_back(random * i + random);
+		std::cout << vec.empty() << std::endl;
+		std::cout << vec.size() << std::endl;
+		vec.reserve(10);
+		std::cout << vec.size() << std::endl;
+		vec.resize(10, 42);
+		std::cout << vec.size() << std::endl;
+	} else {
+		ft::vector<int>		vec;
+
+		srand(time(NULL));
+		for (int i = 0; i < 5; i++)
+			vec.push_back(i);
+
+		std::cout << vec.empty() << std::endl;
+		std::cout << vec.size() << std::endl;
+		vec.reserve(10);
+		std::cout << vec.size() << std::endl;
+		vec.resize(10, 42);
+		std::cout << vec.size() << std::endl;
 	}
-
-	std::cout << "Max size: " << mine.max_size() << " " << their.max_size() << std::endl << std::endl;
-	std::cout << "Empty: " << mine.empty() << " " << their.empty() << std::endl << std::endl;
-	std::cout << "Capacity: " << mine.capacity() << " " << their.capacity() << std::endl << std::endl;
-
-	std::cout << "** Reserve **" << std::endl;
-	mine.reserve(10);
-	their.reserve(10);
-	std::cout << std::endl;
-
-	std::cout << "Capacity: " << mine.capacity() << " " << their.capacity() << std::endl << std::endl;
-
-	std::cout << "** Resize **" << std::endl;
-	mine.resize(10, 42);
-	their.resize(10, 42);
-	std::cout << std::endl;
-
-	std::cout << "Capacity: " << mine.capacity() << " " << their.capacity() << std::endl << std::endl;
 }
 
 void    test_modifiers(bool is_real_vector)
@@ -154,16 +159,12 @@ void    test_modifiers(bool is_real_vector)
     	std::vector<int>    vec;
     	vec.push_back(42);
 		vec.push_back(42);
-		std::cout << "max size: " << vec.max_size() << std::endl;
-		std::cout << is_real_vector << std::endl;
 	}
 	else
 	{
         ft::vector<int>     vec;
 		vec.push_back(42);
 		vec.push_back(42);
-		std::cout << "max size: " << vec.max_size() << std::endl;
-		std::cout << is_real_vector << std::endl;
 	}
 }
 
