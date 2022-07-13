@@ -18,6 +18,7 @@ namespace ft {
 			typedef T				value_type;
 			typedef Alloc			allocator_type;
 			typedef Iterator<T>*	iterator;
+			typedef const Iterator<T>*	const_iterator;
 
 			vector(void): _tab(NULL), _len(0), _max_cap(0) {};
 			~vector(void)
@@ -34,7 +35,7 @@ namespace ft {
 				index[0] = this->_tab;
 				return (index);
 			}
-			const iterator		begin(void) const
+			const_iterator		begin(void) const
 			{
 				const Iterator<T>		*index = new Iterator<T>;
 				index = this->_tab;
@@ -47,7 +48,7 @@ namespace ft {
 				index->setPosition(this->_len + 1);
 				return (index);
 			}
-			const iterator		end(void) const
+			const_iterator		end(void) const
 			{
 				const Iterator<T>		*index = new Iterator<T>;
 				index->setArray(this->_tab);
@@ -292,7 +293,7 @@ namespace ft {
 				for (unsigned int i = 0; i < this->_len; i++)
 					update[i] = this->_tab[i];
 				delete this->_tab;
-				std::for_each(update[first], update[last], this->push_back());
+				this->_tab = update;
 			}
 			iterator		erase(iterator position)
 			{

@@ -4,6 +4,8 @@
 #include <iostream>
 #include <algorithm>
 #include <cmath>
+#include <cstddef>
+#include <limits>
 #include "iterators_traits.hpp"
 #include "reverse_iterator.hpp"
 #include "../srcs/pair.hpp"
