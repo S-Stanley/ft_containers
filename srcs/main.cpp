@@ -32,14 +32,12 @@ int     main(int argc, char **argv)
 		if (strcmp(argv[2], "1") == 0)
 			test_vector_allocator(is_real_container);
 		if (strcmp(argv[2], "2") == 0)
-			test_vector_iterators(is_real_container);
-		if (strcmp(argv[2], "3") == 0)
 			test_vector_element_access(is_real_container);
-		if (strcmp(argv[2], "4") == 0)
+		if (strcmp(argv[2], "3") == 0)
 			test_vector(is_real_container);
-		if (strcmp(argv[2], "5") == 0)
+		if (strcmp(argv[2], "4") == 0)
 			test_vector_capacity(is_real_container);
-		if (strcmp(argv[2], "6") == 0)
+		if (strcmp(argv[2], "5") == 0)
 			test_modifiers(is_real_container);
 	}
 	else if (strcmp(argv[1], "map") == 0) {

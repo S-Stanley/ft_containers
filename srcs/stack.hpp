@@ -12,7 +12,7 @@ namespace ft {
             };
             virtual ~stack(void){
                 if (this->_data) {
-                    delete this->_data;
+                    delete[] this->_data;
                 }
             };
 
@@ -55,7 +55,7 @@ namespace ft {
                     i++;
                 }
                 new_data[i] = val;
-                delete this->_data;
+                delete[] this->_data;
                 this->_data = new_data;
                 this->_size++;
             }
@@ -70,7 +70,7 @@ namespace ft {
                     new_data[i] = this->_data[i];
                     i++;
                 }
-                delete this->_data;
+                delete[] this->_data;
                 this->_data = new_data;
                 this->_size--;
             }
