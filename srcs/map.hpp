@@ -562,13 +562,11 @@ namespace ft {
             ft::pair<iterator, iterator>  equal_range(const Key &k)
             {
                 ft::pair<iterator, iterator>   to_return;
-                iterator                        it_first;
-                iterator                        it_second;
+                iterator                        it_first = this->begin();
+                iterator                        it_second = this->begin();
                 ft::map_values<Key, T>          *tmp = this->_values;
                 unsigned int                    i = 0;
 
-                it_first = NULL;
-                it_second = NULL;
                 while (tmp)
                 {
                     if (tmp->key == k)

@@ -106,7 +106,6 @@ class Iterator: public std::iterator<std::random_access_iterator_tag, T>
 		}
 		void	setPosition(unsigned int position)
 		{
-
 			this->_position = position;
 			if (position < this->_len) {
 				this->first = this->_keys[position];
