@@ -253,12 +253,9 @@ void    test_map_erase(bool is_real_container)
         std::map<std::string, std::string>::iterator it1 = map_std.begin();
         std::map<std::string, std::string>::iterator it2 = map_std.begin();
         it2++;
-        it2++;
         std::cout << map_std.size() << std::endl;
         map_std.erase(it1, it2);
         std::cout << map_std.size() << std::endl;
-
-
     } else {
         ft::map<std::string, std::string>  map_ft;
         ft::pair<std::string, std::string> val = create_ft_pair("hello", "world");
@@ -292,7 +289,6 @@ void    test_map_erase(bool is_real_container)
         map_ft.insert(val3);
         ft::map<std::string, std::string>::iterator  it1 = map_ft.begin();
         ft::map<std::string, std::string>::iterator  it2 = map_ft.begin();
-        (*it2)++;
         (*it2)++;
         std::cout << map_ft.size() << std::endl;
         map_ft.erase(it1, it2);
