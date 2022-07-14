@@ -1,40 +1,5 @@
 #include "test.vector.hpp"
 
-void	test_vector_iterators(bool is_real_vector)
-{
-	if (is_real_vector) {
-		std::vector<int>			their;
-		std::vector<int>::iterator	it;
-
-		for (int i = 0; i < 5; i++){
-			their.push_back(i);
-		}
-		for (int i = 0; i < 5; i++){
-			std::cout << their[i] << std::endl;
-		}
-		it = their.begin();
-		while (it < their.end())
-		{
-			it++;
-		}
-	} else {
-		ft::vector<int>				mine;
-		ft::vector<int>::iterator	it;
-
-		for (int i = 0; i < 5; i++){
-			mine.push_back(i);
-		}
-		for (int i = 0; i < 5; i++){
-			std::cout << mine[i] << std::endl;
-		}
-		it = mine.begin();
-		while (it < mine.end())
-		{
-			it++;
-		}
-	}
-}
-
 void	test_vector_element_access(bool is_real_vector)
 {
 	if (is_real_vector) {

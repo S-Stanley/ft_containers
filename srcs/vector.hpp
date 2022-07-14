@@ -24,7 +24,7 @@ namespace ft {
 			~vector(void)
 			{
 				if (this->_tab)
-					delete this->_tab;
+					delete[] this->_tab;
 			};
 
 			/* Iterators  */
@@ -164,7 +164,7 @@ namespace ft {
 						i++;
 					}
 				}
-				delete this->_tab;
+				delete[] this->_tab;
 				this->_tab = update;
 				this->_len = N;
 				this->_max_cap = N;
@@ -194,7 +194,7 @@ namespace ft {
 						i++;
 					}
 				}
-				delete this->_tab;
+				delete[] this->_tab;
 				this->_tab = update;
 				this->_len = N;
 				this->_max_cap = N;
@@ -221,7 +221,7 @@ namespace ft {
 						new_len++;
 					}
 					this->_len = new_len;
-					delete this->_tab;
+					delete[] this->_tab;
 					this->_tab = update;
 					this->_max_cap = N;
 				}
@@ -239,7 +239,8 @@ namespace ft {
 				for (i = 0; i < this->size(); i++)
 					update[i] = this->_tab[i];
 				update[i] = val;
-				delete this->_tab;
+				if (this->_tab)
+					delete[] this->_tab;
 				this->_tab = update;
 				this->_len++;
 				this->_max_cap++;
@@ -252,14 +253,14 @@ namespace ft {
 				this->_max_cap--;
 				for (unsigned int i = 0; i < this->_len; i++)
 					update[i] = this->_tab[i];
-				delete this->_tab;
+				delete[] this->_tab;
 				this->_tab = update;
 			}
 			void	clear(void)
 			{
 				this->_len = 0;
 				this->_max_cap = 0;
-				delete this->_tab;
+				delete[] this->_tab;
 				this->_tab = NULL;
 			}
 			void	swap(ft::vector<T> &a)
@@ -274,7 +275,7 @@ namespace ft {
 			{
 				if (N > this->_len)
 				{
-					delete this->_tab;
+					delete[] this->_tab;
 					T	*update = new T[N];
 					this->_len = N;
 					this->_max_cap = N;
@@ -292,7 +293,7 @@ namespace ft {
 
 				for (unsigned int i = 0; i < this->_len; i++)
 					update[i] = this->_tab[i];
-				delete this->_tab;
+				delete[] this->_tab;
 				this->_tab = update;
 			}
 			iterator		erase(iterator position)
@@ -308,7 +309,7 @@ namespace ft {
 						count++;
 					}
 				}
-				delete this->_tab;
+				delete[] this->_tab;
 				this->_tab = update;
 				this->_len--;
 				this->_max_cap--;
