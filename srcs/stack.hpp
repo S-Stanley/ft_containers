@@ -29,16 +29,10 @@ namespace ft {
                 return (this->_size);
             }
             value_type  &top(void) {
-                value_type      *to_return = new value_type[1];
-
-                to_return[0] = this->_data[this->_size - 1];
-                return (to_return[0]);
+                return (this->_data[this->_size -1]);
             }
             const value_type    &top(void) const {
-                const value_type      *to_return = new value_type[1];
-
-                to_return[0] = this->_data[this->_size - 1];
-                return (to_return[0]);
+                return (this->_data[this->_size -1]);
             }
             void        push(const value_type &val) {
                 size_type   i = 0;
