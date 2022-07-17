@@ -300,6 +300,8 @@ namespace ft {
 			void	assign(std::input_iterator_tag first, std::input_iterator_tag last)
 			{
 				T	*update = new T[this->_len];
+				(void)first;
+				(void)last;
 
 				for (unsigned int i = 0; i < this->_len; i++)
 					update[i] = this->_tab[i];

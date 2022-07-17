@@ -137,7 +137,7 @@ class Iterator: public std::iterator<std::random_access_iterator_tag, T>
 		{
 			unsigned int	size = this->_len;
 			unsigned int	i = 0;
-			T				*new_arr = new T[size + 1];
+			T				*new_arr = new T[size + 2];
 
 			if (!this->_index)
 			{
