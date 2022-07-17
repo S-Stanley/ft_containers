@@ -6,6 +6,24 @@
 #include "../srcs/vector.hpp"
 #include "../srcs/pair.hpp"
 
+ft::pair<std::string, std::string> create_ft_pair_2(std::string key, std::string value)
+{
+    ft::pair<std::string, std::string> to_return;
+
+    to_return.first = key;
+    to_return.second = value;
+    return (to_return);
+}
+
+std::pair<std::string, std::string> create_std_pair_2(std::string key, std::string value)
+{
+    std::pair<std::string, std::string> to_return;
+
+    to_return.first = key;
+    to_return.second = value;
+    return (to_return);
+}
+
 void    test_pair(bool is_real_container)
 {
     if (is_real_container) {
@@ -89,24 +107,26 @@ void    test_is_integral(bool is_real_container)
 void    test_equal(bool is_real_container)
 {
     if (is_real_container) {
-        std::vector<int>            vector_std;
-        std::vector<int>::iterator  it;
+        std::map<std::string, std::string>           map_std;
+        std::map<std::string, std::string>::iterator it;
 
-        vector_std.push_back(42);
-        vector_std.push_back(42);
-        vector_std.push_back(42);
-        it = vector_std.begin();
-        it++;
-        std::cout << std::equal(vector_std.begin(), vector_std.end(), it) << std::endl;
+        std::pair<std::string, std::string>     val1 = create_std_pair_2("test", "value test");
+        std::pair<std::string, std::string>     val2 = create_std_pair_2("test 1", "value test 1");
+
+        map_std.insert(val1);
+        map_std.insert(val2);
+        it = map_std.begin();
+        std::cout << std::equal(map_std.begin(), map_std.end(), it) << std::endl;
     } else {
-        ft::vector<int>            vector_ft;
-        ft::vector<int>::iterator  it;
+        ft::map<std::string, std::string>           map_ft;
+        ft::map<std::string, std::string>::iterator it;
 
-        vector_ft.push_back(42);
-        vector_ft.push_back(42);
-        vector_ft.push_back(42);
-        it = vector_ft.begin();
-        (*it)++;
-        std::cout << std::equal(vector_ft.begin(), vector_ft.end(), it) << std::endl;
+        ft::pair<std::string, std::string>     val1 = create_ft_pair_2("test", "value test");
+        ft::pair<std::string, std::string>     val2 = create_ft_pair_2("test 1", "value test 1");
+
+        map_ft.insert(val1);
+        map_ft.insert(val2);
+        it = map_ft.begin();
+        std::cout << ft::equal(map_ft.begin(), map_ft.end(), it) << std::endl;
     }
 }

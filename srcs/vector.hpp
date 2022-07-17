@@ -20,40 +20,50 @@ namespace ft {
 			typedef Iterator<T>*	iterator;
 			typedef const Iterator<T>*	const_iterator;
 
-			vector(void): _tab(NULL), _len(0), _max_cap(0) {};
+			vector(void): _tab(NULL), _len(0), _max_cap(0), _it(NULL), _it_const(NULL) {};
 			~vector(void)
 			{
 				if (this->_tab)
 					delete[] this->_tab;
+				if (this->_it)
+					delete this->_it;
 			};
 
 			/* Iterators  */
 
 			iterator		begin(void)
 			{
-				Iterator<T>		*index = new Iterator<T>;
-				index[0] = this->_tab;
-				return (index);
+				if (this->_it)
+					delete this->_it;
+				this->_it = new Iterator<T>;
+				this->_it[0] = this->_tab;
+				return (this->_it);
 			}
 			const_iterator		begin(void) const
 			{
-				const Iterator<T>		*index = new Iterator<T>;
-				index = this->_tab;
-				return (index);
+				if (this->_it_const)
+					delete this->_it_const;
+				this->_it_const = new Iterator<T>;
+				this->_it_const = this->_tab;
+				return (this->_it_const);
 			}
 			iterator		end(void)
 			{
-				Iterator<T>		*index = new Iterator<T>;
-				index->setArray(this->_tab);
-				index->setPosition(this->_len + 1);
-				return (index);
+				if (this->_it)
+					delete this->_it;
+				this->_it = new Iterator<T>;
+				this->_it->setArray(this->_tab);
+				this->_it->setPosition(this->_len + 1);
+				return (this->_it);
 			}
 			const_iterator		end(void) const
 			{
-				const Iterator<T>		*index = new Iterator<T>;
-				index->setArray(this->_tab);
-				index->setPosition(this->_len + 1);
-				return (index);
+				if (this->_it_const)
+					delete this->_it_const;
+				this->_it_const = new Iterator<T>;
+				this->_it_const->setArray(this->_tab);
+				this->_it_const->setPosition(this->_len + 1);
+				return (this->_it_const);
 			}
 			RIterator<T>			rbegin(void)
 			{
@@ -290,6 +300,8 @@ namespace ft {
 			void	assign(std::input_iterator_tag first, std::input_iterator_tag last)
 			{
 				T	*update = new T[this->_len];
+				(void)first;
+				(void)last;
 
 				for (unsigned int i = 0; i < this->_len; i++)
 					update[i] = this->_tab[i];
@@ -345,6 +357,8 @@ namespace ft {
 			T               *_tab;
 			unsigned int    _len;
 			unsigned int	_max_cap;
+			iterator	_it;
+			const_iterator	_it_const;
 	};
 }
 
