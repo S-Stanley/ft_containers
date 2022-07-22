@@ -17,7 +17,6 @@ namespace ft {
         return (to_return);
     }
 
-    /*
     template<class T>
     struct is_integral: public std::false_type {};
 
@@ -65,8 +64,6 @@ namespace ft {
 
     template<>
     struct is_integral<unsigned long long int>: public std::true_type {};
-
-    */
     template <bool B, class T = void>
     struct enable_if {
         typedef T type;
