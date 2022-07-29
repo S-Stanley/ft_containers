@@ -31,8 +31,20 @@ namespace ft {
             typedef size_t                          size_type;
             typedef ptrdiff_t                       difference_type;
 
-            map(void): _values(NULL) {};
-            ~map(void) {};
+            map(void): _values(NULL), _it_const(NULL) {};
+            ~map(void) {
+            ft::map_values<Key, T>	*tmp;
+
+            // if (this->_it)
+            //     delete this->_it;
+            // if (this->_it_const)
+            //     delete this->_it_const;
+            while (this->_values){
+            tmp = this->_values->next;
+            delete this->_values;
+            this->_values = tmp;			
+        }
+        };
             map &operator=(const map &x)
             {
                 delete this->_values;
@@ -42,17 +54,17 @@ namespace ft {
 
             iterator    begin(void)
             {
-                Iterator<T>             *it = new Iterator<T>;
+                static Iterator<T> new_it;
                 ft::map_values<Key, T>  *tmp = this->_values;
 
                 while (tmp)
                 {
-                    it->addToArr(tmp->value);
-                    it->addToKeys(tmp->key);
+                    new_it.addToArr(tmp->value);
+                    new_it.addToKeys(tmp->key);
                     tmp = tmp->next;
                 }
-                it->setPosition(0);
-                return (it);
+                new_it.setPosition(0);
+                return (&new_it);
             }
             const_iterator    begin(void) const
             {
@@ -70,26 +82,19 @@ namespace ft {
             }
             iterator    end(void)
             {
-                Iterator<T>             *it = new Iterator<T>;
+                static Iterator<T> new_it;
                 ft::map_values<Key, T>  *tmp = this->_values;
                 unsigned int    position = 0;
-                Key *arr_keys = new Key[this->_getLen()];
-                T   *arr_values = new T[this->_getLen()];
-                unsigned int    i = 0;
 
                 while (tmp)
                 {
+                    new_it.addToArr(tmp->value);
+                    new_it.addToKeys(tmp->key);
                     position++;
-                    arr_keys[i] = tmp->key;
-                    arr_values[i] = tmp->value;
                     tmp = tmp->next;
-                    i++;
                 }
-                // it = tmp;
-                it->setPosition(position);
-                it->setArray(arr_values);
-                it->setKeys(arr_keys);
-                return (it);
+                new_it.setPosition(position);
+                return (&new_it);
             }
             const Iterator<T>    end(void) const
             {
@@ -246,7 +251,7 @@ namespace ft {
             ft::pair<iterator, bool> insert(const ft::pair<Key, T> &val)
             {
                 ft::pair<iterator, bool>   to_return;
-                iterator    it = this->begin();
+                static Iterator<T>    it = *this->begin();
                 ft::map_values<Key, T>  *tmp = this->_values;
                 ft::map_values<Key, T>  *previous = NULL;
                 ft::map_values<Key, T>  *to_add = new ft::map_values<Key, T>;
@@ -265,12 +270,12 @@ namespace ft {
                             to_add->next = tmp;
                             if (previous) {
                                 previous->next = to_add;
-                                it->setPosition(i - 1);
+                                it.setPosition(i - 1);
                             } else {
                                 this->_values = to_add;
-                                it->setPosition(0);
+                                it.setPosition(0);
                             }
-                            to_return.first = it;
+                            to_return.first = &it;
                             to_return.second = inserted;
                             return (to_return);
                         }
@@ -279,12 +284,12 @@ namespace ft {
                         i++;
                     }
                     previous->next = to_add;
-                    it->setPosition(i);
-                    to_return.first = it;
+                    it.setPosition(i);
+                    to_return.first = &it;
                     to_return.second = true;
                     return (to_return);
                 }
-                to_return.first = it;
+                to_return.first = &it;
                 to_return.second = inserted;
                 return (to_return);
             }
@@ -341,8 +346,6 @@ namespace ft {
                 ft::pair<Key, T>   to_add;
                 Key *keys = first.getKeys();
                 T   *values = first.getArray();
-                (void)keys;
-                (void)values;
 
                 while (first.getPosition() != last.getPosition())
                 {
@@ -636,6 +639,8 @@ namespace ft {
             RIterator<T>   reverse_iterator;
         private:
             ft::map_values<Key, T> *_values;
+            Iterator<T>		   _it;
+            const_iterator	   _it_const;
 
             unsigned int    _getLen(void)
             {
