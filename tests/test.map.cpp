@@ -85,8 +85,10 @@ void    test_map_insert(bool is_real_container)
         std::cout << map_ft["cpp"] << std::endl;
         std::cout << map_ft["ts"] << std::endl;
         std::cout << map_ft["py"] << std::endl;
-        map_ft_2.insert(map_ft.begin(), map_ft.end());
-        std::cout << map_ft_2["cpp"] << std::endl;
+        map_ft_2.insert(val1);
+	map_ft_2.insert(val2);
+	map_ft_2.insert(val3);
+        std::cout << map_ft_2["cpp"] << std::endl; 
         std::cout << map_ft_2["ts"] << std::endl;
         std::cout << map_ft_2["py"] << std::endl;
         std::cout << map_ft_2.size() << std::endl;
