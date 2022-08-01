@@ -33,8 +33,8 @@ int     main(int argc, char **argv)
 			test_vector_allocator(is_real_container);
 		if (strcmp(argv[2], "2") == 0)
 			test_vector_element_access(is_real_container);
-		if (strcmp(argv[2], "3") == 0)
-			test_vector(is_real_container);
+		//if (strcmp(argv[2], "3") == 0)
+		//	test_vector(is_real_container);
 		if (strcmp(argv[2], "4") == 0)
 			test_vector_capacity(is_real_container);
 		if (strcmp(argv[2], "5") == 0)
@@ -55,8 +55,8 @@ int     main(int argc, char **argv)
 			test_map_clear(is_real_container);
 		if (strcmp(argv[2], "6") == 0)
 			test_map_count(is_real_container);
-		if (strcmp(argv[2], "7") == 0)
-			test_map_erase(is_real_container);
+		//if (strcmp(argv[2], "7") == 0)
+			//test_map_erase(is_real_container);
 		if (strcmp(argv[2], "8") == 0)
 			test_key_comp(is_real_container);
 		if (strcmp(argv[2], "9") == 0)
@@ -67,14 +67,14 @@ int     main(int argc, char **argv)
 			test_map_iterator(is_real_container);
 		if (strcmp(argv[2], "12") == 0)
 			test_map_upper_bound(is_real_container);
-		if (strcmp(argv[2], "13") == 0)
-			test_map_find(is_real_container);
+		//if (strcmp(argv[2], "13") == 0)
+			//test_map_find(is_real_container);
 		if (strcmp(argv[2], "14") == 0)
 			test_map_element_access(is_real_container);
 		if (strcmp(argv[2], "15") == 0)
 			test_map_operator_equal(is_real_container);
-		if (strcmp(argv[2], "16") == 0)
-			test_map_swap(is_real_container);
+		//if (strcmp(argv[2], "16") == 0)
+			//test_map_swap(is_real_container);
 		if (strcmp(argv[2], "17") == 0)
 			test_map_equal_range(is_real_container);
 		if (strcmp(argv[2], "18") == 0)
