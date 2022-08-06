@@ -33,18 +33,18 @@ namespace ft {
 
             map(void): _values(NULL), _it_const(NULL) {};
             ~map(void) {
-            ft::map_values<Key, T>	*tmp;
+                ft::map_values<Key, T>	*tmp;
 
-            // if (this->_it)
-            //     delete this->_it;
-            // if (this->_it_const)
-            //     delete this->_it_const;
-            while (this->_values){
-            tmp = this->_values->next;
-            delete this->_values;
-            this->_values = tmp;			
-        }
-        };
+                // if (this->_it)
+                //     delete this->_it;
+                // if (this->_it_const)
+                //     delete this->_it_const;
+                while (this->_values){
+                    tmp = this->_values->next;
+                    delete this->_values;
+                    this->_values = tmp;			
+                }
+            };
             map &operator=(const map &x)
             {
                 delete this->_values;
@@ -357,8 +357,14 @@ namespace ft {
             }
             void    clear(void)
             {
-                if (this->_values)
+                ft::map_values<Key, T>	*tmp;
+
+                while (this->_values)
+                {
+                    tmp = this->_values->next;
                     delete this->_values;
+                    this->_values = tmp;			
+                }
                 this->_values = NULL;
             }
             void    erase(iterator pos)
