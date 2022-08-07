@@ -19,6 +19,16 @@ namespace ft {
         map_values  *next;
     };
 
+	template <typename T>
+	class value_compare
+	{
+		public:
+			bool operator() (const T &x, const T &y) const
+  			{
+    			return (x.first < y.first);
+  			}
+	};
+
     template <typename Key, typename T, class Compare = std::less<Key>, class Alloc = std::allocator<ft::pair<const Key, T> > >
     class map {
         public:
@@ -27,7 +37,8 @@ namespace ft {
             typedef Iterator<T>*                    iterator;
             typedef Alloc                           allocator_type;
             typedef std::pair<const Key, T>         value_type;
-            typedef std::less<iterator>             value_compare;
+            typedef Compare                  	    key_compare;
+            typedef ft::value_compare<Iterator<T>>  value_compare;
             typedef size_t                          size_type;
             typedef ptrdiff_t                       difference_type;
 
@@ -42,7 +53,7 @@ namespace ft {
                 while (this->_values){
                     tmp = this->_values->next;
                     delete this->_values;
-                    this->_values = tmp;			
+                    this->_values = tmp;
                 }
             };
             map &operator=(const map &x)
@@ -464,9 +475,9 @@ namespace ft {
             }
 
             /* observers */
-            std::less<Key>     key_comp(void) const
+            key_compare     key_comp(void) const
             {
-                std::less<Key>  comp;
+                key_compare  comp;
 
                 return (comp);
             }
