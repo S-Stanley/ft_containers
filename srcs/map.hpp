@@ -227,7 +227,7 @@ namespace ft {
             }
             size_type   max_size(void) const
             {
-                return (std::numeric_limits<difference_type>::max());
+                return (this->get_allocator().max_size());
             }
 
             /* elements access */

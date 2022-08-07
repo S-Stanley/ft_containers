@@ -81,8 +81,6 @@ int     main(int argc, char **argv)
 			test_map_get_allocator(is_real_container);
 		if (strcmp(argv[2], "19") == 0)
 			test_map_value_comp(is_real_container);
-		if (strcmp(argv[2], "20") == 0)
-			test_map_max_size(is_real_container);
 	} else if (strcmp(argv[1], "others") == 0) {
 		if (strcmp(argv[2], "0") == 0)
 			test_pair(is_real_container);
