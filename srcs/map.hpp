@@ -27,7 +27,8 @@ namespace ft {
             typedef Iterator<T>*                    iterator;
             typedef Alloc                           allocator_type;
             typedef std::pair<const Key, T>         value_type;
-            typedef std::less<iterator>             value_compare;
+            typedef Compare                  	    key_compare;
+	    typedef std::less<iterator>             value_compare;
             typedef size_t                          size_type;
             typedef ptrdiff_t                       difference_type;
 
@@ -464,9 +465,9 @@ namespace ft {
             }
 
             /* observers */
-            std::less<Key>     key_comp(void) const
+            key_compare     key_comp(void) const
             {
-                std::less<Key>  comp;
+                key_compare  comp;
 
                 return (comp);
             }
