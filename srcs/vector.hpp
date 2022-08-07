@@ -147,7 +147,7 @@ namespace ft {
 			}
 			unsigned long long	max_size(void) const
 			{
-				return ((long)std::pow(2, 64))/sizeof(T) -1;
+				return (this->get_allocator().max_size());
 			}
 			void	resize(unsigned int N, T val)
 			{
