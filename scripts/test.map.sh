@@ -9,7 +9,7 @@ rm -rf .tmp/result
 
 for ((i=0; i < 20; i++))
 do
-    if [ $i -ne 7 ] && [ $i -ne 13 ] && [ $i -ne 16 ] && [ $i -ne 19 ]
+    if [ $i -ne 7 ] && [ $i -ne 13 ] && [ $i -ne 16 ]
     then
         ./ft_containers map $i ft > .tmp/res.map
         ./ft_containers map $i std > .tmp/res.map.std

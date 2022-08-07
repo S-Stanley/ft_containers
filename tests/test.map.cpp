@@ -713,7 +713,7 @@ void    test_map_value_comp(bool is_real_container)
 
         map_ft.insert(val);
         map_ft.insert(val3);
-        std::cout << value_comp(map_ft.end(), map_ft.begin()) << std::endl;
+        std::cout << value_comp(*map_ft.end(), *map_ft.begin()) << std::endl;
     }
 }
 
