@@ -13,7 +13,7 @@ class Iterator: public std::iterator<std::random_access_iterator_tag, T>
 		~Iterator(void){
 			if (this->_keys)
 				delete[] this->_keys;
-			 if (this->_index)
+			if (this->_index == NULL)
 			 	delete[] this->_index;
 		};
 		Iterator	operator=(int *new_index)
@@ -130,7 +130,7 @@ class Iterator: public std::iterator<std::random_access_iterator_tag, T>
 			unsigned int	i = 0;
 			T				*new_arr = new T[size + 2];
 
-			if (!this->_index)
+			if (this->_index == NULL)
 			{
 				new_arr[0] = to_add;
 				this->_index = new_arr;
@@ -141,7 +141,8 @@ class Iterator: public std::iterator<std::random_access_iterator_tag, T>
 					i++;
 				}
 				new_arr[i] = to_add;
-				delete[] this->_index;
+				if (this->_index == NULL)
+					delete[] this->_index;
 				this->_index = new_arr;
 			}
 			this->_len++;
