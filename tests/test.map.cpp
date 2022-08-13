@@ -360,10 +360,10 @@ void    test_map_lower_bound(bool is_real_container)
     } else {
         ft::map<std::string, std::string>               map_ft;
         ft::map<std::string, std::string>::iterator    it;
-        ft::pair<std::string, std::string> val = create_ft_pair("hello", "world");
+        ft::pair<std::string, std::string> val3 = create_ft_pair("cin", "std");
         ft::pair<std::string, std::string> val1 = create_ft_pair("container", "map");
         ft::pair<std::string, std::string> val2 = create_ft_pair("cout", "std");
-        ft::pair<std::string, std::string> val3 = create_ft_pair("cin", "std");
+        ft::pair<std::string, std::string> val = create_ft_pair("hello", "world");
 
         map_ft.insert(val);
         map_ft.insert(val1);

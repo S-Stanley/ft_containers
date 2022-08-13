@@ -66,11 +66,23 @@ namespace ft {
                 return (this->_position);
             }
             void            setPosition(unsigned int position){
+                ft::map_values<K, T>    *tmp;
+
                 this->_position = position;
+                tmp = this->_values;
                 if (this->_values != NULL)
                 {
-                    this->first = this->_values->key;
-                    this->second = this->_values->value;
+                    while (tmp)
+                    {
+                        if (position == 0)
+                            break;
+                        tmp = tmp->next;
+                        position--;
+                    }
+                    if (tmp) {
+                        this->first = tmp->key;
+                        this->second = tmp->value;
+                    }
                 }
             }
 
