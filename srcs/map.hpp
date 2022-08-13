@@ -530,9 +530,9 @@ namespace ft {
                     if (!tmp)
                         return ;
                     buff = tmp->next;
+                    (*first)++;
                     delete tmp;
                     tmp = buff;
-                    (*first)++;
                 }
                 if (pos_started == 0){
                     this->_values = buff;
