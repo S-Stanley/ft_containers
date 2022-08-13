@@ -41,7 +41,26 @@ namespace ft {
                 this->_values = data;
             }
             void    operator++(int){
+                ft::map_values<K, T>    *tmp;
+                unsigned int            tmp_position;
+
                 this->_position++;
+                tmp_position = this->_position;
+                tmp = this->_values;
+                if (this->_values != NULL)
+                {
+                    while (tmp)
+                    {
+                        if (tmp_position == 0)
+                            break;
+                        tmp = tmp->next;
+                        tmp_position--;
+                    }
+                    if (tmp) {
+                        this->first = tmp->key;
+                        this->second = tmp->value;
+                    }
+                }
             }
             unsigned int    getPosition(void){
                 return (this->_position);
