@@ -729,3 +729,45 @@ void    test_map_max_size(bool is_real_container)
         std::cout << map_ft.max_size() << std::endl;
     }
 }
+
+void    test_map_insert_with_range(bool is_real_container)
+{
+    if (is_real_container) {
+        std::map<std::string, std::string>  map_std;
+        std::map<std::string, std::string>  map_std_2;
+        std::pair<std::string, std::string> val3 = create_std_pair("cin", "std");
+        std::pair<std::string, std::string> val = create_std_pair("hello", "world");
+        std::pair<std::string, std::string> val2 = create_std_pair("test1", "test2");
+
+        map_std.insert(val);
+        map_std.insert(val3);
+        map_std.insert(val2);
+
+        map_std_2.insert(map_std.begin(), map_std.end());
+        std::map<std::string, std::string>::iterator    it = map_std_2.begin();
+        while (it !=  map_std_2.end())
+        {
+            std::cout << it->first << " " << it->second << std::endl;
+            it++;
+        }
+
+    } else {
+        ft::map<std::string, std::string>  map_ft;
+        ft::map<std::string, std::string>  map_ft_2;
+        ft::pair<std::string, std::string> val3 = create_ft_pair("cin", "std");
+        ft::pair<std::string, std::string> val = create_ft_pair("hello", "world");
+        ft::pair<std::string, std::string> val2 = create_ft_pair("test1", "test2");
+
+        map_ft.insert(val);
+        map_ft.insert(val3);
+        map_ft.insert(val2);
+
+        map_ft_2.insert(map_ft.begin(), map_ft.end());
+        ft::map<std::string, std::string>::iterator    it = map_ft_2.begin();
+        while (it->getPosition() < map_ft_2.end()->getPosition())
+        {
+            std::cout << it->first << " " << it->second << std::endl;
+            (*it)++;
+        }
+    }
+}

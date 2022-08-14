@@ -164,18 +164,17 @@ namespace ft {
             }
             iterator    end(void)
             {
-                static iterator_map<T> new_it;
+                iterator    it;
                 ft::map_values<Key, T>  *tmp = this->_values;
-                unsigned int    position = 0;
 
+                this->setIterator();
+                it = this->getIterator();
                 while (tmp)
                 {
-                    position++;
                     tmp = tmp->next;
+                    (*it)++;
                 }
-                new_it.setValues(this->_values);
-                new_it.setPosition(position);
-                return (&new_it);
+                return (it);
             }
             const iterator_map<T>    end(void) const
             {
@@ -414,13 +413,11 @@ namespace ft {
             void    insert(iterator first, iterator last)
             {
                 ft::pair<Key, T>   to_add;
-                Key *keys = first->getKeys();
-                T   *values = first->getArray();
 
                 while (first->getPosition() < last->getPosition())
                 {
-                    to_add.first = keys[first->getPosition()];
-                    to_add.second = values[first->getPosition()];
+                    to_add.first = first->first;
+                    to_add.second = first->second;
                     this->insert(to_add);
                     (*first)++;
                 }

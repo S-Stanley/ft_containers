@@ -7,7 +7,7 @@ NC='\033[0m'
 mkdir .tmp/
 rm -rf .tmp/result
 
-for ((i=0; i < 20; i++))
+for ((i=0; i < 21; i++))
 do
     if [ $i -ne 16 ] && [ $i -ne 19 ]
     then
@@ -29,7 +29,7 @@ do
     fi
 done
 
-for ((i=0; i < 20; i++))
+for ((i=0; i < 21; i++))
 do
     if [ $i -ne 2 ] && [ $i -ne 15 ] && [ $i -ne 16 ]
     then
