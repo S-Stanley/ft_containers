@@ -414,7 +414,7 @@ void    test_map_sorted(bool is_real_container)
 
         it = map_ft.begin();
 
-        while (it->getPosition() < map_ft.end()->getPosition())
+        while ((*it) < map_ft.end())
         {
             std::cout << it->first << std::endl;
             (*it)++;
@@ -764,7 +764,7 @@ void    test_map_insert_with_range(bool is_real_container)
 
         map_ft_2.insert(map_ft.begin(), map_ft.end());
         ft::map<std::string, std::string>::iterator    it = map_ft_2.begin();
-        while (it->getPosition() < map_ft_2.end()->getPosition())
+        while ((*it) < map_ft_2.end())
         {
             std::cout << it->first << " " << it->second << std::endl;
             (*it)++;

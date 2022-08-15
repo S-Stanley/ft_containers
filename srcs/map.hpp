@@ -40,6 +40,10 @@ namespace ft {
                     return;
                 this->_values = data;
             }
+            bool    operator<(iterator_map<T> *src)
+            {
+                return (src->getPosition() != this->getPosition());
+            }
             void    operator++(int){
                 ft::map_values<K, T>    *tmp;
                 unsigned int            tmp_position;
