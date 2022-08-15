@@ -291,7 +291,7 @@ void    test_map_erase(bool is_real_container)
         map_ft.insert(val3);
         ft::map<std::string, std::string>::iterator  it1 = map_ft.begin();
         ft::map<std::string, std::string>::iterator  it2 = map_ft.begin();
-        (*it2)++;
+        it2++;
         std::cout << map_ft.size() << std::endl;
         map_ft.erase(it1, it2);
         std::cout << map_ft.size() << std::endl;
@@ -414,10 +414,10 @@ void    test_map_sorted(bool is_real_container)
 
         it = map_ft.begin();
 
-        while ((*it) < map_ft.end())
+        while (it < map_ft.end())
         {
             std::cout << it->first << std::endl;
-            (*it)++;
+            it++;
         }
     }
 }
@@ -450,7 +450,7 @@ void    test_map_iterator(bool is_real_container)
         map_ft.insert(val2);
         it = map_ft.begin();
         std::cout << it->first << std::endl;
-        (*it)++;
+        it++;
         std::cout << it->first << std::endl;
     }
 }
@@ -713,7 +713,7 @@ void    test_map_value_comp(bool is_real_container)
 
         map_ft.insert(val);
         map_ft.insert(val3);
-        std::cout << value_comp(*map_ft.end(), *map_ft.begin()) << std::endl;
+        std::cout << value_comp(map_ft.end(), map_ft.begin()) << std::endl;
     }
 }
 
@@ -764,10 +764,10 @@ void    test_map_insert_with_range(bool is_real_container)
 
         map_ft_2.insert(map_ft.begin(), map_ft.end());
         ft::map<std::string, std::string>::iterator    it = map_ft_2.begin();
-        while ((*it) < map_ft_2.end())
+        while (it < map_ft_2.end())
         {
             std::cout << it->first << " " << it->second << std::endl;
-            (*it)++;
+            it++;
         }
     }
 }

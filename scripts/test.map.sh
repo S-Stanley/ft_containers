@@ -31,7 +31,7 @@ done
 
 for ((i=0; i < 21; i++))
 do
-    if [ $i -ne 2 ] && [ $i -ne 15 ] && [ $i -ne 16 ]
+    if [ $i -ne 2 ] && [ $i -ne 9 ] && [ $i -ne 15 ] && [ $i -ne 16 ]
     then
         valgrind --leak-check=full --error-exitcode=1 ./ft_containers map $i ft > /dev/null
         if [ $? -eq 0 ]
