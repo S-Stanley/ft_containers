@@ -213,10 +213,11 @@ namespace ft {
                 this->setIterator();
                 return (this->getIterator());
             }
-            // const_iterator    begin(void) const
-            // {
-            //     return (this->_it);
-            // }
+            const_iterator    begin(void) const
+            {
+                this->setIterator();
+                return (this->getIterator());
+            }
             iterator    end(void)
             {
                 iterator    it;
@@ -231,29 +232,20 @@ namespace ft {
                 }
                 return (it);
             }
-            // const iterator_map<T, Key>    end(void) const
-            // {
-            //     const iterator_map<T, Key>    it;
-            //     ft::map_values<Key, T>  *tmp = this->_values;
-            //     unsigned int    position = 0;
-            //     Key *arr_keys = new Key[this->_getLen()];
-            //     T   *arr_values = new T[this->_getLen()];
-            //     unsigned int    i = 0;
+            const iterator_map<T, Key>    end(void) const
+            {
+                iterator    it;
+                ft::map_values<Key, T>  *tmp = this->_values;
 
-            //     while (tmp)
-            //     {
-            //         position++;
-            //         arr_keys[i] = tmp->key;
-            //         arr_values[i] = tmp->value;
-            //         tmp = tmp->next;
-            //         i++;
-            //     }
-            //     it = tmp;
-            //     it.setPosition(position);
-            //     it.setArray(arr_values);
-            //     it.setKeys(arr_keys);
-            //     return (it);
-            // }
+                this->setIterator();
+                it = this->getIterator();
+                while (tmp)
+                {
+                    tmp = tmp->next;
+                    it++;
+                }
+                return (it);
+            }
             RIterator<T>   rbegin(void)
             {
                 RIterator<T>    it;
