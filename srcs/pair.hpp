@@ -72,12 +72,12 @@ namespace ft {
     template <class iterator1, class iterator2>
     bool equal ( iterator1 first1, iterator1 last1, iterator2 first2 )
     {
-        while (first1->getPosition() != last1->getPosition() ) {
+        while (first1.getPosition() != last1.getPosition() ) {
             if (first1->first != first2->first){
                 return (false);
             }
-            (*first1)++;
-            (*first2)++;
+            first1++;
+            first2++;
         }
         return (true);
     }
