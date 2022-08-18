@@ -113,18 +113,6 @@ namespace ft {
             }
 
         private:
-            void    clean(){
-                ft::map_values<K, T>    *tmp;
-
-                if (this->_values == NULL)
-                    return ;
-                while (this->_values)
-                {
-                    tmp = this->_values->next;
-                    delete this->_values;
-                    this->_values = tmp;
-                }
-            }
             void    keep_track_map_pointer(ft::map_pointer<K, T> *new_lst)
             {
                 ft::map_pointer_lst<K, T>   *tmp = this->_lst;
@@ -190,7 +178,6 @@ namespace ft {
                 while (this->_it != NULL)
                 {
                     lst = this->_it->next;
-                    // delete this->_it->iterator;
                     delete this->_it;
                     this->_it = lst;
                 }
@@ -201,10 +188,38 @@ namespace ft {
                     this->_values = tmp;
                 }
             };
-            map &operator=(const map &x)
+            map &operator=(map &x)
             {
+                ft::map_values<Key, T>  *new_values = NULL;
+                ft::map_values<Key, T>  *tmp;
+                ft::map_values<Key, T>  *tmp_src;
+                unsigned int            len = 0;
+
                 delete this->_values;
-                this->_values = x._values;
+                tmp_src = x._values;
+                while (x._values)
+                {
+                    new_values = new ft::map_values<Key, T>;
+
+                    new_values->key = x._values->key;
+                    new_values->value = x._values->value;
+                    new_values->next = NULL;
+
+                    if (len == 0)
+                    {
+                        this->_values = new_values;
+                    }
+                    else
+                    {
+                        tmp = this->_values;
+                        while (tmp->next)
+                            tmp = tmp->next;
+                        tmp->next = new_values;
+                    }
+                    x._values = x._values->next;
+                    len++;
+                }
+                x._values = tmp_src;
                 return *(this);
             }
 
@@ -213,10 +228,11 @@ namespace ft {
                 this->setIterator();
                 return (this->getIterator());
             }
-            // const_iterator    begin(void) const
-            // {
-            //     return (this->_it);
-            // }
+            const_iterator    begin(void) const
+            {
+                this->setIterator();
+                return (this->getIterator());
+            }
             iterator    end(void)
             {
                 iterator    it;
@@ -231,29 +247,20 @@ namespace ft {
                 }
                 return (it);
             }
-            // const iterator_map<T, Key>    end(void) const
-            // {
-            //     const iterator_map<T, Key>    it;
-            //     ft::map_values<Key, T>  *tmp = this->_values;
-            //     unsigned int    position = 0;
-            //     Key *arr_keys = new Key[this->_getLen()];
-            //     T   *arr_values = new T[this->_getLen()];
-            //     unsigned int    i = 0;
+            const iterator_map<T, Key>    end(void) const
+            {
+                iterator    it;
+                ft::map_values<Key, T>  *tmp = this->_values;
 
-            //     while (tmp)
-            //     {
-            //         position++;
-            //         arr_keys[i] = tmp->key;
-            //         arr_values[i] = tmp->value;
-            //         tmp = tmp->next;
-            //         i++;
-            //     }
-            //     it = tmp;
-            //     it.setPosition(position);
-            //     it.setArray(arr_values);
-            //     it.setKeys(arr_keys);
-            //     return (it);
-            // }
+                this->setIterator();
+                it = this->getIterator();
+                while (tmp)
+                {
+                    tmp = tmp->next;
+                    it++;
+                }
+                return (it);
+            }
             RIterator<T>   rbegin(void)
             {
                 RIterator<T>    it;
