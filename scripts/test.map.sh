@@ -9,7 +9,7 @@ rm -rf .tmp/result
 
 for ((i=0; i < 21; i++))
 do
-    if [ $i -ne 16 ] && [ $i -ne 19 ]
+    if [ $i -ne 19 ]
     then
         ./ft_containers map $i ft > .tmp/res.map
         ./ft_containers map $i std > .tmp/res.map.std
@@ -34,7 +34,7 @@ if [[ $(uname) == 'Linux' ]]
 then
     for ((i=0; i < 21; i++))
     do
-        if [ $i -ne 2 ] && [ $i -ne 9 ] && [ $i -ne 16 ]
+        if [ $i -ne 2 ] && [ $i -ne 9 ]
         then
             valgrind --leak-check=full --error-exitcode=1 ./ft_containers map $i ft > /dev/null
             if [ $? -eq 0 ]
