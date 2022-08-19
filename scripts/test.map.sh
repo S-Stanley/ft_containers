@@ -34,15 +34,12 @@ if [[ $(uname) == 'Linux' ]]
 then
     for ((i=0; i < 21; i++))
     do
-        if [ $i -ne 9 ]
+        valgrind --leak-check=full --error-exitcode=1 ./ft_containers map $i ft > /dev/null
+        if [ $? -eq 0 ]
         then
-            valgrind --leak-check=full --error-exitcode=1 ./ft_containers map $i ft > /dev/null
-            if [ $? -eq 0 ]
-            then
-                echo -e "${GREEN} NO LEAK ON TEST $i OK" >> .tmp/result
-            else
-                echo -e "${RED} LEAKS ON TEST $i KO" >> .tmp/result
-            fi
+            echo -e "${GREEN} NO LEAK ON TEST $i OK" >> .tmp/result
+        else
+            echo -e "${RED} LEAKS ON TEST $i KO" >> .tmp/result
         fi
     done
 fi
