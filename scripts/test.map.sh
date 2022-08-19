@@ -34,7 +34,7 @@ if [[ $(uname) == 'Linux' ]]
 then
     for ((i=0; i < 21; i++))
     do
-        if [ $i -ne 2 ] && [ $i -ne 9 ]
+        if [ $i -ne 9 ]
         then
             valgrind --leak-check=full --error-exitcode=1 ./ft_containers map $i ft > /dev/null
             if [ $? -eq 0 ]

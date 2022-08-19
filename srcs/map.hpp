@@ -35,7 +35,7 @@ namespace ft {
     class iterator_map
     {
         public:
-            iterator_map(): _values(NULL), _position(0), _lst(NULL){};
+            iterator_map(): _values(NULL), _position(0), _lst(NULL), _reverse(false){};
             ~iterator_map(){
                 ft::map_pointer_lst<K, T>   *tmp = NULL;
 
@@ -70,21 +70,89 @@ namespace ft {
                 ft::map_values<K, T>    *tmp;
                 unsigned int            tmp_position;
 
-                this->_position++;
-                tmp_position = this->_position;
-                tmp = this->_values;
-                if (this->_values != NULL)
+                if (this->_reverse)
                 {
-                    while (tmp)
+                    this->_position--;
+                    tmp_position = this->_position;
+                    tmp = this->_values;
+                    if (this->_values != NULL)
                     {
-                        if (tmp_position == 0)
-                            break;
-                        tmp = tmp->next;
-                        tmp_position--;
+                        while (tmp)
+                        {
+                            if (tmp_position == 0)
+                                break;
+                            tmp = tmp->next;
+                            tmp_position--;
+                        }
+                        if (tmp) {
+                            this->it.first = tmp->key;
+                            this->it.second = tmp->value;
+                        }
                     }
-                    if (tmp) {
-                        this->it.first = tmp->key;
-                        this->it.second = tmp->value;
+                }
+                else
+                {
+                    this->_position++;
+                    tmp_position = this->_position;
+                    tmp = this->_values;
+                    if (this->_values != NULL)
+                    {
+                        while (tmp)
+                        {
+                            if (tmp_position == 0)
+                                break;
+                            tmp = tmp->next;
+                            tmp_position--;
+                        }
+                        if (tmp) {
+                            this->it.first = tmp->key;
+                            this->it.second = tmp->value;
+                        }
+                    }
+                }
+            }
+            void    operator--(int){
+                ft::map_values<K, T>    *tmp;
+                unsigned int            tmp_position;
+
+                if (this->_reverse)
+                {
+                    this->_position++;
+                    tmp_position = this->_position;
+                    tmp = this->_values;
+                    if (this->_values != NULL)
+                    {
+                        while (tmp)
+                        {
+                            if (tmp_position == 0)
+                                break;
+                            tmp = tmp->next;
+                            tmp_position--;
+                        }
+                        if (tmp) {
+                            this->it.first = tmp->key;
+                            this->it.second = tmp->value;
+                        }
+                    }
+                }
+                else
+                {
+                    this->_position--;
+                    tmp_position = this->_position;
+                    tmp = this->_values;
+                    if (this->_values != NULL)
+                    {
+                        while (tmp)
+                        {
+                            if (tmp_position == 0)
+                                break;
+                            tmp = tmp->next;
+                            tmp_position--;
+                        }
+                        if (tmp) {
+                            this->it.first = tmp->key;
+                            this->it.second = tmp->value;
+                        }
                     }
                 }
             }
@@ -110,6 +178,14 @@ namespace ft {
                         this->it.second = tmp->value;
                     }
                 }
+            }
+            void    setReverse(void)
+            {
+                this->_reverse = true;
+            }
+            bool    getReverse(void)
+            {
+                return (this->_reverse);
             }
 
         private:
@@ -137,6 +213,7 @@ namespace ft {
             unsigned int                _position;
             ft::map_pointer<K, T>       it;
             ft::map_pointer_lst<K, T>   *_lst;
+            bool                        _reverse;
     };
 
 	template <typename T, typename K>
@@ -168,6 +245,7 @@ namespace ft {
             typedef ft::value_compare<Key, T>       value_compare;
             typedef size_t                          size_type;
             typedef ptrdiff_t                       difference_type;
+            typedef iterator_map<T, Key>            reverse_iterator;
 
             map(void): _values(NULL), _it(NULL), _it_const(NULL) {};
             ~map(void)
@@ -261,9 +339,16 @@ namespace ft {
                 }
                 return (it);
             }
-            RIterator<T>   rbegin(void)
+            reverse_iterator   rbegin(void)
             {
-                RIterator<T>    it;
+                this->setIterator();
+                iterator it = this->getIterator();
+                it.setReverse();
+                return (it);
+            }
+            const reverse_iterator   rbegin(void) const
+            {
+                const reverse_iterator    it;
                 ft::map_values<Key, T>  *tmp = this->_values;
                 unsigned int    i = 0;
                 Key *arr_keys = new Key[this->_getLen()];
@@ -282,51 +367,17 @@ namespace ft {
                 it.setKeys(arr_keys);
                 return (it);
             }
-            const RIterator<T>   rbegin(void) const
+            reverse_iterator   rend(void)
             {
-                const RIterator<T>    it;
-                ft::map_values<Key, T>  *tmp = this->_values;
-                unsigned int    i = 0;
-                Key *arr_keys = new Key[this->_getLen()];
-                T   *arr_values = new T[this->_getLen()];
-
-                while (tmp)
-                {
-                    arr_keys[i] = tmp->key;
-                    arr_values[i] = tmp->value;
-                    tmp = tmp->next;
-                    i++;
-                }
-                it = tmp;
-                it.setPosition(this->_getLen() - 1);
-                it.setIndex(arr_values);
-                it.setKeys(arr_keys);
+                this->setIterator();
+                iterator it = this->getIterator();
+                it.setReverse();
+                it.setPosition(this->_getLen());
                 return (it);
             }
-            RIterator<T>   rend(void)
+            const reverse_iterator   rend(void) const
             {
-                RIterator<T>    it;
-                ft::map_values<Key, T>  *tmp = this->_values;
-                unsigned int    i = 0;
-                Key *arr_keys = new Key[this->_getLen()];
-                T   *arr_values = new T[this->_getLen()];
-
-                while (tmp)
-                {
-                    arr_keys[i] = tmp->key;
-                    arr_values[i] = tmp->value;
-                    tmp = tmp->next;
-                    i++;
-                }
-                it = tmp;
-                it.setIndex(arr_values);
-                it.setKeys(arr_keys);
-                it.setPosition(-1);
-                return (it);
-            }
-            const RIterator<T>   rend(void) const
-            {
-                const RIterator<T>    it;
+                const reverse_iterator    it;
                 ft::map_values<Key, T>  *tmp = this->_values;
                 unsigned int    i = 0;
                 Key *arr_keys = new Key[this->_getLen()];
@@ -481,21 +532,10 @@ namespace ft {
                     to_add.first = first->first;
                     to_add.second = first->second;
                     this->insert(to_add);
-                    first++;
-                }
-            }
-            void    insert(RIterator<T> first, RIterator<T> last)
-            {
-                ft::pair<Key, T>   to_add;
-                Key *keys = first.getKeys();
-                T   *values = first.getArray();
-
-                while (first.getPosition() != last.getPosition())
-                {
-                    to_add.first = keys[first.getPosition()];
-                    to_add.second = values[first.getPosition()];
-                    this->insert(to_add);
-                    first++;
+                    if (first.getReverse() == false)
+                        first++;
+                    else
+                        first--;
                 }
             }
             void    clear(void)
@@ -783,9 +823,6 @@ namespace ft {
                 allocator_type  alloc;
                 return (alloc);
             }
-
-            Iterator<T>    iterator_traits;
-            RIterator<T>   reverse_iterator;
         private:
             ft::map_values<Key, T>  *_values;
             ft::list_iterator<T>    *_it;
