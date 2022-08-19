@@ -599,12 +599,12 @@ namespace ft {
             }
             void    swap(map &x)
             {
-                map buff;
+		    ft::map_values<Key, T> *tmp;
 
-                buff._values = x._values;
+                tmp = x._values;
                 x._values = this->_values;
-                this->_values = buff._values;
-            }
+                this->_values = tmp;
+	    }
 
             /* observers */
             key_compare     key_comp(void) const
