@@ -55,12 +55,7 @@ namespace ft {
             }
             ft::map_pointer<K, T> *operator->(void)
             {
-                ft::map_pointer<K, T>   *to_return = new ft::map_pointer<K, T>;
-
-                to_return->first = this->it.first;
-                to_return->second = this->it.second;
-                this->keep_track_map_pointer(to_return);
-                return (to_return);
+                return (&this->it);
             }
             bool    operator<(iterator_map<K, T> src)
             {
@@ -196,13 +191,13 @@ namespace ft {
 
                 new_node->lst = new_lst;
                 new_node->next = NULL;
+
                 if (this->_lst == NULL)
                 {
                     this->_lst = new_node;
                 }
                 else
                 {
-
                     while (tmp->next)
                         tmp = tmp->next;
                     tmp->next = new_node;
@@ -216,15 +211,15 @@ namespace ft {
             bool                        _reverse;
     };
 
-	template <typename T, typename K>
-	class value_compare
-	{
-		public:
-			bool operator() (ft::iterator_map<T, K> x, ft::iterator_map<T, K> y)
-  			{
-    			return (x->first < y->first);
-  			}
-	};
+    template <typename T, typename K>
+    class value_compare
+    {
+        public:
+            bool operator() (ft::iterator_map<T, K> x, ft::iterator_map<T, K> y)
+              {
+                return (x->first < y->first);
+              }
+    };
 
     template <typename T>
     struct list_iterator
@@ -639,12 +634,12 @@ namespace ft {
             }
             void    swap(map &x)
             {
-		    ft::map_values<Key, T> *tmp;
+            ft::map_values<Key, T> *tmp;
 
                 tmp = x._values;
                 x._values = this->_values;
                 this->_values = tmp;
-	    }
+        }
 
             /* observers */
             key_compare     key_comp(void) const
