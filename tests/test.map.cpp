@@ -118,7 +118,7 @@ void    test_map_rbegin_and_rend(bool is_real_container)
 
         map_ft.insert(val1);
         map_ft.insert(val2);
-        RIterator<std::string>    rit = map_ft.rbegin();
+        ft::map<std::string, std::string>::reverse_iterator    rit = map_ft.rbegin();
         map_ft_2.insert(rit, map_ft.rend());
         std::cout << map_ft_2["test"] << std::endl;
         std::cout << map_ft_2["test 1"] << std::endl;
