@@ -29,19 +29,22 @@ do
     fi
 done
 
-for ((i=0; i < 6; i++))
-do
-    if [ $i -ne 3 ]
-    then
-        valgrind --leak-check=full --error-exitcode=1 ./ft_containers vector $i ft > /dev/null
-        if [ $? -eq 0 ]
+if [[ $(uname) == 'Linux' ]]
+then
+    for ((i=0; i < 6; i++))
+    do
+        if [ $i -ne 3 ]
         then
-            echo -e "${GREEN} NO LEAK ON TEST $i OK" >> .tmp/result
-        else
-            echo -e "${RED} LEAKS ON TEST $i KO" >> .tmp/result
+            valgrind --leak-check=full --error-exitcode=1 ./ft_containers vector $i ft > /dev/null
+            if [ $? -eq 0 ]
+            then
+                echo -e "${GREEN} NO LEAK ON TEST $i OK" >> .tmp/result
+            else
+                echo -e "${RED} LEAKS ON TEST $i KO" >> .tmp/result
+            fi
         fi
-    fi
-done
+    done
+fi
 
 cat .tmp/result
 cat .tmp/result | grep KO >> /dev/null
