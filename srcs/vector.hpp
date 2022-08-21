@@ -15,16 +15,16 @@ namespace ft {
 	class vector {
 		public:
 
-			typedef T				value_type;
-			typedef Alloc			allocator_type;
-			typedef Iterator<T>*	iterator;
+			typedef T					value_type;
+			typedef Alloc				allocator_type;
+			typedef Iterator<T>*		iterator;
 			typedef const Iterator<T>*	const_iterator;
 
 			vector(void): _tab(NULL), _len(0), _max_cap(0), _it(NULL), _it_const(NULL) {};
 			~vector(void)
 			{
 				if (this->_tab)
-					delete[] this->_tab;
+					this->get_allocator().deallocate(this->_tab, this->size());
 				if (this->_it)
 					delete this->_it;
 			};
@@ -236,13 +236,13 @@ namespace ft {
 			}
 			void	resize(unsigned int N, T val)
 			{
-				T *update = new T[N];
+				T *update = this->get_allocator().allocate(N);
 
 				if (N < this->_len)
 				{
 
 					for (unsigned int i = 0; i < N; i++)
-						update[i] = this->_tab[i];
+						this->get_allocator().construct(&update[i], this->_tab[i]);
 				}
 				else
 				{
@@ -250,29 +250,29 @@ namespace ft {
 
 					while (i < this->_len)
 					{
-						update[i] = this->_tab[i];
+						this->get_allocator().construct(&update[i], this->_tab[i]);
 						i++;
 					}
 					while (i < N)
 					{
-						update[i] = val;
+						this->get_allocator().construct(&update[i], val);
 						i++;
 					}
 				}
-				delete[] this->_tab;
+				this->get_allocator().deallocate(this->_tab, this->_len);
 				this->_tab = update;
 				this->_len = N;
 				this->_max_cap = N;
 			}
 			void	resize(unsigned int N)
 			{
-				T *update = new T[N];
+				T   *update = this->get_allocator().allocate(N);
 
 				if (N < this->_len)
 				{
 
 					for (unsigned int i = 0; i < N; i++)
-						update[i] = this->_tab[i];
+						this->get_allocator().construct(&update[i], this->_tab[i]);
 				}
 				else
 				{
@@ -280,16 +280,16 @@ namespace ft {
 
 					while (i < this->_len)
 					{
-						update[i] = this->_tab[i];
+						this->get_allocator().construct(&update[i], this->_tab[i]);
 						i++;
 					}
 					while (i < N)
 					{
-						update[i] = 0;
+						this->get_allocator().construct(&update[i], 0);
 						i++;
 					}
 				}
-				delete[] this->_tab;
+				this->get_allocator().deallocate(this->_tab, this->_len);
 				this->_tab = update;
 				this->_len = N;
 				this->_max_cap = N;
@@ -309,14 +309,15 @@ namespace ft {
 			{
 				if (N > this->_max_cap)
 				{
-					T	*update = new T[N];
+					T   *update = this->get_allocator().allocate(N);
 					unsigned int new_len = 0;
+
 					for (unsigned int i = 0; i < this->_len; i++) {
-						update[i] = this->_tab[i];
+						this->get_allocator().construct(&update[i], this->_tab[i]);
 						new_len++;
 					}
+					this->get_allocator().deallocate(this->_tab, this->_len);
 					this->_len = new_len;
-					delete[] this->_tab;
 					this->_tab = update;
 					this->_max_cap = N;
 				}
@@ -328,34 +329,34 @@ namespace ft {
 
 			void    push_back(const T &val)
 			{
-				T   *update = new T[this->size() + 1];
+				T   *update = this->get_allocator().allocate(this->size() + 1);
 				unsigned     i;
 
 				for (i = 0; i < this->size(); i++)
-					update[i] = this->_tab[i];
-				update[i] = val;
+					this->get_allocator().construct(&update[i], this->_tab[i]);
+				this->get_allocator().construct(&update[i], val);
 				if (this->_tab)
-					delete[] this->_tab;
+					this->get_allocator().deallocate(this->_tab, this->_len);
 				this->_tab = update;
 				this->_len++;
 				this->_max_cap++;
 			}
 			void    pop_back(void)
 			{
-				T   *update = new T[this->_len];
+				T   *update = this->get_allocator().allocate(this->_len);
 
 				this->_len--;
 				this->_max_cap--;
 				for (unsigned int i = 0; i < this->_len; i++)
-					update[i] = this->_tab[i];
-				delete[] this->_tab;
+					this->get_allocator().construct(&update[i], this->_tab[i]);
+				this->get_allocator().deallocate(this->_tab, this->size());
 				this->_tab = update;
 			}
 			void	clear(void)
 			{
+				this->get_allocator().deallocate(this->_tab, this->_len);
 				this->_len = 0;
 				this->_max_cap = 0;
-				delete[] this->_tab;
 				this->_tab = NULL;
 			}
 			void	swap(ft::vector<T> &a)
@@ -370,43 +371,43 @@ namespace ft {
 			{
 				if (N > this->_len)
 				{
-					delete[] this->_tab;
-					T	*update = new T[N];
+					this->get_allocator().deallocate(this->_tab);
+					T	*update = this->get_allocator().allocate(N);
 					this->_len = N;
 					this->_max_cap = N;
 					for (unsigned int i = 0; i < N; i++)
-						update[i] = val[i];
+						this->get_allocator().construct(&update[i], val[i]);
 				} else {
 					for (unsigned int i = 0; i < N; i++)
-						this->_tab[i] = val[i];
+						this->get_allocator().construct(&this->_tab[i], val[i]);
 				}
 
 			}
 			void	assign(std::input_iterator_tag first, std::input_iterator_tag last)
 			{
-				T	*update = new T[this->_len];
+				T	*update = this->get_allocator().allocate(this->_len);
 				(void)first;
 				(void)last;
 
 				for (unsigned int i = 0; i < this->_len; i++)
-					update[i] = this->_tab[i];
-				delete[] this->_tab;
+					this->get_allocator().construct(&update[i], this->_tab[i]);
+				this->get_allocator().deallocate(this->_tab, this->_len);
 				this->_tab = update;
 			}
 			iterator		erase(iterator position)
 			{
-				T	*update = new T[this->_len -1];
+				T	*update = this->get_allocator().allocate(this->_len -1);
 				unsigned int count = 0;
 
 				for (unsigned int i = 0; i < this->_len; i++)
 				{
 					if (&this->_tab[i] != position->getAddress())
 					{
-						update[count] = this->_tab[i];
+						this->get_allocator().construct(&update[i], this->_tab[i]);
 						count++;
 					}
 				}
-				delete[] this->_tab;
+				this->get_allocator().deallocate(this->_tab, this->_len);
 				this->_tab = update;
 				this->_len--;
 				this->_max_cap--;
@@ -414,7 +415,7 @@ namespace ft {
 			}
 			iterator		erase(iterator first, iterator last)
 			{
-				T	*update = new T[this->_len - (last->getPosition() - first->getPosition())];
+				T	*update = this->get_allocator().allocate(this->_len - (last->getPosition() - first->getPosition()));
 				Iterator<T>	index = new Iterator<T>;
 				int	count = 0;
 
@@ -422,7 +423,7 @@ namespace ft {
 				{
 					if (i < first->getPosition() && i > last->getPosition())
 					{
-						update[count] = this->_tab[i];
+						this->get_allocator().construct(&update[i], this->_tab[i]);
 						count++;
 					}
 					if (i < last->getPosition())
