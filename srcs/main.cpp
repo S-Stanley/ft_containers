@@ -39,6 +39,8 @@ int     main(int argc, char **argv)
 			test_vector_capacity(is_real_container);
 		if (strcmp(argv[2], "5") == 0)
 			test_modifiers(is_real_container);
+		if (strcmp(argv[2], "6") == 0)
+			test_vector_relational_operators(is_real_container);
 	}
 	else if (strcmp(argv[1], "map") == 0) {
 		if (strcmp(argv[2], "0") == 0)

@@ -29,6 +29,91 @@ namespace ft {
 					delete this->_it;
 			};
 
+			bool	operator==(const ft::vector<T, Alloc> &comp)
+			{
+				unsigned int i = 0;
+
+				if (this->size() != comp.size())
+					return (false);
+				while (i != this->_len)
+				{
+					if (this->_tab[i] != comp._tab[i])
+						return (false);
+					i++;
+				}
+				return (true);
+			}
+			bool	operator!=(const ft::vector<T, Alloc> &comp)
+			{
+				unsigned int i = 0;
+
+				if (this->size() != comp.size())
+					return (true);
+				while (i != this->_len)
+				{
+					if (this->_tab[i] != comp._tab[i])
+						return (true);
+					i++;
+				}
+				return (false);
+			}
+			bool	operator<(const ft::vector<T, Alloc> &comp)
+			{
+				unsigned int i = 0;
+
+				if (this->size() >= comp.size())
+					return (false);
+				while (i != this->_len)
+				{
+					if (this->_tab[i] >= comp._tab[i])
+						return (false);
+					i++;
+				}
+				return (true);
+			}
+			bool	operator<=(const ft::vector<T, Alloc> &comp)
+			{
+				unsigned int i = 0;
+
+				if (this->size() > comp.size())
+					return (false);
+				while (i != this->_len)
+				{
+					if (this->_tab[i] > comp._tab[i])
+						return (false);
+					i++;
+				}
+				return (true);
+			}
+			bool	operator>(const ft::vector<T, Alloc> &comp)
+			{
+				unsigned int i = 0;
+
+				if (this->size() <= comp.size())
+					return (false);
+				while (i != this->_len)
+				{
+					if (this->_tab[i] <= comp._tab[i])
+						return (false);
+					i++;
+				}
+				return (true);
+			}
+			bool	operator>=(const ft::vector<T, Alloc> &comp)
+			{
+				unsigned int i = 0;
+
+				if (this->size() < comp.size())
+					return (false);
+				while (i != this->_len)
+				{
+					if (this->_tab[i] < comp._tab[i])
+						return (false);
+					i++;
+				}
+				return (true);
+			}
+
 			/* Iterators  */
 
 			iterator		begin(void)
