@@ -194,8 +194,8 @@ void	test_vector_relational_operators(bool is_real_container)
 		std::cout << (vector_std != vector_std_2) << std::endl;
 		std::cout << (vector_std < vector_std_2) << std::endl;
 		std::cout << (vector_std <= vector_std_2) << std::endl;
-		// std::cout << (vector_std > vector_std_2) << std::endl;
-		// std::cout << (vector_std >= vector_std_2) << std::endl;
+		std::cout << (vector_std > vector_std_2) << std::endl;
+		std::cout << (vector_std >= vector_std_2) << std::endl;
 
 		vector_std_2.push_back(10);
 
@@ -203,8 +203,8 @@ void	test_vector_relational_operators(bool is_real_container)
 		std::cout << (vector_std != vector_std_2) << std::endl;
 		std::cout << (vector_std < vector_std_2) << std::endl;
 		std::cout << (vector_std <= vector_std_2) << std::endl;
-		// std::cout << (vector_std > vector_std_2) << std::endl;
-		// std::cout << (vector_std >= vector_std_2) << std::endl;
+		std::cout << (vector_std > vector_std_2) << std::endl;
+		std::cout << (vector_std >= vector_std_2) << std::endl;
 	} else {
 		ft::vector<int>	vector_ft;
 		ft::vector<int>	vector_ft_2;
@@ -217,6 +217,8 @@ void	test_vector_relational_operators(bool is_real_container)
 		std::cout << (vector_ft != vector_ft_2) << std::endl;
 		std::cout << (vector_ft < vector_ft_2) << std::endl;
 		std::cout << (vector_ft <= vector_ft_2) << std::endl;
+		std::cout << (vector_ft > vector_ft_2) << std::endl;
+		std::cout << (vector_ft >= vector_ft_2) << std::endl;
 
 		vector_ft_2.push_back(10);
 
@@ -224,5 +226,7 @@ void	test_vector_relational_operators(bool is_real_container)
 		std::cout << (vector_ft != vector_ft_2) << std::endl;
 		std::cout << (vector_ft < vector_ft_2) << std::endl;
 		std::cout << (vector_ft <= vector_ft_2) << std::endl;
+		std::cout << (vector_ft > vector_ft_2) << std::endl;
+		std::cout << (vector_ft >= vector_ft_2) << std::endl;
 	}
 }

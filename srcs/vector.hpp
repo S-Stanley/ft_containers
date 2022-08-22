@@ -61,8 +61,8 @@ namespace ft {
 			{
 				unsigned int i = 0;
 
-				if (this->size() >= comp.size())
-					return (false);
+				if (this->size() < comp.size())
+					return (true);
 				while (i != this->_len)
 				{
 					if (this->_tab[i] >= comp._tab[i])
@@ -77,7 +77,7 @@ namespace ft {
 
 				if (this->size() > comp.size())
 					return (false);
-				while (i != this->_len)
+				while (i != this->_len && i != comp._len)
 				{
 					if (this->_tab[i] > comp._tab[i])
 						return (false);
@@ -89,8 +89,8 @@ namespace ft {
 			{
 				unsigned int i = 0;
 
-				if (this->size() <= comp.size())
-					return (false);
+				if (this->size() > comp.size())
+					return (true);
 				while (i != this->_len)
 				{
 					if (this->_tab[i] <= comp._tab[i])
@@ -105,7 +105,7 @@ namespace ft {
 
 				if (this->size() < comp.size())
 					return (false);
-				while (i != this->_len)
+				while (i != this->_len && i != comp._len)
 				{
 					if (this->_tab[i] < comp._tab[i])
 						return (false);
