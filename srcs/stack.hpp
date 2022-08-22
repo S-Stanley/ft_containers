@@ -6,6 +6,10 @@ namespace ft {
 
     class stack {
         public:
+
+            typedef unsigned int size_type;
+            typedef Value value_type;
+
             stack(void){
                 this->_data = NULL;
                 this->_size = 0;
@@ -16,8 +20,90 @@ namespace ft {
                 }
             };
 
-            typedef unsigned int size_type;
-            typedef Value value_type;
+			bool	operator==(const ft::stack<Value> &comp)
+			{
+				unsigned int i = 0;
+
+				if (this->size() != comp.size())
+					return (false);
+				while (i != this->_size)
+				{
+					if (this->_data[i] != comp._data[i])
+						return (false);
+					i++;
+				}
+				return (true);
+			}
+			bool	operator!=(const ft::stack<Value> &comp)
+			{
+				unsigned int i = 0;
+
+				if (this->size() != comp.size())
+					return (true);
+				while (i != this->_size)
+				{
+					if (this->_data[i] != comp._data[i])
+						return (true);
+					i++;
+				}
+				return (false);
+			}
+			bool	operator<(const ft::stack<Value> &comp)
+			{
+				unsigned int i = 0;
+
+				if (this->size() < comp.size())
+					return (false);
+				while (i != this->_size)
+				{
+					if (this->_data[i] >= comp._data[i])
+						return (false);
+					i++;
+				}
+				return (true);
+			}
+			bool	operator<=(const ft::stack<Value> &comp)
+			{
+				unsigned int i = 0;
+
+				if (this->size() > comp.size())
+					return (false);
+				while (i != this->_size && i != comp._size)
+				{
+					if (this->_data[i] > comp._data[i])
+						return (false);
+					i++;
+				}
+				return (true);
+			}
+			bool	operator>(const ft::stack<Value> &comp)
+			{
+				unsigned int i = 0;
+
+				if (this->size() > comp.size())
+					return (true);
+				while (i != this->_size)
+				{
+					if (this->_data[i] <= comp._data[i])
+						return (false);
+					i++;
+				}
+				return (true);
+			}
+			bool	operator>=(const ft::stack<Value> &comp)
+			{
+				unsigned int i = 0;
+
+				if (this->size() < comp.size())
+					return (false);
+				while (i != this->_size && i != comp._size)
+				{
+					if (this->_data[i] < comp._data[i])
+						return (false);
+					i++;
+				}
+				return (true);
+			}
 
             bool        empty(void) const {
                 if (!this->_data) {

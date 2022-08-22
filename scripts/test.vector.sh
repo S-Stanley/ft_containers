@@ -31,7 +31,7 @@ done
 
 if [[ $(uname) == 'Linux' ]]
 then
-    for ((i=0; i < 6; i++))
+    for ((i=0; i < 7; i++))
     do
         if [ $i -ne 3 ]
         then

@@ -17,5 +17,6 @@ void    stack_size(bool is_real_container);
 void    stack_top(bool is_real_container);
 void    stack_push(bool is_real_container);
 void    stack_pop(bool is_real_container);
+void    test_stack_relational_operators(bool is_real_container);
 
 #endif

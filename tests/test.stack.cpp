@@ -121,3 +121,54 @@ void    stack_pop(bool is_real_container)
         std::cout << ft_stack.top() << std::endl;
     }
 }
+
+void	test_stack_relational_operators(bool is_real_container)
+{
+	if (is_real_container){
+		std::stack<int>	stack_std;
+		std::stack<int>	stack_std_2;
+
+		stack_std.push(5);
+		stack_std.push(10);
+		stack_std_2.push(5);
+
+		std::cout << (stack_std == stack_std_2) << std::endl;
+		std::cout << (stack_std != stack_std_2) << std::endl;
+		std::cout << (stack_std < stack_std_2) << std::endl;
+		std::cout << (stack_std <= stack_std_2) << std::endl;
+		std::cout << (stack_std > stack_std_2) << std::endl;
+		std::cout << (stack_std >= stack_std_2) << std::endl;
+
+		stack_std_2.push(10);
+
+		std::cout << (stack_std == stack_std_2) << std::endl;
+		std::cout << (stack_std != stack_std_2) << std::endl;
+		std::cout << (stack_std < stack_std_2) << std::endl;
+		std::cout << (stack_std <= stack_std_2) << std::endl;
+		std::cout << (stack_std > stack_std_2) << std::endl;
+		std::cout << (stack_std >= stack_std_2) << std::endl;
+	} else {
+		ft::stack<int>	stack_ft;
+		ft::stack<int>	stack_ft_2;
+
+		stack_ft.push(5);
+		stack_ft.push(10);
+		stack_ft_2.push(5);
+
+		std::cout << (stack_ft == stack_ft_2) << std::endl;
+		std::cout << (stack_ft != stack_ft_2) << std::endl;
+		std::cout << (stack_ft < stack_ft_2) << std::endl;
+		std::cout << (stack_ft <= stack_ft_2) << std::endl;
+		std::cout << (stack_ft > stack_ft_2) << std::endl;
+		std::cout << (stack_ft >= stack_ft_2) << std::endl;
+
+		stack_ft_2.push(10);
+
+		std::cout << (stack_ft == stack_ft_2) << std::endl;
+		std::cout << (stack_ft != stack_ft_2) << std::endl;
+		std::cout << (stack_ft < stack_ft_2) << std::endl;
+		std::cout << (stack_ft <= stack_ft_2) << std::endl;
+		std::cout << (stack_ft > stack_ft_2) << std::endl;
+		std::cout << (stack_ft >= stack_ft_2) << std::endl;
+	}
+}
