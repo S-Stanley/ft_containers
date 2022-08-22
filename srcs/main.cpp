@@ -109,6 +109,8 @@ int     main(int argc, char **argv)
 			stack_push(is_real_container);
 		if (strcmp(argv[2], "5") == 0)
 			stack_pop(is_real_container);
+		if (strcmp(argv[2], "6") == 0)
+			test_stack_relational_operators(is_real_container);
 	} else {
 		return (handl_err_usage("unknow container name"));
 	}
