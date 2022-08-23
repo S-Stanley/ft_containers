@@ -11,23 +11,16 @@
 #include "../srcs/pair.hpp"
 
 namespace ft {
-    template <typename Key, typename T>
-    struct map_values {
-        Key         key;
-        T           value;
-        map_values  *next;
-    };
+    // template <typename Key, typename T>
+    // struct map_values {
+    //     Key         key;
+    //     T           value;
+    //     map_values  *next;
+    // };
 
     template <typename K, typename T>
-    struct map_pointer{
-        K   first;
-        T   second;
-    };
-
-    template <typename K, typename T>
-
-    struct map_pointer_lst{
-        map_pointer<K, T>       *lst;
+    struct map_pointer_lst {
+        ft::pair<K, T>       *lst;
         map_pointer_lst<K, T>   *next;
     };
 
@@ -48,12 +41,12 @@ namespace ft {
                 }
             };
 
-            void    setValues(ft::map_values<K, T> *data){
+            void    setValues(ft::pair<K, T> *data){
                 if (data == NULL)
                     return;
                 this->_values = data;
             }
-            ft::map_pointer<K, T> *operator->(void)
+            ft::pair<K, T> *operator->(void)
             {
                 return (&this->it);
             }
@@ -62,7 +55,7 @@ namespace ft {
                 return (src.getPosition() != this->getPosition());
             }
             void    operator++(int){
-                ft::map_values<K, T>    *tmp;
+                ft::pair<K, T>    *tmp;
                 unsigned int            tmp_position;
 
                 if (this->_reverse)
@@ -80,8 +73,8 @@ namespace ft {
                             tmp_position--;
                         }
                         if (tmp) {
-                            this->it.first = tmp->key;
-                            this->it.second = tmp->value;
+                            this->it.first = tmp->first;
+                            this->it.second = tmp->second;
                         }
                     }
                 }
@@ -100,14 +93,14 @@ namespace ft {
                             tmp_position--;
                         }
                         if (tmp) {
-                            this->it.first = tmp->key;
-                            this->it.second = tmp->value;
+                            this->it.first = tmp->first;
+                            this->it.second = tmp->second;
                         }
                     }
                 }
             }
             void    operator--(int){
-                ft::map_values<K, T>    *tmp;
+                ft::pair<K, T>    *tmp;
                 unsigned int            tmp_position;
 
                 if (this->_reverse)
@@ -125,8 +118,8 @@ namespace ft {
                             tmp_position--;
                         }
                         if (tmp) {
-                            this->it.first = tmp->key;
-                            this->it.second = tmp->value;
+                            this->it.first = tmp->first;
+                            this->it.second = tmp->second;
                         }
                     }
                 }
@@ -145,8 +138,8 @@ namespace ft {
                             tmp_position--;
                         }
                         if (tmp) {
-                            this->it.first = tmp->key;
-                            this->it.second = tmp->value;
+                            this->it.first = tmp->first;
+                            this->it.second = tmp->second;
                         }
                     }
                 }
@@ -155,7 +148,7 @@ namespace ft {
                 return (this->_position);
             }
             void            setPosition(unsigned int position){
-                ft::map_values<K, T>    *tmp;
+                ft::pair<K, T>    *tmp;
 
                 this->_position = position;
                 tmp = this->_values;
@@ -169,8 +162,8 @@ namespace ft {
                         position--;
                     }
                     if (tmp) {
-                        this->it.first = tmp->key;
-                        this->it.second = tmp->value;
+                        this->it.first = tmp->first;
+                        this->it.second = tmp->second;
                     }
                 }
             }
@@ -184,7 +177,7 @@ namespace ft {
             }
 
         private:
-            void    keep_track_map_pointer(ft::map_pointer<K, T> *new_lst)
+            void    keep_track_map_pointer(ft::pair<K, T> *new_lst)
             {
                 ft::map_pointer_lst<K, T>   *tmp = this->_lst;
                 ft::map_pointer_lst<K, T>   *new_node = new ft::map_pointer_lst<K, T>;
@@ -204,9 +197,9 @@ namespace ft {
                 }
             }
 
-            ft::map_values<K, T>        *_values;
+            ft::pair<K, T>        *_values;
             unsigned int                _position;
-            ft::map_pointer<K, T>       it;
+            ft::pair<K, T>       it;
             ft::map_pointer_lst<K, T>   *_lst;
             bool                        _reverse;
     };
@@ -228,7 +221,7 @@ namespace ft {
         list_iterator<T>    *next;
     };
 
-    template <typename Key, typename T, class Compare = std::less<Key>, class Alloc = std::allocator<ft::map_values<Key, T> > >
+    template <typename Key, typename T, class Compare = std::less<Key>, class Alloc = std::allocator<ft::pair<Key, T> > >
     class map {
         public:
 
@@ -245,7 +238,7 @@ namespace ft {
             map(void): _values(NULL), _it(NULL), _it_const(NULL) {};
             ~map(void)
             {
-                ft::map_values<Key, T>		*tmp;
+                ft::pair<Key, T>		*tmp;
                 ft::list_iterator<T>        *lst;
 
                 while (this->_it != NULL)
@@ -263,20 +256,18 @@ namespace ft {
             };
             map &operator=(map &x)
             {
-                ft::map_values<Key, T>  *new_values = NULL;
-                ft::map_values<Key, T>  *tmp;
-                ft::map_values<Key, T>  *tmp_src;
-                unsigned int            len = 0;
+                ft::pair<Key, T>  *new_values = NULL;
+                ft::pair<Key, T>  *tmp;
+                ft::pair<Key, T>  *tmp_src;
+                unsigned int      len = 0;
 
-                delete this->_values;
+                this->get_allocator().deallocate(this->_values, 1);
                 tmp_src = x._values;
                 while (x._values)
                 {
                     new_values = this->get_allocator().allocate(1);
-
-                    new_values->key = x._values->key;
-                    new_values->value = x._values->value;
-                    new_values->next = NULL;
+                    this->get_allocator().construct(new_values, *x._values);
+                    std::cout << x._values->first << std::endl;
 
                     if (len == 0)
                     {
@@ -286,7 +277,9 @@ namespace ft {
                     {
                         tmp = this->_values;
                         while (tmp->next)
+                        {
                             tmp = tmp->next;
+                        }
                         tmp->next = new_values;
                     }
                     x._values = x._values->next;
@@ -309,7 +302,7 @@ namespace ft {
             iterator    end(void)
             {
                 iterator    it;
-                ft::map_values<Key, T>  *tmp = this->_values;
+                ft::pair<Key, T>  *tmp = this->_values;
 
                 this->setIterator();
                 it = this->getIterator();
@@ -323,7 +316,7 @@ namespace ft {
             const iterator_map<T, Key>    end(void) const
             {
                 iterator    it;
-                ft::map_values<Key, T>  *tmp = this->_values;
+                ft::pair<Key, T>  *tmp = this->_values;
 
                 this->setIterator();
                 it = this->getIterator();
@@ -344,7 +337,7 @@ namespace ft {
             const reverse_iterator   rbegin(void) const
             {
                 const reverse_iterator    it;
-                ft::map_values<Key, T>  *tmp = this->_values;
+                ft::pair<Key, T>  *tmp = this->_values;
                 unsigned int    i = 0;
                 Key *arr_keys = new Key[this->_getLen()];
                 T   *arr_values = new T[this->_getLen()];
@@ -373,7 +366,7 @@ namespace ft {
             const reverse_iterator   rend(void) const
             {
                 const reverse_iterator    it;
-                ft::map_values<Key, T>  *tmp = this->_values;
+                ft::pair<Key, T>  *tmp = this->_values;
                 unsigned int    i = 0;
                 Key *arr_keys = new Key[this->_getLen()];
                 T   *arr_values = new T[this->_getLen()];
@@ -401,7 +394,7 @@ namespace ft {
             }
             unsigned int    size(void) const
             {
-                ft::map_values<Key, T>  *tmp = this->_values;
+                ft::pair<Key, T>  *tmp = this->_values;
                 unsigned int count = 0;
 
                 if (!tmp)
@@ -421,45 +414,46 @@ namespace ft {
             /* elements access */
             T   operator[](const Key &k)
             {
-                ft::map_values<Key, T>  *tmp;
+                ft::pair<Key, T>  *tmp;
 
                 tmp = this->_values;
                 if (!tmp)
                     return (0);
                 while (tmp)
                 {
-                    if (tmp->key == k)
-                        return (tmp->value);
+                    if (tmp->first == k)
+                        return (tmp->second);
                     tmp = tmp->next;
                 }
-                return (this->_values->value);
+                return (this->_values->second);
             }
 
             /* modifiers */
-            ft::pair<iterator, bool> insert(const ft::pair<Key, T> &val)
+            ft::pair<iterator, bool> insert(ft::pair<Key, T> &val)
             {
                 ft::pair<iterator, bool>   to_return;
                 iterator_map<T>    it = this->begin();
-                ft::map_values<Key, T>  *tmp = this->_values;
-                ft::map_values<Key, T>  *previous = NULL;
-                ft::map_values<Key, T>  *to_add = this->get_allocator().allocate(1);
+                ft::pair<Key, T>  *tmp = this->_values;
+                ft::pair<Key, T>  *previous = NULL;
+                ft::pair<Key, T>  *to_add = this->get_allocator().allocate(1);
                 bool    inserted = false;
                 unsigned int i = 0;
 
-                to_add->key = val.first;
-                to_add->value = val.second;
-                to_add->next = NULL;
                 if (this->_values == NULL) {
+                    val.next = NULL;
+                    this->get_allocator().construct(to_add, val);
                     this->_values = to_add;
                 } else {
                     while (tmp)
                     {
-                        if (to_add->key < tmp->key) {
-                            to_add->next = tmp;
+                        if (to_add->first < tmp->first) {
+                            val.next = tmp;
                             if (previous) {
+                                this->get_allocator().construct(to_add, val);
                                 previous->next = to_add;
                                 it.setPosition(i - 1);
                             } else {
+                                this->get_allocator().construct(to_add, val);
                                 this->_values = to_add;
                                 it.setPosition(0);
                             }
@@ -472,6 +466,7 @@ namespace ft {
                         tmp = tmp->next;
                         i++;
                     }
+                    this->get_allocator().construct(to_add, val);
                     previous->next = to_add;
                     it.setPosition(i);
                     to_return.first = it;
@@ -488,13 +483,13 @@ namespace ft {
             {
                 ft::pair<iterator, bool>   to_return;
                 iterator    it;
-                ft::map_values<Key, T>  *tmp = this->_values;
-                ft::map_values<Key, T>  *to_add = this->get_allocator().allocate(1);
+                ft::pair<Key, T>  *tmp = this->_values;
+                ft::pair<Key, T>  *to_add = this->get_allocator().allocate(1);
                 unsigned int i = 0;
 
                 it = this->find(val.first);
-                to_add->key = val.first;
-                to_add->value = val.second;
+                to_add->first = val.first;
+                to_add->second = val.second;
                 to_add->next = NULL;
                 if (!this->_values)
                     this->_values = to_add;
@@ -535,7 +530,7 @@ namespace ft {
             }
             void    clear(void)
             {
-                ft::map_values<Key, T>	*tmp;
+                ft::pair<Key, T>	*tmp;
 
                 while (this->_values)
                 {
@@ -548,9 +543,9 @@ namespace ft {
             void    erase(iterator pos)
             {
                 iterator  first = this->begin();
-                ft::map_values<Key, T>  *tmp = this->_values;
-                ft::map_values<Key, T> *buffer = this->_values;
-                ft::map_values<Key, T> *start = this->_values;
+                ft::pair<Key, T>  *tmp = this->_values;
+                ft::pair<Key, T> *buffer = this->_values;
+                ft::pair<Key, T> *start = this->_values;
 
                 if (this->_values == NULL)
                     return ;
@@ -575,15 +570,15 @@ namespace ft {
             }
             unsigned int    erase(const Key &k)
             {
-                ft::map_values<Key, T>  *tmp = this->_values;
-                ft::map_values<Key, T>  *buff = this->_values;
+                ft::pair<Key, T>  *tmp = this->_values;
+                ft::pair<Key, T>  *buff = this->_values;
                 unsigned int            pos = 0;
 
                 if (!tmp)
                     return (0);
                 while (tmp)
                 {
-                    if (tmp->key == k)
+                    if (tmp->first == k)
                     {
                         if (pos == 0) {
                             if (this->size() == 1) {
@@ -608,8 +603,8 @@ namespace ft {
             void        erase(iterator first, iterator last)
             {
                 iterator    it = this->begin();
-                ft::map_values<Key, T>  *tmp = this->_values;
-                ft::map_values<Key, T>  *buff = this->_values;
+                ft::pair<Key, T>  *tmp = this->_values;
+                ft::pair<Key, T>  *buff = this->_values;
                 unsigned int            pos_started = first.getPosition();
 
                 while (it.getPosition() != first.getPosition())
@@ -634,7 +629,7 @@ namespace ft {
             }
             void    swap(map &x)
             {
-            ft::map_values<Key, T> *tmp;
+            ft::pair<Key, T> *tmp;
 
                 tmp = x._values;
                 x._values = this->_values;
@@ -658,13 +653,13 @@ namespace ft {
             /* operation */
             iterator    find(const Key &k)
             {
-                ft::map_values<Key, T> *tmp = this->_values;
+                ft::pair<Key, T> *tmp = this->_values;
                 iterator             it = this->begin();
                 unsigned int    i = 0;
 
                 while (tmp)
                 {
-                    if (tmp->key == k)
+                    if (tmp->first == k)
                     {
                         it.setPosition(i);
                         return (it);
@@ -677,7 +672,7 @@ namespace ft {
             }
             const_iterator  find(const Key &k) const
             {
-                ft::map_values<Key, T> *tmp;
+                ft::pair<Key, T> *tmp;
 
                 tmp = this->_values;
                 while (tmp)
@@ -694,13 +689,13 @@ namespace ft {
             }
             unsigned int    count(const Key &k) const
             {
-                ft::map_values<Key, T>    *tmp = this->_values;
+                ft::pair<Key, T>    *tmp = this->_values;
 
                 if (!tmp)
                     return (0);
                 while (tmp)
                 {
-                    if (tmp->key == k)
+                    if (tmp->first == k)
                         return (1);
                     tmp = tmp->next;
                 }
@@ -708,14 +703,14 @@ namespace ft {
             }
             iterator    lower_bound(const Key &k)
             {
-                ft::map_values<Key, T>      *tmp = this->_values;
+                ft::pair<Key, T>      *tmp = this->_values;
                 iterator                    it = this->begin();
                 unsigned int                i = 0;
                 std::less<std::string>      key_comp = this->key_comp();
 
                 while (tmp)
                 {
-                    if (key_comp(k, tmp->key) == 1)
+                    if (key_comp(k, tmp->first) == 1)
                     {
                         it.setPosition(i);
                         return (it);
@@ -728,7 +723,7 @@ namespace ft {
             }
             iterator    upper_bound(const Key &k)
             {
-                ft::map_values<Key, T>      *tmp = this->_values;
+                ft::pair<Key, T>      *tmp = this->_values;
                 iterator                    it = this->begin();
                 unsigned int                i = 0;
                 std::less<std::string>      key_comp = this->key_comp();
@@ -736,7 +731,7 @@ namespace ft {
                 it.setPosition(-1);
                 while (tmp)
                 {
-                    if (key_comp(k, tmp->key) == 1)
+                    if (key_comp(k, tmp->first) == 1)
                     {
                         it.setPosition(i);
                         break ;
@@ -751,12 +746,12 @@ namespace ft {
                 ft::pair<iterator, iterator>   to_return;
                 iterator                        it_first = this->begin();
                 iterator                        it_second = this->begin();
-                ft::map_values<Key, T>          *tmp = this->_values;
+                ft::pair<Key, T>          *tmp = this->_values;
                 unsigned int                    i = 0;
 
                 while (tmp)
                 {
-                    if (tmp->key == k)
+                    if (tmp->first == k)
                     {
                         it_first.setPosition(i);
                         it_second.setPosition(i);
@@ -764,7 +759,7 @@ namespace ft {
                         to_return.second = it_second;
                         return (to_return);
                     }
-                    if (tmp->key > k)
+                    if (tmp->first > k)
                     {
                         it_first.setPosition(i);
                         it_second.setPosition(i);
@@ -784,7 +779,7 @@ namespace ft {
                 ft::pair<const iterator, const iterator>   to_return;
                 const iterator                              it_first;
                 const iterator                              it_second;
-                ft::map_values<Key, T>          *tmp = this->_values;
+                ft::pair<Key, T>          *tmp = this->_values;
                 unsigned int                    i = 0;
 
                 while (tmp)
@@ -819,14 +814,14 @@ namespace ft {
                 return (alloc);
             }
         private:
-            ft::map_values<Key, T>  *_values;
+            ft::pair<Key, T>  *_values;
             ft::list_iterator<T>    *_it;
             const_iterator          _it_const;
 
             unsigned int    _getLen(void)
             {
                 unsigned int i = 0;
-                ft::map_values<Key, T> *tmp;
+                ft::pair<Key, T> *tmp;
 
                 tmp = this->_values;
                 while (tmp)
