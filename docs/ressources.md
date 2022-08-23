@@ -1,0 +1,1 @@
+1. [Is a linked list a kind of tree?](https://www.quora.com/Is-a-linked-list-a-kind-of-tree)

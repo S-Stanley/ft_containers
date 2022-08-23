@@ -228,7 +228,7 @@ namespace ft {
         list_iterator<T>    *next;
     };
 
-    template <typename Key, typename T, class Compare = std::less<Key>, class Alloc = std::allocator<ft::pair<const Key, T> > >
+    template <typename Key, typename T, class Compare = std::less<Key>, class Alloc = std::allocator<ft::map_values<Key, T> > >
     class map {
         public:
 
@@ -257,7 +257,7 @@ namespace ft {
 
                 while (this->_values){
                     tmp = this->_values->next;
-                    delete this->_values;
+                    this->get_allocator().deallocate(this->_values, 1);
                     this->_values = tmp;
                 }
             };
@@ -272,7 +272,7 @@ namespace ft {
                 tmp_src = x._values;
                 while (x._values)
                 {
-                    new_values = new ft::map_values<Key, T>;
+                    new_values = this->get_allocator().allocate(1);
 
                     new_values->key = x._values->key;
                     new_values->value = x._values->value;
@@ -442,7 +442,7 @@ namespace ft {
                 iterator_map<T>    it = this->begin();
                 ft::map_values<Key, T>  *tmp = this->_values;
                 ft::map_values<Key, T>  *previous = NULL;
-                ft::map_values<Key, T>  *to_add = new ft::map_values<Key, T>;
+                ft::map_values<Key, T>  *to_add = this->get_allocator().allocate(1);
                 bool    inserted = false;
                 unsigned int i = 0;
 
@@ -489,7 +489,7 @@ namespace ft {
                 ft::pair<iterator, bool>   to_return;
                 iterator    it;
                 ft::map_values<Key, T>  *tmp = this->_values;
-                ft::map_values<Key, T>  *to_add = new ft::map_values<Key, T>;
+                ft::map_values<Key, T>  *to_add = this->get_allocator().allocate(1);
                 unsigned int i = 0;
 
                 it = this->find(val.first);
@@ -540,7 +540,7 @@ namespace ft {
                 while (this->_values)
                 {
                     tmp = this->_values->next;
-                    delete this->_values;
+                    this->get_allocator().deallocate(this->_values, 1);
                     this->_values = tmp;
                 }
                 this->_values = NULL;
@@ -561,9 +561,9 @@ namespace ft {
                         buffer->next = tmp->next;
                         if (first.getPosition() == 0){
                             this->_values = tmp->next;
-                            delete tmp;
+                            this->get_allocator().deallocate(tmp, 1);
                         } else {
-                            delete tmp;
+                            this->get_allocator().deallocate(tmp, 1);
                             this->_values = start;
                         }
                         return ;
@@ -591,11 +591,11 @@ namespace ft {
                             } else {
                                 this->_values = this->_values->next;
                             }
-                            delete tmp;
+                            this->get_allocator().deallocate(tmp, 1);
                             return (1);
                         } else {
                             buff->next = tmp->next;
-                            delete tmp;
+                            this->get_allocator().deallocate(tmp, 1);
                             return (1);
                         }
                     }
