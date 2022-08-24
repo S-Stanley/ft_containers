@@ -80,10 +80,8 @@ int     main(int argc, char **argv)
 		if (strcmp(argv[2], "17") == 0)
 			test_map_equal_range(is_real_container);
 		if (strcmp(argv[2], "18") == 0)
-			test_map_get_allocator(is_real_container);
-		if (strcmp(argv[2], "19") == 0)
 			test_map_value_comp(is_real_container);
-		if (strcmp(argv[2], "20") == 0)
+		if (strcmp(argv[2], "19") == 0)
 			test_map_insert_with_range(is_real_container);
 	} else if (strcmp(argv[1], "others") == 0) {
 		if (strcmp(argv[2], "0") == 0)

@@ -4,8 +4,9 @@
 namespace ft {
     template <typename Key, typename Value>
     struct pair{
-        Key   first;
+        Key     first;
         Value   second;
+        pair    *next;
     };
 
     template <typename Key, typename Value>

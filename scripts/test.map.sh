@@ -7,7 +7,7 @@ NC='\033[0m'
 mkdir .tmp/
 rm -rf .tmp/result
 
-for ((i=0; i < 21; i++))
+for ((i=0; i < 20; i++))
 do
     if [ $i -ne 19 ]
     then
@@ -32,7 +32,7 @@ done
 
 if [[ $(uname) == 'Linux' ]]
 then
-    for ((i=0; i < 21; i++))
+    for ((i=0; i < 20; i++))
     do
         valgrind --leak-check=full --error-exitcode=1 ./ft_containers map $i ft > /dev/null
         if [ $? -eq 0 ]
