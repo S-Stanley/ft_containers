@@ -248,44 +248,17 @@ namespace ft {
                     this->_it = lst;
                 }
 
-                while (this->_values){
-                    tmp = this->_values->next;
-                    this->get_allocator().deallocate(this->_values, 1);
-                    this->_values = tmp;
-                }
+                // this->get_allocator().deallocate(this->_values, this->_getLen());
+                // while (this->_values){
+                //     tmp = this->_values->next;
+                //     this->_values = tmp;
+                // }
             };
             map &operator=(map &x)
             {
-                ft::pair<Key, T>  *new_values = NULL;
-                ft::pair<Key, T>  *tmp;
-                ft::pair<Key, T>  *tmp_src;
-                unsigned int      len = 0;
-
-                this->get_allocator().deallocate(this->_values, 1);
-                tmp_src = x._values;
-                while (x._values)
-                {
-                    new_values = this->get_allocator().allocate(1);
-                    this->get_allocator().construct(new_values, *x._values);
-                    std::cout << x._values->first << std::endl;
-
-                    if (len == 0)
-                    {
-                        this->_values = new_values;
-                    }
-                    else
-                    {
-                        tmp = this->_values;
-                        while (tmp->next)
-                        {
-                            tmp = tmp->next;
-                        }
-                        tmp->next = new_values;
-                    }
-                    x._values = x._values->next;
-                    len++;
-                }
-                x._values = tmp_src;
+                this->get_allocator().deallocate(this->_values, this->_getLen());
+                this->_values = this->get_allocator().allocate(x._getLen());
+                this->get_allocator().construct(this->_values, *x._values);
                 return *(this);
             }
 
@@ -435,49 +408,43 @@ namespace ft {
                 iterator_map<T>    it = this->begin();
                 ft::pair<Key, T>  *tmp = this->_values;
                 ft::pair<Key, T>  *previous = NULL;
-                ft::pair<Key, T>  *to_add = this->get_allocator().allocate(1);
-                bool    inserted = false;
-                unsigned int i = 0;
+                ft::pair<Key, T>  *to_add = this->get_allocator().allocate(this->_getLen() + 1);
+                // bool    inserted = false;
+                // unsigned int i = 0;
 
+                to_return.first = it;
+                to_return.second = true;
                 if (this->_values == NULL) {
                     val.next = NULL;
-                    this->get_allocator().construct(to_add, val);
-                    this->_values = to_add;
+                    val.previous = NULL;
+                    this->_values = &val;
+                    this->get_allocator().construct(to_add, *this->_values);
                 } else {
-                    while (tmp)
+                    while (tmp->next)
                     {
-                        if (to_add->first < tmp->first) {
-                            val.next = tmp;
-                            if (previous) {
-                                this->get_allocator().construct(to_add, val);
-                                previous->next = to_add;
-                                it.setPosition(i - 1);
-                            } else {
-                                this->get_allocator().construct(to_add, val);
-                                this->_values = to_add;
-                                it.setPosition(0);
-                            }
+                        if (tmp->first == val.first)
+                        {
                             to_return.first = it;
-                            to_return.second = inserted;
-                            this->setIterator();
+                            to_return.second = false;
                             return (to_return);
                         }
-                        previous = tmp;
+                        if (tmp->first > val.first)
+                        {
+                            val.next = tmp;
+                            val.previous = tmp->previous;
+                            this->get_allocator().construct(to_add, *this->_values);
+                            tmp->previous->next = &val;
+                            return (to_return);
+                        }
                         tmp = tmp->next;
-                        i++;
                     }
-                    this->get_allocator().construct(to_add, val);
-                    previous->next = to_add;
-                    it.setPosition(i);
-                    to_return.first = it;
-                    to_return.second = true;
-                    this->setIterator();
-                    return (to_return);
+                    val.next = NULL;
+                    val.previous = tmp;
+                    tmp->next = &val;
+                    this->get_allocator().construct(to_add, *this->_values);
                 }
-                to_return.first = it;
-                to_return.second = inserted;
-                this->setIterator();
                 return (to_return);
+
             }
             iterator insert(iterator position, const ft::pair<Key, T> &val)
             {
@@ -814,7 +781,7 @@ namespace ft {
                 return (alloc);
             }
         private:
-            ft::pair<Key, T>  *_values;
+            ft::pair<Key, T>        *_values;
             ft::list_iterator<T>    *_it;
             const_iterator          _it_const;
 

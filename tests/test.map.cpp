@@ -7,6 +7,7 @@ ft::pair<std::string, int> create_ft_pair(std::string key, int value)
     to_return.first = key;
     to_return.second = value;
     to_return.next = NULL;
+    to_return.previous = NULL;
     return (to_return);
 }
 
@@ -17,6 +18,7 @@ ft::pair<std::string, std::string> create_ft_pair(std::string key, std::string v
     to_return.first = key;
     to_return.second = value;
     to_return.next = NULL;
+    to_return.previous = NULL;
     return (to_return);
 }
 
@@ -575,21 +577,21 @@ void    test_map_operator_equal(bool is_real_container)
         ft::map<std::string, std::string>  map_ft_2;
         ft::pair<std::string, std::string> val = create_ft_pair("cin", "std");
         ft::pair<std::string, std::string> val1 = create_ft_pair("container", "map");
-        // ft::pair<std::string, std::string> val2 = create_ft_pair("cout", "std::");
-        // ft::pair<std::string, std::string> val3 = create_ft_pair("hello", "world");
+        ft::pair<std::string, std::string> val2 = create_ft_pair("cout", "std::");
+        ft::pair<std::string, std::string> val3 = create_ft_pair("hello", "world");
 
+        map_ft.insert(val);
+        map_ft.insert(val1);
+        map_ft.insert(val2);
+        map_ft.insert(val3);
         // map_ft.insert(val);
         // map_ft.insert(val1);
         // map_ft.insert(val2);
-        // map_ft.insert(val3);
-        map_ft.insert(val);
-        map_ft.insert(val1);
-        // map_ft.insert(val2);
         // map_ft.insert(val3)
         map_ft_2 = map_ft;
-        // std::cout << map_ft_2["cout"] << std::endl;
-        // std::cout << map_ft_2["hello"] << std::endl;
-        // std::cout << map_ft_2["cin"] << std::endl;
+        std::cout << map_ft_2["cout"] << std::endl;
+        std::cout << map_ft_2["hello"] << std::endl;
+        std::cout << map_ft_2["cin"] << std::endl;
     }
 }
 
