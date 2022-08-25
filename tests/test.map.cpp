@@ -869,3 +869,89 @@ void    test_map_never_have_twice_the_same_key(bool is_real_container)
         std::cout << map_ft.size() << std::endl;
     }
 }
+
+void    test_map_iterator_after_insert(bool is_real_container)
+{
+    if (is_real_container)
+    {
+        std::map<std::string, std::string>  map_std;
+        std::pair<std::string, std::string> val = create_std_pair("a", "a");
+        std::pair<std::string, std::string> val2 = create_std_pair("b", "b");
+        std::pair<std::string, std::string> val3 = create_std_pair("c", "c");
+
+        map_std.insert(val);
+        map_std.insert(val2);
+
+        std::map<std::string, std::string>::iterator    it = map_std.begin();
+
+        std::cout << it->first << std::endl;
+
+        std::cout << map_std.size() << std::endl;
+        map_std.insert(val3);
+        std::cout << map_std.size() << std::endl;
+
+        std::cout << it->first << std::endl;
+    }
+    else
+    {
+        ft::map<std::string, std::string>  map_ft;
+        ft::pair<std::string, std::string> val = create_ft_pair("a", "a");
+        ft::pair<std::string, std::string> val2 = create_ft_pair("b", "b");
+        ft::pair<std::string, std::string> val3 = create_ft_pair("c", "c");
+
+        map_ft.insert(val);
+        map_ft.insert(val2);
+
+        ft::map<std::string, std::string>::iterator    it = map_ft.begin();
+
+        std::cout << it->first << std::endl;
+
+        std::cout << map_ft.size() << std::endl;
+        map_ft.insert(val3);
+        std::cout << map_ft.size() << std::endl;
+
+        std::cout << it->first << std::endl;
+    }
+}
+
+void    test_map_iterator_after_erase(bool is_real_container)
+{
+    if (is_real_container)
+    {
+        std::map<std::string, std::string>  map_std;
+        std::pair<std::string, std::string> val = create_std_pair("a", "a");
+        std::pair<std::string, std::string> val2 = create_std_pair("b", "b");
+
+        map_std.insert(val);
+        map_std.insert(val2);
+
+        std::map<std::string, std::string>::iterator    it = map_std.begin();
+
+        std::cout << it->first << std::endl;
+
+        std::cout << map_std.size() << std::endl;
+        map_std.erase("a");
+        std::cout << map_std.size() << std::endl;
+
+        std::cout << it->first << std::endl;
+    }
+    else
+    {
+        ft::map<std::string, std::string>  map_ft;
+        ft::pair<std::string, std::string> val = create_ft_pair("a", "a");
+        ft::pair<std::string, std::string> val2 = create_ft_pair("b", "b");
+
+        map_ft.insert(val);
+        map_ft.insert(val2);
+
+        ft::map<std::string, std::string>::iterator    it = map_ft.begin();
+
+        std::cout << it->first << std::endl;
+
+        std::cout << map_ft.size() << std::endl;
+        map_ft.erase("a");
+        std::cout << map_ft.size() << std::endl;
+
+        std::cout << it->first << std::endl;
+    }
+}

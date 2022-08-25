@@ -89,6 +89,10 @@ int     main(int argc, char **argv)
 			test_map_never_have_twice_the_same_key(is_real_container);
 		if (strcmp(argv[2], "22") == 0)
 			test_iterator_map_swap(is_real_container);
+		if (strcmp(argv[2], "23") == 0)
+			test_map_iterator_after_insert(is_real_container);
+		if (strcmp(argv[2], "24") == 0)
+			test_map_iterator_after_erase(is_real_container);
 	} else if (strcmp(argv[1], "others") == 0) {
 		if (strcmp(argv[2], "0") == 0)
 			test_pair(is_real_container);
