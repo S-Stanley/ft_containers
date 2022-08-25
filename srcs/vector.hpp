@@ -23,7 +23,7 @@ namespace ft {
 			vector(void): _tab(NULL), _len(0), _max_cap(0), _it(NULL), _it_const(NULL) {};
 			~vector(void)
 			{
-				if (this->_tab)
+				if (this->_tab != NULL)
 					this->get_allocator().deallocate(this->_tab, this->size());
 				if (this->_it)
 					delete this->_it;
@@ -121,7 +121,9 @@ namespace ft {
 				if (this->_it)
 					delete this->_it;
 				this->_it = new Iterator<T>;
-				this->_it[0] = this->_tab;
+				// this->_it[0] = this->_tab;
+				this->_it->setArray(this->_tab, this->_len);
+				this->_it->setPosition(0);
 				return (this->_it);
 			}
 			const_iterator		begin(void) const
@@ -134,12 +136,16 @@ namespace ft {
 			}
 			iterator		end(void)
 			{
-				if (this->_it)
-					delete this->_it;
-				this->_it = new Iterator<T>;
-				this->_it->setArray(this->_tab);
-				this->_it->setPosition(this->_len + 1);
-				return (this->_it);
+				iterator	it = new Iterator<T>;
+
+				it->setArray(this->_tab, this->_len);
+				it->setPosition(this->_len);
+				// if (this->_it != NULL)
+					// delete this->_it;
+				// this->_it = new Iterator<T>;
+				// this->_it->setArray(this->_tab);
+				// this->_it->setPosition(this->_len + 1);
+				return (it);
 			}
 			const_iterator		end(void) const
 			{
@@ -443,7 +449,7 @@ namespace ft {
 			T               *_tab;
 			unsigned int    _len;
 			unsigned int	_max_cap;
-			iterator	_it;
+			iterator		_it;
 			const_iterator	_it_const;
 	};
 }

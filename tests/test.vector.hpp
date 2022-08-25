@@ -20,5 +20,6 @@ void    test_modifiers(bool is_real_vector = false);
 void	test_vector_max_size(bool is_real_vector = false);
 void	test_vector_allocator(bool is_real_container);
 void    test_vector_relational_operators(bool is_real_container);
+void	test_vector_iterator_and_const_iterator(bool is_real_container);
 
 #endif
