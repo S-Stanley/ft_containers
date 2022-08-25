@@ -794,3 +794,52 @@ void    test_iterator_and_const_iterator(bool is_real_container)
         }
     }
 }
+
+void    test_iterator_map_swap(bool is_real_container)
+{
+    if (is_real_container) {
+        std::map<std::string, std::string>  map_std;
+        std::map<std::string, std::string>  map_std_2;
+        std::pair<std::string, std::string> val = create_std_pair("a", "a");
+        std::pair<std::string, std::string> val1 = create_std_pair("b", "b");
+        std::pair<std::string, std::string> val2 = create_std_pair("c", "c");
+        std::pair<std::string, std::string> val3 = create_std_pair("d", "d");
+
+        map_std.insert(val);
+        map_std.insert(val1);
+        map_std_2.insert(val2);
+        map_std_2.insert(val3);
+
+        std::map<std::string, std::string>::iterator     it = map_std.begin();
+
+        std::cout << it->first << &it << std::endl;
+
+        std::cout << map_std.size() << " " << map_std_2.size() << std::endl;
+        map_std.swap(map_std_2);
+        std::cout << map_std.size() << " " << map_std_2.size() << std::endl;
+
+        std::cout << it->first << &it << std::endl;
+    } else {
+        ft::map<std::string, std::string>   map_ft;
+        ft::map<std::string, std::string>   map_ft_2;
+        ft::pair<std::string, std::string> val = create_ft_pair("a", "a");
+        ft::pair<std::string, std::string> val1 = create_ft_pair("b", "b");
+        ft::pair<std::string, std::string> val2 = create_ft_pair("c", "c");
+        ft::pair<std::string, std::string> val3 = create_ft_pair("d", "d");
+
+        map_ft.insert(val);
+        map_ft.insert(val1);
+        map_ft_2.insert(val2);
+        map_ft_2.insert(val3);
+
+        ft::map<std::string, std::string>::iterator     it = map_ft.begin();
+
+        std::cout << it->first << &it << std::endl;
+
+        std::cout << map_ft.size() << " " << map_ft_2.size() << std::endl;
+        map_ft.swap(map_ft_2);
+        std::cout << map_ft.size() << " " << map_ft_2.size() << std::endl;
+
+        std::cout << it->first << &it << std::endl;
+    }
+}
