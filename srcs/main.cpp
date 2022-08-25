@@ -85,6 +85,8 @@ int     main(int argc, char **argv)
 			test_map_insert_with_range(is_real_container);
 		if (strcmp(argv[2], "20") == 0)
 			test_iterator_and_const_iterator(is_real_container);
+		if (strcmp(argv[2], "21") == 0)
+			test_iterator_map_swap(is_real_container);
 	} else if (strcmp(argv[1], "others") == 0) {
 		if (strcmp(argv[2], "0") == 0)
 			test_pair(is_real_container);
