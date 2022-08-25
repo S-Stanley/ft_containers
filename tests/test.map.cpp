@@ -752,3 +752,45 @@ void    test_map_insert_with_range(bool is_real_container)
         }
     }
 }
+
+void    test_iterator_and_const_iterator(bool is_real_container)
+{
+    if (is_real_container)
+    {
+        std::map<std::string, std::string>  map_std;
+        std::pair<std::string, std::string> val3 = create_std_pair("cin", "std");
+        std::pair<std::string, std::string> val = create_std_pair("hello", "world");
+        std::pair<std::string, std::string> val2 = create_std_pair("test1", "test2");
+
+        map_std.insert(val);
+        map_std.insert(val3);
+        map_std.insert(val2);
+
+        std::map<std::string, std::string>::iterator        it = map_std.begin();
+        std::map<std::string, std::string>::const_iterator  it_end = map_std.end();
+        while (it != it_end)
+        {
+            std::cout << it->first << std::endl;
+            it++;
+        }
+    }
+    else
+    {
+        ft::map<std::string, std::string>  map_ft;
+        ft::pair<std::string, std::string> val3 = create_ft_pair("cin", "std");
+        ft::pair<std::string, std::string> val = create_ft_pair("hello", "world");
+        ft::pair<std::string, std::string> val2 = create_ft_pair("test1", "test2");
+
+        map_ft.insert(val);
+        map_ft.insert(val3);
+        map_ft.insert(val2);
+
+        ft::map<std::string, std::string>::iterator        it = map_ft.begin();
+        ft::map<std::string, std::string>::const_iterator  it_end = map_ft.end();
+        while (it != it_end)
+        {
+            std::cout << it->first << std::endl;
+            it++;
+        }
+    }
+}
