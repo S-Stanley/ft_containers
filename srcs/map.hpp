@@ -49,6 +49,12 @@ namespace ft {
             {
                 return (&this->it);
             }
+            bool    operator!=(iterator_map<K, T> src)
+            {
+                if (this->getPosition() != src.getPosition())
+                    return (true);
+                return (false);
+            }
             bool    operator<(iterator_map<K, T> src)
             {
                 return (src.getPosition() != this->getPosition());
@@ -204,7 +210,7 @@ namespace ft {
     class map {
         public:
 
-            typedef const ft::pair<Key, T>*         const_iterator;
+            typedef iterator_map<T, Key>            const_iterator;
             typedef iterator_map<T, Key>            iterator;
             typedef Alloc                           allocator_type;
             typedef std::pair<const Key, T>         value_type;
@@ -214,7 +220,7 @@ namespace ft {
             typedef ptrdiff_t                       difference_type;
             typedef iterator_map<T, Key>            reverse_iterator;
 
-            map(void): _values(NULL), _it(NULL), _it_const(NULL) {};
+            map(void): _values(NULL), _it(NULL) {};
             ~map(void)
             {
                 ft::pair<Key, T>		*tmp;
@@ -292,9 +298,9 @@ namespace ft {
                 }
                 return (it);
             }
-            const iterator_map<T, Key>    end(void) const
+            const_iterator    end(void) const
             {
-                iterator    it;
+                const_iterator    it;
                 ft::pair<Key, T>  *tmp = this->_values;
 
                 this->setIterator();
@@ -791,7 +797,6 @@ namespace ft {
         private:
             ft::pair<Key, T>  *_values;
             ft::list_iterator<T>    *_it;
-            const_iterator          _it_const;
 
             unsigned int    _getLen(void)
             {
