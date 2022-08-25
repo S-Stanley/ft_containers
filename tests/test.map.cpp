@@ -843,3 +843,29 @@ void    test_iterator_map_swap(bool is_real_container)
         std::cout << it->first << &it << std::endl;
     }
 }
+
+void    test_map_never_have_twice_the_same_key(bool is_real_container)
+{
+    if (is_real_container)
+    {
+        std::map<std::string, std::string>  map_std;
+        std::pair<std::string, std::string> val = create_std_pair("a", "a");
+
+        map_std.insert(val);
+        std::cout << map_std.size() << std::endl;
+
+        map_std.insert(val);
+        std::cout << map_std.size() << std::endl;
+    }
+    else
+    {
+        ft::map<std::string, std::string>  map_ft;
+        ft::pair<std::string, std::string> val = create_ft_pair("a", "a");
+
+        map_ft.insert(val);
+        std::cout << map_ft.size() << std::endl;
+
+        map_ft.insert(val);
+        std::cout << map_ft.size() << std::endl;
+    }
+}

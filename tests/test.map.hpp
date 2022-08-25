@@ -31,5 +31,6 @@ void    test_map_max_size(bool is_real_container);
 void    test_map_insert_with_range(bool is_real_container);
 void    test_iterator_and_const_iterator(bool is_real_container);
 void    test_iterator_map_swap(bool is_real_container);
+void    test_map_never_have_twice_the_same_key(bool is_real_container);
 
 #endif

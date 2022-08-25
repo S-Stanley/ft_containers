@@ -431,6 +431,12 @@ namespace ft {
                 } else {
                     while (tmp)
                     {
+                        if (to_add->first == tmp->first){
+                            this->get_allocator().deallocate(to_add, 1);
+                            to_return.first = it;
+                            to_return.second = false;
+                            return (to_return);
+                        }
                         if (to_add->first < tmp->first) {
                             to_add->next = tmp;
                             if (previous) {
