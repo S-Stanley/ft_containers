@@ -220,10 +220,9 @@ namespace ft {
             typedef ptrdiff_t                       difference_type;
             typedef iterator_map<T, Key>            reverse_iterator;
 
-            map(void): _values(NULL), _it(NULL) {};
+            map(void): _values(NULL), _it(NULL), _len(0) {};
             ~map(void)
             {
-                ft::pair<Key, T>		*tmp;
                 ft::list_iterator<T>        *lst;
 
                 while (this->_it != NULL)
@@ -233,44 +232,31 @@ namespace ft {
                     this->_it = lst;
                 }
 
-                while (this->_values){
-                    tmp = this->_values->next;
-                    this->get_allocator().deallocate(this->_values, 1);
-                    this->_values = tmp;
-                }
+                this->free_lst(this->_values);
+                this->_values = NULL;
             };
             map &operator=(map &x)
             {
-                ft::pair<Key, T>  *new_values = NULL;
-                ft::pair<Key, T>  *tmp;
-                ft::pair<Key, T>  *tmp_src;
-                ft::pair<Key, T>  buff;
-                unsigned int      len = 0;
+                ft::pair<Key, T>    *tmp = x._values;
+                ft::pair<Key, T>    *dup = NULL;
+                ft::pair<Key, T>    *new_node = NULL;
 
-                tmp_src = x._values;
-                while (x._values)
+
+                this->free_lst(this->_values);
+                if (!tmp)
+                    return *(this);
+                while (tmp->previous)
                 {
-                    buff.first = x._values->first;
-                    buff.second = x._values->second;
-                    buff.next = NULL;
-                    new_values = this->get_allocator().allocate(1);
-                    this->get_allocator().construct(new_values, buff);
-
-                    if (len == 0)
-                    {
-                        this->_values = new_values;
-                    }
-                    else
-                    {
-                        tmp = this->_values;
-                        while (tmp->next)
-                            tmp = tmp->next;
-                        tmp->next = new_values;
-                    }
-                    x._values = x._values->next;
-                    len++;
+                    tmp = tmp->previous;
                 }
-                x._values = tmp_src;
+                while (tmp)
+                {
+                    this->_len++;
+                    new_node = this->new_node(tmp->first, tmp->second);
+                    dup = this->insert_node(dup, new_node, dup);
+                    tmp = tmp->next;
+                }
+                this->_values = dup;
                 return *(this);
             }
 
@@ -379,17 +365,7 @@ namespace ft {
             }
             unsigned int    size(void) const
             {
-                ft::pair<Key, T>  *tmp = this->_values;
-                unsigned int count = 0;
-
-                if (!tmp)
-                    return (count);
-                while (tmp)
-                {
-                    tmp = tmp->next;
-                    count++;
-                }
-                return (count);
+                return (this->_len);
             }
             size_type   max_size(void) const
             {
@@ -401,16 +377,11 @@ namespace ft {
             {
                 ft::pair<Key, T>  *tmp;
 
-                tmp = this->_values;
-                if (!tmp)
-                    return (0);
-                while (tmp)
-                {
-                    if (tmp->first == k)
-                        return (tmp->second);
-                    tmp = tmp->next;
-                }
-                return (this->_values->second);
+                tmp = this->find_node(this->_values, k);
+                if (tmp)
+                    return (tmp->second);
+                std::cout << 0 << std::endl;
+                return (0);
             }
 
             /* modifiers */
@@ -418,97 +389,44 @@ namespace ft {
             {
                 ft::pair<iterator, bool>   to_return;
                 iterator_map<T>    it = this->begin();
-                ft::pair<Key, T>  *tmp = this->_values;
-                ft::pair<Key, T>  *previous = NULL;
-                ft::pair<Key, T>  *to_add = this->get_allocator().allocate(1);
-                bool    inserted = false;
-                unsigned int i = 0;
+                ft::pair<Key, T>  *to_add = NULL;
+                unsigned int actual_len = this->_len;
 
-                val.next = NULL;
-                this->get_allocator().construct(to_add, val);
-                if (this->_values == NULL) {
-                    this->_values = to_add;
-                } else {
-                    while (tmp)
-                    {
-                        if (to_add->first == tmp->first){
-                            this->get_allocator().deallocate(to_add, 1);
-                            to_return.first = it;
-                            to_return.second = false;
-                            return (to_return);
-                        }
-                        if (to_add->first < tmp->first) {
-                            to_add->next = tmp;
-                            if (previous) {
-                                previous->next = to_add;
-                                it.setPosition(i - 1);
-                            } else {
-                                this->_values = to_add;
-                                it.setPosition(0);
-                            }
-                            to_return.first = it;
-                            to_return.second = inserted;
-                            this->setIterator();
-                            return (to_return);
-                        }
-                        previous = tmp;
-                        tmp = tmp->next;
-                        i++;
-                    }
-                    previous->next = to_add;
-                    it.setPosition(i);
-                    to_return.first = it;
-                    to_return.second = true;
-                    this->setIterator();
-                    return (to_return);
-                }
-                to_return.first = it;
-                to_return.second = inserted;
+                this->_len++;
+                to_add = this->new_node(val.first, val.second);
+                this->_values = this->insert_node(this->_values, to_add, this->_values);
+
                 this->setIterator();
+                it.setPosition(this->find_index_node(this->_values, val.first));
+                to_return.first = it;
+                to_return.second = (this->_len > actual_len);
                 return (to_return);
             }
             iterator insert(iterator position, ft::pair<Key, T> &val)
             {
                 ft::pair<iterator, bool>   to_return;
-                iterator    it;
-                ft::pair<Key, T>  *tmp = this->_values;
-                ft::pair<Key, T>  *to_add = this->get_allocator().allocate(1);
-                unsigned int i = 0;
+                iterator_map<T>    it = this->begin();
+                ft::pair<Key, T>  *to_add = NULL;
 
-                it = this->find(val.first);
-                val.next = NULL;
-                this->get_allocator().construct(to_add, val);
-                if (!this->_values)
-                    this->_values = to_add;
-                else
-                {
-                    while (tmp->next)
-                    {
-                        if (i > position.getPosition()){
-                            to_add->next = tmp->next->next;
-                            break;
-                        }
-                        tmp = tmp->next;
-                        i++;
-                    }
-                    tmp->next = to_add;
-                    it.setPosition(i);
-                    to_return.first = it;
-                    to_return.second = true;
-                    return (to_return.first);
-                }
-                to_return.first = it;
-                return (to_return.first);
+                (void)position;
+
+                this->_len++;
+                to_add = this->new_node(val.first, val.second);
+                this->_values = this->insert_node(this->_values, to_add, this->_values);
+
+                this->setIterator();
+                it.setPosition(this->find_index_node(this->_values, val.first));
+                return (it);
             }
             void    insert(iterator first, iterator last)
             {
-                ft::pair<Key, T>   to_add;
+                ft::pair<Key, T>   *to_add = NULL;
 
                 while (first.getPosition() < last.getPosition())
                 {
-                    to_add.first = first->first;
-                    to_add.second = first->second;
-                    this->insert(to_add);
+                    this->_len++;
+                    to_add = this->new_node(first->first, first->second);
+                    this->_values = this->insert_node(this->_values, to_add, this->_values);
                     if (first.getReverse() == false)
                         first++;
                     else
@@ -517,75 +435,16 @@ namespace ft {
             }
             void    clear(void)
             {
-                ft::pair<Key, T>	*tmp;
-
-                while (this->_values)
-                {
-                    tmp = this->_values->next;
-                    this->get_allocator().deallocate(this->_values, 1);
-                    this->_values = tmp;
-                }
-                this->_values = NULL;
+                this->free_lst(this->_values);
             }
             void    erase(iterator pos)
             {
-                iterator  first = this->begin();
-                ft::pair<Key, T>  *tmp = this->_values;
-                ft::pair<Key, T> *buffer = this->_values;
-                ft::pair<Key, T> *start = this->_values;
-
-                if (this->_values == NULL)
-                    return ;
-                while (first.getPosition() <= pos.getPosition())
-                {
-                    if (first.getPosition() == pos.getPosition())
-                    {
-                        buffer->next = tmp->next;
-                        if (first.getPosition() == 0){
-                            this->_values = tmp->next;
-                            this->get_allocator().deallocate(tmp, 1);
-                        } else {
-                            this->get_allocator().deallocate(tmp, 1);
-                            this->_values = start;
-                        }
-                        return ;
-                    }
-                    first++;
-                    buffer = tmp;
-                    tmp = tmp->next;
-                }
+                this->_values = this->delete_node(this->_values, pos->first);
             }
             unsigned int    erase(const Key &k)
             {
-                ft::pair<Key, T>  *tmp = this->_values;
-                ft::pair<Key, T>  *buff = this->_values;
-                unsigned int            pos = 0;
-
-                if (!tmp)
-                    return (0);
-                while (tmp)
-                {
-                    if (tmp->first == k)
-                    {
-                        if (pos == 0) {
-                            if (this->size() == 1) {
-                                this->_values = NULL;
-                            } else {
-                                this->_values = this->_values->next;
-                            }
-                            this->get_allocator().deallocate(tmp, 1);
-                            return (1);
-                        } else {
-                            buff->next = tmp->next;
-                            this->get_allocator().deallocate(tmp, 1);
-                            return (1);
-                        }
-                    }
-                    buff = tmp;
-                    tmp = tmp->next;
-                    pos++;
-                }
-                return (0);
+                this->_values = this->delete_node(this->_values, k);
+                return (1);
             }
             void        erase(iterator first, iterator last)
             {
@@ -607,7 +466,7 @@ namespace ft {
                         return ;
                     buff = tmp->next;
                     first++;
-                    this->get_allocator().deallocate(tmp, 1);
+                    this->_values = this->delete_node(this->_values, tmp->first);
                     tmp = buff;
                 }
                 if (pos_started == 0){
@@ -801,8 +660,9 @@ namespace ft {
                 return (alloc);
             }
         private:
-            ft::pair<Key, T>  *_values;
+            ft::pair<Key, T>        *_values;
             ft::list_iterator<T>    *_it;
+            unsigned int            _len;
 
             unsigned int    _getLen(void)
             {
@@ -853,6 +713,235 @@ namespace ft {
                 while (tmp->next != NULL)
                     tmp = tmp->next;
                 return (tmp->iterator);
+            }
+            ft::pair<Key, T>    *new_node(Key key, T value)
+            {
+                ft::pair<Key, T>    *item = this->get_allocator().allocate(1);
+                ft::pair<Key, T>    val;
+
+
+                val.first = key;
+                val.second = value;
+                val.next = NULL;
+                val.previous = NULL;
+                this->get_allocator().construct(item, val);
+                return (item);
+            }
+            ft::pair<Key, T>    *insert_node(ft::pair<Key, T> *lst, ft::pair<Key, T> *new_node, ft::pair<Key, T> *pts)
+            {
+                ft::pair<Key, T>    *tmp;
+
+                tmp = lst;
+                if (!lst)
+                {
+                    lst = new_node;
+                    pts = lst;
+                }
+                else if (tmp->first == new_node->first)
+                {
+                    this->_len--;
+                    delete new_node;
+                    return (pts);
+                }
+                else if (new_node->first > lst->first)
+                {
+                    if (lst->next && new_node->first > lst->next->first){
+                        insert_node(lst->next, new_node, pts);
+                    } else {
+                        if (tmp->next)
+                            if (tmp->next->first == new_node->first)
+                            {
+                                this->_len--;
+                                delete new_node;
+                                return (pts);
+                            }
+                        new_node->previous = tmp;
+                        if (tmp->next)
+                        {
+                            new_node->next = tmp->next;
+                            tmp->next->previous = new_node;
+                        }
+                        tmp->next = new_node;
+                    }
+                }
+                else
+                {
+                    if (lst->previous && new_node->first < lst->previous->first){
+                        insert_node(lst->previous, new_node, pts);
+                    } else {
+                        if (tmp->previous)
+                        {
+                            if (tmp->previous->first == new_node->first)
+                            {
+                                this->_len--;
+                                delete new_node;
+                                return (pts);
+                            }
+                        }
+                        new_node->next = tmp;
+                        if (tmp->previous)
+                        {
+                            new_node->previous = tmp->previous;
+                            tmp->previous->next = new_node;
+                        }
+                        else
+                        {
+                            pts = new_node;
+                        }
+                        tmp->previous = new_node;
+                        if (tmp->previous->previous)
+                            tmp->previous->previous->next = new_node;
+                    }
+                }
+                return (pts);
+            }
+            ft::pair<Key, T>    *find_node(ft::pair<Key, T> *lst, Key key)
+            {
+                ft::pair<Key, T>    *tmp = lst;
+
+                if (!lst)
+                {
+                    return (NULL);
+                }
+                else if (lst->first == key)
+                {
+                    return (lst);
+                }
+                else if (key < lst->first)
+                {
+                    while (tmp)
+                    {
+                        if (tmp->first == key)
+                            return (tmp);
+                        tmp = tmp->previous;
+                    }
+                }
+                else
+                {
+                    while (tmp)
+                    {
+                        if (tmp->first == key)
+                            return (tmp);
+                        tmp = tmp->next;
+                    }
+                }
+                return (NULL);
+            }
+            unsigned int    find_index_node(ft::pair<Key, T> *lst, Key key)
+            {
+                ft::pair<Key, T>    *tmp = lst;
+                unsigned int        index = 0;
+
+                if (!lst || lst->first == key)
+                {
+                    return (0);
+                }
+                else if (key < lst->first)
+                {
+                    while (tmp)
+                    {
+                        if (tmp->first == key)
+                            return (index);
+                        tmp = tmp->previous;
+                        index++;
+                    }
+                }
+                else
+                {
+                    while (tmp)
+                    {
+                        if (tmp->first == key)
+                            return (index);
+                        tmp = tmp->next;
+                        index++;
+                    }
+                }
+                return (0);
+            }
+            void    free_lst(ft::pair<Key, T> *lst)
+            {
+                ft::pair<Key, T>    *tmp;
+
+                if (!lst)
+                    return ;
+                while (lst->previous)
+                {
+                    lst = lst->previous;
+                }
+                while (lst)
+                {
+                    tmp = lst->next;
+                    this->get_allocator().deallocate(lst, 1);
+                    lst = tmp;
+                }
+                this->_values = NULL;
+                this->_len = 0;
+            }
+            ft::pair<Key, T>    *delete_from_lst(ft::pair<Key, T> *lst)
+            {
+                ft::pair<Key, T>    *tmp = lst;
+                ft::pair<Key, T>    *ptr;
+
+                if (lst->previous)
+                {
+                    tmp = lst->previous;
+                    ptr = lst;
+                    lst->previous->next = lst->next;
+                    if (lst->next == NULL)
+                    {
+                        tmp->next = NULL;
+                    }
+                    else
+                    {
+                        lst->next->previous = tmp;
+                    }
+                    this->get_allocator().deallocate(ptr, 1);
+                    this->_len--;
+                    return (tmp);
+                }
+                else if (lst->next)
+                {
+                    tmp = lst->next;
+                    if (lst->previous == NULL)
+                        tmp->previous = NULL;
+                    ptr = lst;
+                    this->get_allocator().deallocate(ptr, 1);
+                    this->_len--;
+                    return (tmp);
+                }
+                this->get_allocator().deallocate(lst, 1);
+                this->_len--;
+                return (NULL);
+            }
+            ft::pair<Key, T>    *delete_node(ft::pair<Key, T> *lst, Key key)
+            {
+                if (!lst)
+                    return (NULL);
+                else if (lst->first == key)
+                {
+                    return (delete_from_lst(lst));
+                }
+                else if (key < lst->first)
+                {
+                    while (lst)
+                    {
+                        if (key == lst->first)
+                            return (delete_from_lst(lst));
+                        lst = lst->previous;
+                    }
+                }
+                else
+                {
+                    while (lst)
+                    {
+                        if (key == lst->first)
+                        {
+                            return (delete_from_lst(lst));
+                        }
+                        lst = lst->next;
+                    }
+                }
+                return (NULL);
             }
     };
 }
