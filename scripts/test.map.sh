@@ -9,7 +9,7 @@ rm -rf .tmp/result
 
 for ((i=0; i < 25; i++))
 do
-    if [ $i -ne 19 ] && [ $i -ne 22 ]
+    if [ $i -ne 19 ] && [ $i -ne 22 ] && [ $i -ne 18 ]
     then
         ./ft_containers map $i ft > .tmp/res.map
         ./ft_containers map $i std > .tmp/res.map.std
@@ -32,16 +32,19 @@ done
 
 if [[ $(uname) == 'Linux' ]]
 then
-    for ((i=0; i < 25; i++))
-    do
-        valgrind --leak-check=full --error-exitcode=1 ./ft_containers map $i ft > /dev/null
-        if [ $? -eq 0 ]
-        then
-            echo -e "${GREEN} NO LEAK ON TEST $i OK" >> .tmp/result
-        else
-            echo -e "${RED} LEAKS ON TEST $i KO" >> .tmp/result
-        fi
-    done
+    if [ $i -ne 19 ] && [ $i -ne 22 ] && [ $i -ne 18 ]
+    then
+        for ((i=0; i < 25; i++))
+        do
+            valgrind --leak-check=full --error-exitcode=1 ./ft_containers map $i ft > /dev/null
+            if [ $? -eq 0 ]
+            then
+                echo -e "${GREEN} NO LEAK ON TEST $i OK" >> .tmp/result
+            else
+                echo -e "${RED} LEAKS ON TEST $i KO" >> .tmp/result
+            fi
+        done
+    fi
 fi
 
 cat .tmp/result

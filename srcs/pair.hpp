@@ -7,6 +7,7 @@ namespace ft {
         Key     first;
         Value   second;
         pair    *next;
+        pair    *previous;
     };
 
     template <typename Key, typename Value>
