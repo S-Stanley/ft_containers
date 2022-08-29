@@ -13,8 +13,8 @@ class Iterator: public std::iterator<std::random_access_iterator_tag, T>
 		~Iterator(void){
 			if (this->_keys)
 				delete[] this->_keys;
-			if (this->_index)
-			 	delete[] this->_index;
+			//if (this->_index)
+			 	//delete[] this->_index;
 		};
 		Iterator	operator=(int *new_index)
 		{

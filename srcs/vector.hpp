@@ -118,9 +118,8 @@ namespace ft {
 
 			iterator		begin(void)
 			{
-				if (this->_it)
-					delete this->_it;
-				this->_it = new Iterator<T>;
+				if (!this->_it)
+				    this->_it = new Iterator<T>;
 				this->_it->setArray(this->_tab, this->_len);
 				this->_it->setPosition(0);
 				return (this->_it);
@@ -135,9 +134,8 @@ namespace ft {
 			}
 			iterator		end(void)
 			{
-				// if (this->_it)
-				// 	delete this->_it;
-				this->_it = new Iterator<T>;
+				if (!this->_it)
+				    this->_it = new Iterator<T>;
 				// if (!this->_it)
 				// 	this->_it->setArray(this->_tab, this->_len);
 				this->_it->setPosition(this->_len);
