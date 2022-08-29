@@ -10,12 +10,7 @@ class Iterator: public std::iterator<std::random_access_iterator_tag, T>
 {
 	public:
 		Iterator(void): it(NULL), _index(NULL), _position(-1), _keys(NULL), _len(0){};
-		~Iterator(void){
-			if (this->_keys)
-				delete[] this->_keys;
-			if (this->_index)
-			 	delete[] this->_index;
-		};
+		~Iterator(void){};
 		Iterator	operator=(int *new_index)
 		{
 			if (new_index)
@@ -31,12 +26,7 @@ class Iterator: public std::iterator<std::random_access_iterator_tag, T>
 		}
 		void	operator++(int)
 		{
-			this->_index++;
 			this->_position++;
-			if (this->_position < this->_len) {
-				this->first = this->_keys[this->_position];
-				this->second = this->_index[this->_position];
-			}
 		}
 		void	operator--(int)
 		{
@@ -45,7 +35,7 @@ class Iterator: public std::iterator<std::random_access_iterator_tag, T>
 		}
 		bool	operator!=(Iterator<T> src)
 		{
-			if ((src.getPosition() -1) == this->_position)
+			if ((src.getPosition()) == this->_position)
 				return (false);
 			return (true);
 		}
@@ -98,13 +88,10 @@ class Iterator: public std::iterator<std::random_access_iterator_tag, T>
 		void	setPosition(unsigned int position)
 		{
 			this->_position = position;
-			if (position < this->_len) {
-				this->first = this->_keys[position];
-				this->second = this->_index[position];
-			}
 		}
-		void	setArray(T *array)
+		void	setArray(T *array, unsigned int len = 0)
 		{
+			this->_len = len;
 			this->_index = array;
 		}
 		T		*getArray(void)
@@ -188,7 +175,7 @@ class Iterator: public std::iterator<std::random_access_iterator_tag, T>
 template <typename T>
 std::ostream	&operator<<(std::ostream &o, Iterator<T> &src)
 {
-	o << src.it;
+	o << src.getArray()[src.getPosition()];
 	return (o);
 }
 

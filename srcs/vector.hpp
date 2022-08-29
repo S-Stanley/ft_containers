@@ -10,8 +10,14 @@
 #include "../srcs/pair.hpp"
 
 namespace ft {
-	template <typename T, class Alloc = std::allocator<T> >
 
+	template <typename T>
+	struct iterator_pointor {
+		Iterator<T>			*iterator;
+		iterator_pointor	*next;
+	};
+
+	template <typename T, class Alloc = std::allocator<T> >
 	class vector {
 		public:
 
@@ -20,13 +26,20 @@ namespace ft {
 			typedef Iterator<T>*		iterator;
 			typedef const Iterator<T>*	const_iterator;
 
-			vector(void): _tab(NULL), _len(0), _max_cap(0), _it(NULL), _it_const(NULL) {};
+			vector(void): _tab(NULL), _len(0), _max_cap(0), _it(NULL), _it_const(NULL), _pts(NULL) {};
 			~vector(void)
 			{
+				ft::iterator_pointor<T>		*tmp;
+
 				if (this->_tab)
 					this->get_allocator().deallocate(this->_tab, this->size());
-				if (this->_it)
-					delete this->_it;
+				while (this->_pts)
+				{
+					tmp = this->_pts->next;
+					delete this->_pts->iterator;
+					delete this->_pts;
+					this->_pts = tmp;
+				}
 			};
 
 			bool	operator==(const ft::vector<T, Alloc> &comp)
@@ -118,11 +131,10 @@ namespace ft {
 
 			iterator		begin(void)
 			{
-				if (this->_it)
-					delete this->_it;
-				this->_it = new Iterator<T>;
-				this->_it[0] = this->_tab;
-				return (this->_it);
+				ft::iterator_pointor<T>		*tmp = this->getIterator();
+				tmp->iterator->setArray(this->_tab, this->_len);
+				tmp->iterator->setPosition(0);
+				return (tmp->iterator);
 			}
 			const_iterator		begin(void) const
 			{
@@ -134,12 +146,10 @@ namespace ft {
 			}
 			iterator		end(void)
 			{
-				if (this->_it)
-					delete this->_it;
-				this->_it = new Iterator<T>;
-				this->_it->setArray(this->_tab);
-				this->_it->setPosition(this->_len + 1);
-				return (this->_it);
+				ft::iterator_pointor<T>		*tmp = this->getIterator();
+				tmp->iterator->setArray(this->_tab, this->_len);
+				tmp->iterator->setPosition(this->_len);
+				return (tmp->iterator);
 			}
 			const_iterator		end(void) const
 			{
@@ -440,11 +450,34 @@ namespace ft {
 			}
 
 		private:
-			T               *_tab;
-			unsigned int    _len;
-			unsigned int	_max_cap;
-			iterator	_it;
-			const_iterator	_it_const;
+			T               		*_tab;
+			unsigned int    		_len;
+			unsigned int			_max_cap;
+			iterator				_it;
+			const_iterator			_it_const;
+			ft::iterator_pointor<T>	*_pts;
+
+            ft::iterator_pointor<T>		*getIterator(void)
+            {
+				ft::iterator_pointor<T>	*tmp;
+				ft::iterator_pointor<T>	*new_node = new ft::iterator_pointor<T>;
+				iterator				new_iterator = new Iterator<T>;
+
+				new_node->iterator = new_iterator;
+				new_node->next = NULL;
+				if (!this->_pts)
+				{
+					this->_pts = new_node;
+					return (new_node);
+				}
+				tmp = this->_pts;
+				while (tmp->next)
+				{
+					tmp = tmp->next;
+				}
+				tmp->next = new_node;
+				return (new_node);
+            }
 	};
 }
 
