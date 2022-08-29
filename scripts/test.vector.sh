@@ -7,7 +7,7 @@ NC='\033[0m'
 mkdir .tmp/
 rm -rf .tmp/result
 
-for ((i=0; i < 7; i++))
+for ((i=0; i < 8; i++))
 do
     if [ $i -ne 3 ]
     then
@@ -31,7 +31,7 @@ done
 
 if [[ $(uname) == 'Linux' ]]
 then
-    for ((i=0; i < 7; i++))
+    for ((i=0; i < 8; i++))
     do
         if [ $i -ne 3 ]
         then

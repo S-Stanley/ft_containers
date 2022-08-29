@@ -230,3 +230,39 @@ void	test_vector_relational_operators(bool is_real_container)
 		std::cout << (vector_ft >= vector_ft_2) << std::endl;
 	}
 }
+
+void	test_vector_iterator_and_const_iterator(bool is_real_container)
+{
+	if (is_real_container)
+	{
+		std::vector<int>	vector_std;
+
+		vector_std.push_back(5);
+		vector_std.push_back(10);
+
+		std::vector<int>::iterator			it = vector_std.begin();
+		std::vector<int>::const_iterator	it_end = vector_std.end();
+
+		while (it != it_end)
+		{
+			std::cout << *it << std::endl;
+			it++;
+		}
+	}
+	else
+	{
+		ft::vector<int>	vector_ft;
+
+		vector_ft.push_back(5);
+		vector_ft.push_back(10);
+
+		ft::vector<int>::iterator			it = vector_ft.begin();
+		ft::vector<int>::const_iterator	it_end = vector_ft.end();
+
+		while ((*it) != (*it_end))
+		{
+			std::cout << (*it) << std::endl;
+			(*it)++;
+		}
+	}
+}
