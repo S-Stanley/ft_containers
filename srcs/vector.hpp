@@ -121,7 +121,8 @@ namespace ft {
 				if (this->_it)
 					delete this->_it;
 				this->_it = new Iterator<T>;
-				this->_it[0] = this->_tab;
+				this->_it->setArray(this->_tab, this->_len);
+				this->_it->setPosition(0);
 				return (this->_it);
 			}
 			const_iterator		begin(void) const
@@ -129,16 +130,17 @@ namespace ft {
 				if (this->_it_const)
 					delete this->_it_const;
 				this->_it_const = new Iterator<T>;
-				this->_it_const = this->_tab;
+				this->_it_const->setArray(this->_tab, this->_len);
 				return (this->_it_const);
 			}
 			iterator		end(void)
 			{
-				if (this->_it)
-					delete this->_it;
+				// if (this->_it)
+				// 	delete this->_it;
 				this->_it = new Iterator<T>;
-				this->_it->setArray(this->_tab);
-				this->_it->setPosition(this->_len + 1);
+				// if (!this->_it)
+				// 	this->_it->setArray(this->_tab, this->_len);
+				this->_it->setPosition(this->_len);
 				return (this->_it);
 			}
 			const_iterator		end(void) const
@@ -146,8 +148,8 @@ namespace ft {
 				if (this->_it_const)
 					delete this->_it_const;
 				this->_it_const = new Iterator<T>;
-				this->_it_const->setArray(this->_tab);
-				this->_it_const->setPosition(this->_len + 1);
+				this->_it_const->setArray(this->_tab, this->_len);
+				this->_it_const->setPosition(this->_len);
 				return (this->_it_const);
 			}
 			RIterator<T>			rbegin(void)
