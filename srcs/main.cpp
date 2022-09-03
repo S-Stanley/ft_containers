@@ -34,14 +34,12 @@ int     main(int argc, char **argv)
 		if (strcmp(argv[2], "2") == 0)
 			test_vector_element_access(is_real_container);
 		if (strcmp(argv[2], "3") == 0)
-			test_vector(is_real_container);
-		if (strcmp(argv[2], "4") == 0)
 			test_vector_capacity(is_real_container);
-		if (strcmp(argv[2], "5") == 0)
+		if (strcmp(argv[2], "4") == 0)
 			test_modifiers(is_real_container);
-		if (strcmp(argv[2], "6") == 0)
+		if (strcmp(argv[2], "5") == 0)
 			test_vector_relational_operators(is_real_container);
-		if (strcmp(argv[2], "7") == 0)
+		if (strcmp(argv[2], "6") == 0)
 			test_vector_iterator_and_const_iterator(is_real_container);
 	}
 	else if (strcmp(argv[1], "map") == 0) {
@@ -101,10 +99,6 @@ int     main(int argc, char **argv)
 		if (strcmp(argv[2], "1") == 0)
 			test_make_pair(is_real_container);
 		if (strcmp(argv[2], "2") == 0)
-			test_is_integral(is_real_container);
-		if (strcmp(argv[2], "3") == 0)
-			test_enable_if(is_real_container);
-		if (strcmp(argv[2], "4") == 0)
 			test_equal(is_real_container);
 	} else if (strcmp(argv[1], "stack") == 0){
 		if (strcmp(argv[2], "0") == 0)

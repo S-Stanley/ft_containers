@@ -23,69 +23,6 @@ void	test_vector_element_access(bool is_real_vector)
 	}
 }
 
-void	test_vector(bool is_real_vector)
-{
-	if (is_real_vector) {
-		std::vector<int>	vec;
-
-		std::cout << vec.size() << std::endl;
-
-		vec.push_back(4);
-		std::cout << vec.size() << std::endl;
-		std::cout << vec[0] << std::endl;
-
-		vec.push_back(42);
-		vec.push_back(15);
-		vec.push_back(3);
-		vec.push_back(24);
-		for (int i = 0; i < 5; i++)
-			std::cout << vec[i] << std::endl;
-
-		vec.erase(vec.begin());
-		for (int i = 0; i < 4; i++)
-			std::cout << vec[i] << std::endl;
-
-		vec.clear();
-		vec.push_back(42);
-		vec.push_back(15);
-		std::cout << vec.size() << std::endl;
-
-		vec.pop_back();
-		std::cout << vec.size() << std::endl;
-		for (int i = 0; i < 1; i++)
-			std::cout << vec[i] << std::endl;
-	} else {
-		ft::vector<int>		vec;
-
-		std::cout << vec.size() << std::endl;
-
-		vec.push_back(4);
-		std::cout << vec.size() << std::endl;
-		std::cout << vec[0] << std::endl;
-
-		vec.push_back(42);
-		vec.push_back(15);
-		vec.push_back(3);
-		vec.push_back(24);
-		for (int i = 0; i < 5; i++)
-			std::cout << vec[i] << std::endl;
-
-		vec.erase(vec.begin());
-		for (int i = 0; i < 4; i++)
-			std::cout << vec[i] << std::endl;
-
-		vec.clear();
-		vec.push_back(42);
-		vec.push_back(15);
-		std::cout << vec.size() << std::endl;
-
-		vec.pop_back();
-		std::cout << vec.size() << std::endl;
-		for (int i = 0; i < 1; i++)
-			std::cout << vec[i] << std::endl;
-		}
-}
-
 void	test_vector_capacity(bool is_real_vector)
 {
 	if (is_real_vector) {

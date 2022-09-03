@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-#include <type_traits>
 
 #include "./test.map.hpp"
 #include "../srcs/vector.hpp"
@@ -63,39 +62,6 @@ void    test_make_pair(bool is_real_container)
     } else {
         std::cout << ft::make_pair("Hello", "world").first << std::endl;
         std::cout << ft::make_pair("Hello", "world").second << std::endl;
-    }
-}
-
-
-void    test_is_integral(bool is_real_container)
-{
-    if (is_real_container) {
-        std::cout << std::is_integral<char>::value << std::endl;
-        std::cout << std::is_integral<float>::value << std::endl;
-    } else {
-  	std::cout << ft::is_integral<char>::value << std::endl;
-        std::cout << ft::is_integral<float>::value << std::endl;
-    }
-}
-
-bool function_for_enable_if(typename std::enable_if<true, bool>::type = true)
-{
-    return (true);
-}
-
-bool function_for_enable_if_ft(typename ft::enable_if<true, bool>::type = true)
-{
-    return (true);
-}
-
-void    test_enable_if(bool is_real_container)
-{
-    if (is_real_container) {
-        std::cout << function_for_enable_if(false) << std::endl;
-        std::cout << function_for_enable_if() << std::endl;
-    } else {
-        std::cout << function_for_enable_if_ft(false) << std::endl;
-        std::cout << function_for_enable_if_ft() << std::endl;
     }
 }
 

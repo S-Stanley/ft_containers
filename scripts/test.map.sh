@@ -9,7 +9,7 @@ rm -rf .tmp/result
 
 for ((i=0; i < 25; i++))
 do
-    if [ $i -ne 19 ] && [ $i -ne 22 ] && [ $i -ne 18 ]
+    if [ $i -ne 22 ] && [ $i -ne 18 ]
     then
         ./ft_containers map $i ft > .tmp/res.map
         ./ft_containers map $i std > .tmp/res.map.std
@@ -32,7 +32,7 @@ done
 
 if [[ $(uname) == 'Linux' ]]
 then
-    if [ $i -ne 19 ] && [ $i -ne 22 ] && [ $i -ne 18 ]
+    if [ $i -ne 22 ] && [ $i -ne 18 ]
     then
         for ((i=0; i < 25; i++))
         do

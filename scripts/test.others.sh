@@ -7,7 +7,7 @@ NC='\033[0m'
 mkdir .tmp/
 rm -rf .tmp/result
 
-for ((i=0; i < 5; i++))
+for ((i=0; i < 3; i++))
 do
     ./ft_containers others $i ft > .tmp/res.others
     ./ft_containers others $i std > .tmp/res.others.std
@@ -26,7 +26,7 @@ do
     fi
 done
 
-for ((i=0; i < 5; i++))
+for ((i=0; i < 3; i++))
 do
     if [ $i -ne 4 ]
     then
