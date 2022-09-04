@@ -30,7 +30,7 @@ namespace ft {
     {
         public:
             iterator_map(): _values(NULL), _position(0), _lst(NULL), _reverse(false){};
-            ~iterator_map(){
+            virtual ~iterator_map(){
                 ft::map_pointer_lst<K, T>   *tmp = NULL;
 
                 while (this->_lst)

@@ -10,7 +10,7 @@ class Iterator: public std::iterator<std::random_access_iterator_tag, T>
 {
 	public:
 		Iterator(void): it(NULL), _index(NULL), _position(-1), _keys(NULL), _len(0){};
-		~Iterator(void){};
+		virtual ~Iterator(void){};
 		Iterator	operator=(int *new_index)
 		{
 			if (new_index)

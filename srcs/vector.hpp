@@ -36,7 +36,7 @@ namespace ft {
 			typedef unsigned int		size_type;
 
 			vector(void): _tab(NULL), _len(0), _max_cap(0), _it(NULL), _it_const(NULL), _pts(NULL) {};
-			~vector(void)
+			virtual ~vector(void)
 			{
 				ft::iterator_pointor<T>		*tmp;
 
