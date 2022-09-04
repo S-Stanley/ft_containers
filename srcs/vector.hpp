@@ -4,6 +4,7 @@
 #include <iostream>
 #include <cmath>
 #include <typeinfo>
+#include <cstddef>
 
 #include "iterators_traits.hpp"
 #include "reverse_iterator.hpp"
@@ -23,8 +24,16 @@ namespace ft {
 
 			typedef T					value_type;
 			typedef Alloc				allocator_type;
+			typedef value_type&			reference;
+			typedef const value_type&	const_reference;
+			typedef value_type*			pointer;
+			typedef const value_type*	const_pointer;
 			typedef Iterator<T>*		iterator;
 			typedef const Iterator<T>*	const_iterator;
+			typedef RIterator<T>		reverse_iterator;
+			typedef const RIterator<T>	const_reverse_iterator;
+			typedef ptrdiff_t			difference_type;
+			typedef unsigned int		size_type;
 
 			vector(void): _tab(NULL), _len(0), _max_cap(0), _it(NULL), _it_const(NULL), _pts(NULL) {};
 			~vector(void)
