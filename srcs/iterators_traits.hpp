@@ -41,31 +41,31 @@ class Iterator: public std::iterator<std::random_access_iterator_tag, T>
 		}
 		bool	operator!=(Iterator<T> *src)
 		{
-			if ((src->getPosition() -1) == this->_position)
+			if ((src->getPosition()) == this->_position)
 				return (false);
 			return (true);
 		}
 		bool	operator==(Iterator<T> src)
 		{
-			if ((src.getPosition() -1) == this->_position)
+			if ((src.getPosition()) == this->_position)
 				return (true);
 			return (false);
 		}
 		bool	operator==(Iterator<T> const src) const
 		{
-			if ((src.getPosition() -1) == this->_position)
+			if ((src.getPosition()) == this->_position)
 				return (true);
 			return (false);
 		}
 		bool	operator<(Iterator<T> src)
 		{
-			if (this->_position < src.getPosition() -1)
+			if (this->_position < src.getPosition())
 				return (true);
 			return (false);
 		}
 		bool	operator<(Iterator<T> *src)
 		{
-			if (this->_position < src->getPosition() -1)
+			if (this->_position < src->getPosition())
 				return (true);
 			return (false);
 		}
