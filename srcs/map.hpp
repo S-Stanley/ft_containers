@@ -210,15 +210,22 @@ namespace ft {
     class map {
         public:
 
-            typedef iterator_map<T, Key>            const_iterator;
-            typedef iterator_map<T, Key>            iterator;
-            typedef Alloc                           allocator_type;
+            typedef Key                             key_type;
+            typedef T                               mapped_type;
             typedef std::pair<const Key, T>         value_type;
             typedef Compare                  	    key_compare;
             typedef ft::value_compare<Key, T>       value_compare;
-            typedef size_t                          size_type;
-            typedef ptrdiff_t                       difference_type;
+            typedef Alloc                           allocator_type;
+            typedef value_type&                     reference;
+            typedef const value_type&               const_reference;
+            typedef value_type*                     pointer;
+            typedef const value_type*               const_pointer;
+            typedef iterator_map<T, Key>            iterator;
+            typedef iterator_map<T, Key>            const_iterator;
             typedef iterator_map<T, Key>            reverse_iterator;
+            typedef const iterator_map<T, Key>      const_reverse_iterator;
+            typedef ptrdiff_t                       difference_type;
+            typedef size_t                          size_type;
 
             map(void): _values(NULL), _it(NULL), _len(0) {};
             ~map(void)

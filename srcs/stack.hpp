@@ -7,8 +7,9 @@ namespace ft {
     class stack {
         public:
 
-            typedef unsigned int size_type;
-            typedef Value value_type;
+            typedef Value 			value_type;
+            typedef Container		container_type;
+            typedef unsigned int	size_type;
 
             stack(void){
                 this->_data = NULL;
@@ -20,90 +21,90 @@ namespace ft {
                 }
             };
 
-			bool	operator==(const ft::stack<Value> &comp)
-			{
-				unsigned int i = 0;
+            bool	operator==(const ft::stack<Value> &comp)
+            {
+                unsigned int i = 0;
 
-				if (this->size() != comp.size())
-					return (false);
-				while (i != this->_size)
-				{
-					if (this->_data[i] != comp._data[i])
-						return (false);
-					i++;
-				}
-				return (true);
-			}
-			bool	operator!=(const ft::stack<Value> &comp)
-			{
-				unsigned int i = 0;
+                if (this->size() != comp.size())
+                    return (false);
+                while (i != this->_size)
+                {
+                    if (this->_data[i] != comp._data[i])
+                        return (false);
+                    i++;
+                }
+                return (true);
+            }
+            bool	operator!=(const ft::stack<Value> &comp)
+            {
+                unsigned int i = 0;
 
-				if (this->size() != comp.size())
-					return (true);
-				while (i != this->_size)
-				{
-					if (this->_data[i] != comp._data[i])
-						return (true);
-					i++;
-				}
-				return (false);
-			}
-			bool	operator<(const ft::stack<Value> &comp)
-			{
-				unsigned int i = 0;
+                if (this->size() != comp.size())
+                    return (true);
+                while (i != this->_size)
+                {
+                    if (this->_data[i] != comp._data[i])
+                        return (true);
+                    i++;
+                }
+                return (false);
+            }
+            bool	operator<(const ft::stack<Value> &comp)
+            {
+                unsigned int i = 0;
 
-				if (this->size() < comp.size())
-					return (false);
-				while (i != this->_size)
-				{
-					if (this->_data[i] >= comp._data[i])
-						return (false);
-					i++;
-				}
-				return (true);
-			}
-			bool	operator<=(const ft::stack<Value> &comp)
-			{
-				unsigned int i = 0;
+                if (this->size() < comp.size())
+                    return (false);
+                while (i != this->_size)
+                {
+                    if (this->_data[i] >= comp._data[i])
+                        return (false);
+                    i++;
+                }
+                return (true);
+            }
+            bool	operator<=(const ft::stack<Value> &comp)
+            {
+                unsigned int i = 0;
 
-				if (this->size() > comp.size())
-					return (false);
-				while (i != this->_size && i != comp._size)
-				{
-					if (this->_data[i] > comp._data[i])
-						return (false);
-					i++;
-				}
-				return (true);
-			}
-			bool	operator>(const ft::stack<Value> &comp)
-			{
-				unsigned int i = 0;
+                if (this->size() > comp.size())
+                    return (false);
+                while (i != this->_size && i != comp._size)
+                {
+                    if (this->_data[i] > comp._data[i])
+                        return (false);
+                    i++;
+                }
+                return (true);
+            }
+            bool	operator>(const ft::stack<Value> &comp)
+            {
+                unsigned int i = 0;
 
-				if (this->size() > comp.size())
-					return (true);
-				while (i != this->_size)
-				{
-					if (this->_data[i] <= comp._data[i])
-						return (false);
-					i++;
-				}
-				return (true);
-			}
-			bool	operator>=(const ft::stack<Value> &comp)
-			{
-				unsigned int i = 0;
+                if (this->size() > comp.size())
+                    return (true);
+                while (i != this->_size)
+                {
+                    if (this->_data[i] <= comp._data[i])
+                        return (false);
+                    i++;
+                }
+                return (true);
+            }
+            bool	operator>=(const ft::stack<Value> &comp)
+            {
+                unsigned int i = 0;
 
-				if (this->size() < comp.size())
-					return (false);
-				while (i != this->_size && i != comp._size)
-				{
-					if (this->_data[i] < comp._data[i])
-						return (false);
-					i++;
-				}
-				return (true);
-			}
+                if (this->size() < comp.size())
+                    return (false);
+                while (i != this->_size && i != comp._size)
+                {
+                    if (this->_data[i] < comp._data[i])
+                        return (false);
+                    i++;
+                }
+                return (true);
+            }
 
             bool        empty(void) const {
                 if (!this->_data) {
