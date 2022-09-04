@@ -32,7 +32,7 @@ namespace ft {
 				ft::iterator_pointor<T>		*tmp;
 
 				if (this->_tab)
-					this->get_allocator().deallocate(this->_tab, this->size());
+					this->clear();
 				while (this->_pts)
 				{
 					tmp = this->_pts->next;
@@ -41,6 +41,21 @@ namespace ft {
 					this->_pts = tmp;
 				}
 			};
+			ft::vector<T>	operator=(const ft::vector<T> &src)
+			{
+				T	*update = this->get_allocator().allocate(src._len);
+
+				if (this->_tab)
+					this->clear();
+				for (unsigned int i = 0; i < src._len; i++)
+				{
+					this->get_allocator().construct(&update[i], src._tab[i]);
+				}
+				this->_tab = update;
+				this->_len = src._len;
+				this->_max_cap = src._max_cap;
+				return *(this);
+			}
 
 			bool	operator==(const ft::vector<T, Alloc> &comp)
 			{
@@ -369,13 +384,16 @@ namespace ft {
 				this->_max_cap = 0;
 				this->_tab = NULL;
 			}
-			void	swap(ft::vector<T> &a)
+			void	swap(ft::vector<T> &src)
 			{
-				ft::vector<T>	tmp;
+				unsigned int 	tmp_len = this->_len;
+				T				*tmp_tab = this->_tab;
 
-				tmp = a;
-				a = this;
-				this = tmp;
+				this->_len = src._len;
+				this->_tab = src._tab;
+
+				src._len = tmp_len;
+				src._tab = tmp_tab;
 			}
 			void	assign(unsigned int N, const T &val)
 			{

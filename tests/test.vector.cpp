@@ -203,3 +203,33 @@ void	test_vector_iterator_and_const_iterator(bool is_real_container)
 		}
 	}
 }
+
+void	test_vector_swap(bool is_real_container)
+{
+	if (is_real_container)
+	{
+		std::vector<int>	vector_std;
+		std::vector<int>	vector_std_2;
+
+		vector_std.push_back(42);
+		vector_std_2.push_back(24);
+
+		vector_std.swap(vector_std_2);
+
+		std::cout << vector_std[0] << std::endl;
+		std::cout << vector_std_2[0] << std::endl;
+	}
+	else
+	{
+		ft::vector<int>	vector_ft;
+		ft::vector<int>	vector_ft_2;
+
+		vector_ft.push_back(42);
+		vector_ft_2.push_back(24);
+
+		vector_ft.swap(vector_ft_2);
+
+		std::cout << vector_ft[0] << std::endl;
+		std::cout << vector_ft_2[0] << std::endl;
+	}
+}
