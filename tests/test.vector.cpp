@@ -5,7 +5,7 @@ void	test_vector_element_access(bool is_real_vector)
 	if (is_real_vector) {
 		std::vector<int>	vec;
 
-		for (int i = 1; i < 7; i++)
+		for (int i = 1; i < 10000; i++)
 			vec.push_back(i * 2);
 		std::cout << vec[2] << std::endl;
 		std::cout << vec.at(1) << std::endl;
@@ -14,7 +14,7 @@ void	test_vector_element_access(bool is_real_vector)
 	} else {
 		ft::vector<int>	vec;
 
-		for (int i = 1; i < 7; i++)
+		for (int i = 1; i < 10000; i++)
 			vec.push_back(i * 2);
 		std::cout << vec[2] << std::endl;
 		std::cout << vec.at(1) << std::endl;

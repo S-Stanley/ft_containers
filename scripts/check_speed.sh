@@ -6,48 +6,86 @@
 # end=$(date +%s)
 # echo "Elapsed Time: $(($end-$start)) seconds"
 
-TIMEFORMAT='FT containers took %R seconds.'
-time {
-    for ((i=0; i < 25; i++))
-    do
-        if [ $i -ne 22 ] && [ $i -ne 18 ]
-        then
-            ./ft_containers map $i ft > /dev/null
-        fi
-    done
-    for ((i=0; i < 3; i++))
-    do
-        ./ft_containers others $i ft > /dev/null
-    done
-    for ((i=0; i < 7; i++))
-    do
-        ./ft_containers vector $i ft > /dev/null
-    done
-    for ((i=0; i < 7; i++))
-    do
-        ./ft_containers stack $i ft > /dev/null
-    done
-}
+containers=(map vector stack others)
 
-TIMEFORMAT='STD containers took %R took seconds.'
-time {
-    for ((i=0; i < 21; i++))
-    do
-        if [ $i -ne 22 ] && [ $i -ne 18 ]
+for container in "${containers[@]}";
+do
+    echo "calculating speed for container $container"
+    TIMEFORMAT='FT containers took %R seconds.'
+    time {
+        if [ "$container" != map ]
         then
-            ./ft_containers map $i std > /dev/null
+            for ((i=0; i < 25; i++))
+            do
+                if [ $i -ne 22 ] && [ $i -ne 18 ]
+                then
+                    ./ft_containers "$container" "$i" ft > /dev/null
+                fi
+            done
         fi
-    done
-    for ((i=0; i < 3; i++))
-    do
-        ./ft_containers others $i std > /dev/null
-    done
-    for ((i=0; i < 7; i++))
-    do
-        ./ft_containers vector $i std > /dev/null
-    done
-    for ((i=0; i < 7; i++))
-    do
-        ./ft_containers stack $i std > /dev/null
-    done
-}
+
+        if [ "$container" != vector ]
+        then
+            for ((i=0; i < 3; i++))
+            do
+                ./ft_containers "$container" "$i" ft > /dev/null
+            done
+        fi
+
+        if [ "$container" != stack ]
+        then
+            for ((i=0; i < 7; i++))
+            do
+                ./ft_containers "$container" "$i" ft > /dev/null
+            done
+        fi
+
+        if [ "$container" != others ]
+        then
+            for ((i=0; i < 7; i++))
+            do
+                ./ft_containers "$container" "$i" ft > /dev/null
+            done
+        fi
+    }
+
+    TIMEFORMAT='STD containers took %R took seconds.'
+    time {
+        if [ "$container" != map ]
+        then
+            for ((i=0; i < 25; i++))
+            do
+                if [ $i -ne 22 ] && [ $i -ne 18 ]
+                then
+                    ./ft_containers "$container" "$i" std > /dev/null
+                fi
+            done
+        fi
+
+        if [ "$container" != vector ]
+        then
+            for ((i=0; i < 3; i++))
+            do
+                ./ft_containers "$container" "$i" std > /dev/null
+            done
+        fi
+
+        if [ "$container" != stack ]
+        then
+            for ((i=0; i < 7; i++))
+            do
+                ./ft_containers "$container" "$i" std > /dev/null
+            done
+        fi
+
+        if [ "$container" != others ]
+        then
+            for ((i=0; i < 7; i++))
+            do
+                ./ft_containers "$container" "$i" std > /dev/null
+            done
+        fi
+    }
+
+    printf "\n"
+done

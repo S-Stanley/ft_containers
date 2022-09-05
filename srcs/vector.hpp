@@ -293,7 +293,7 @@ namespace ft {
 						i++;
 					}
 				}
-				this->get_allocator().deallocate(this->_tab, this->_len);
+				this->get_allocator().deallocate(this->_tab, this->_max_cap);
 				this->_tab = update;
 				this->_len = N;
 				this->_max_cap = N;
@@ -323,7 +323,7 @@ namespace ft {
 						i++;
 					}
 				}
-				this->get_allocator().deallocate(this->_tab, this->_len);
+				this->get_allocator().deallocate(this->_tab, this->_max_cap);
 				this->_tab = update;
 				this->_len = N;
 				this->_max_cap = N;
@@ -350,7 +350,7 @@ namespace ft {
 						this->get_allocator().construct(&update[i], this->_tab[i]);
 						new_len++;
 					}
-					this->get_allocator().deallocate(this->_tab, this->_len);
+					this->get_allocator().deallocate(this->_tab, this->_max_cap);
 					this->_len = new_len;
 					this->_tab = update;
 					this->_max_cap = N;
@@ -363,17 +363,27 @@ namespace ft {
 
 			void    push_back(const T &val)
 			{
-				T   *update = this->get_allocator().allocate(this->size() + 1);
+				unsigned int new_size = (this->size() * 2) + 1;
 				unsigned     i;
 
-				for (i = 0; i < this->size(); i++)
-					this->get_allocator().construct(&update[i], this->_tab[i]);
-				this->get_allocator().construct(&update[i], val);
-				if (this->_tab)
-					this->get_allocator().deallocate(this->_tab, this->_len);
-				this->_tab = update;
-				this->_len++;
-				this->_max_cap++;
+				if (this->_max_cap > this->size())
+				{
+					this->get_allocator().construct(&this->_tab[this->_len], val);
+					this->_len++;
+				}
+				else
+				{
+					T   *update = this->get_allocator().allocate(new_size);
+
+					for (i = 0; i < this->size(); i++)
+						this->get_allocator().construct(&update[i], this->_tab[i]);
+					this->get_allocator().construct(&update[i], val);
+					if (this->_tab)
+						this->get_allocator().deallocate(this->_tab, this->_max_cap);
+					this->_tab = update;
+					this->_len++;
+					this->_max_cap = new_size;
+				}
 			}
 			void    pop_back(void)
 			{
@@ -388,7 +398,7 @@ namespace ft {
 			}
 			void	clear(void)
 			{
-				this->get_allocator().deallocate(this->_tab, this->_len);
+				this->get_allocator().deallocate(this->_tab, this->_max_cap);
 				this->_len = 0;
 				this->_max_cap = 0;
 				this->_tab = NULL;
@@ -428,7 +438,7 @@ namespace ft {
 
 				for (unsigned int i = 0; i < this->_len; i++)
 					this->get_allocator().construct(&update[i], this->_tab[i]);
-				this->get_allocator().deallocate(this->_tab, this->_len);
+				this->get_allocator().deallocate(this->_tab, this->_max_cap);
 				this->_tab = update;
 			}
 			iterator		erase(iterator position)
@@ -444,7 +454,7 @@ namespace ft {
 						count++;
 					}
 				}
-				this->get_allocator().deallocate(this->_tab, this->_len);
+				this->get_allocator().deallocate(this->_tab, this->_max_cap);
 				this->_tab = update;
 				this->_len--;
 				this->_max_cap--;
