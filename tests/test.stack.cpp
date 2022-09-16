@@ -172,3 +172,21 @@ void	test_stack_relational_operators(bool is_real_container)
 		std::cout << (stack_ft >= stack_ft_2) << std::endl;
 	}
 }
+
+void    test_underlying_container(bool is_real_container)
+{
+    if (is_real_container)
+    {
+        std::stack<int>::container_type     c;
+
+        c.push_back(42);
+        std::cout << c.size() << std::endl;
+    }
+    else
+    {
+        ft::stack<int>::container_type      c;
+
+        c.push_back(42);
+        std::cout << c.size() << std::endl;
+    }
+}

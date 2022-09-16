@@ -2,7 +2,7 @@
 # define STACK_HPP
 
 namespace ft {
-    template <typename Value, typename Container = std::vector<Value> >
+    template <typename Value, typename Container = std::deque<Value> >
 
     class stack {
         public:
@@ -156,8 +156,10 @@ namespace ft {
                 this->_size--;
             }
         private:
-            value_type  *_data;
-            size_type   _size;
+            value_type      *_data;
+            size_type       _size;
+        protected:
+            container_type  c;
     };
 }
 
