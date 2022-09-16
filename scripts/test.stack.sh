@@ -7,7 +7,7 @@ NC='\033[0m'
 mkdir .tmp/
 rm -rf .tmp/result
 
-for ((i=0; i < 7; i++))
+for ((i=0; i < 8; i++))
 do
     ./ft_containers stack $i ft > .tmp/res.stack
     ./ft_containers stack $i std > .tmp/res.stack.std
@@ -28,7 +28,7 @@ done
 
 if [[ $(uname) == 'Linux' ]]
 then
-    for ((i=0; i < 7; i++))
+    for ((i=0; i < 8; i++))
     do
         valgrind --leak-check=full --error-exitcode=1 ./ft_containers stack $i ft > /dev/null
         if [ $? -eq 0 ]
