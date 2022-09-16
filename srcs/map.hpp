@@ -19,32 +19,27 @@ namespace ft {
     };
 
     template <typename K, typename T>
-
     struct map_pointer_lst{
         map_pointer<K, T>       *lst;
         map_pointer_lst<K, T>   *next;
     };
 
-    template <typename T, typename K = std::string>
+    template <typename T, typename K = std::string, class Alloc = std::allocator<ft::pair<K, T> > >
     class iterator_map
     {
         public:
-            iterator_map(): _values(NULL), _position(0), _lst(NULL), _reverse(false){};
-            virtual ~iterator_map(){
-                ft::map_pointer_lst<K, T>   *tmp = NULL;
+            typedef Alloc   allocator_type;
 
-                while (this->_lst)
-                {
-                    tmp = this->_lst->next;
-                    this->_lst = tmp;
-                }
+            iterator_map(): _values(NULL), _position(0), _lst(NULL), _reverse(false){
+	    };
+            virtual ~iterator_map()
+            {
             };
 
             void    setValues(ft::pair<K, T> *data){
-                if (data == NULL)
-                    return;
-                this->_values = data;
-            }
+            	if (data != NULL)
+			this->_values = data;
+	    }
             ft::map_pointer<K, T> *operator->(void)
             {
                 return (&this->it);
@@ -157,7 +152,7 @@ namespace ft {
 
                 this->_position = position;
                 tmp = this->_values;
-                if (this->_values != NULL)
+                if (tmp)
                 {
                     while (tmp)
                     {
@@ -180,13 +175,31 @@ namespace ft {
             {
                 return (this->_reverse);
             }
-
+        protected:
+            allocator_type  get_allocator(void) const {
+                allocator_type  alloc;
+                return (alloc);
+            }
         private:
             ft::pair<K, T>              *_values;
             unsigned int                _position;
             ft::map_pointer<K, T>       it;
             ft::map_pointer_lst<K, T>   *_lst;
             bool                        _reverse;
+
+            ft::pair<K, T>    *new_node(K key, T value)
+            {
+                ft::pair<K, T>    *item = this->get_allocator().allocate(1);
+                ft::pair<K, T>    val;
+
+
+                val.first = key;
+                val.second = value;
+                val.next = NULL;
+                val.previous = NULL;
+                this->get_allocator().construct(item, val);
+                return (item);
+            }
     };
 
     template <typename T, typename K>
@@ -209,7 +222,6 @@ namespace ft {
     template <typename Key, typename T, class Compare = std::less<Key>, class Alloc = std::allocator<ft::pair<Key, T> > >
     class map {
         public:
-
             typedef Key                             key_type;
             typedef T                               mapped_type;
             typedef std::pair<const Key, T>         value_type;
@@ -314,23 +326,9 @@ namespace ft {
             }
             const reverse_iterator   rbegin(void) const
             {
-                const reverse_iterator    it;
-                ft::pair<Key, T>  *tmp = this->_values;
-                unsigned int    i = 0;
-                Key *arr_keys = new Key[this->_getLen()];
-                T   *arr_values = new T[this->_getLen()];
-
-                while (tmp)
-                {
-                    arr_keys[i] = tmp->first;
-                    arr_values[i] = tmp->second;
-                    tmp = tmp->next;
-                    i++;
-                }
-                it = tmp;
-                it.setPosition(this->_getLen() - 1);
-                it.setIndex(arr_values);
-                it.setKeys(arr_keys);
+                this->setIterator();
+                iterator it = this->getIterator();
+                it.setReverse();
                 return (it);
             }
             reverse_iterator   rend(void)
@@ -343,23 +341,10 @@ namespace ft {
             }
             const reverse_iterator   rend(void) const
             {
-                const reverse_iterator    it;
-                ft::pair<Key, T>  *tmp = this->_values;
-                unsigned int    i = 0;
-                Key *arr_keys = new Key[this->_getLen()];
-                T   *arr_values = new T[this->_getLen()];
-
-                while (tmp)
-                {
-                    arr_keys[i] = tmp->first;
-                    arr_values[i] = tmp->second;
-                    tmp = tmp->next;
-                    i++;
-                }
-                it = tmp;
-                it.setIndex(arr_values);
-                it.setKeys(arr_keys);
-                it.setPosition(-1);
+                this->setIterator();
+                iterator it = this->getIterator();
+                it.setReverse();
+                it.setPosition(this->_getLen());
                 return (it);
             }
 
@@ -387,25 +372,20 @@ namespace ft {
                 tmp = this->find_node(this->_values, k);
                 if (tmp)
                     return (tmp->second);
-                std::cout << 0 << std::endl;
                 return (0);
             }
 
             /* modifiers */
-            ft::pair<iterator, bool> insert(ft::pair<Key, T> &val)
+	    ft::pair<iterator, bool> insert(ft::pair<Key, T> &val)
             {
                 ft::pair<iterator, bool>   to_return;
-                iterator_map<T>    it = this->begin();
                 ft::pair<Key, T>  *to_add = NULL;
                 unsigned int actual_len = this->_len;
 
                 this->_len++;
-                to_add = this->new_node(val.first, val.second);
+		        to_add = this->new_node(val.first, val.second);
                 this->_values = this->insert_node(this->_values, to_add, this->_values);
 
-                this->setIterator();
-                it.setPosition(this->find_index_node(this->_values, val.first));
-                to_return.first = it;
                 to_return.second = (this->_len > actual_len);
                 return (to_return);
             }
@@ -686,40 +666,15 @@ namespace ft {
             }
             void    setIterator()
             {
-                ft::list_iterator<T> *new_lst_it = new ft::list_iterator<T>;
-                iterator     new_it;
-                ft::list_iterator<T>    *tmp;
-
-                if (this->_values != NULL)
-                {
-                    new_it.setValues(this->_values);
-                }
-                new_it.setPosition(0);
-                new_lst_it->iterator = new_it;
-                new_lst_it->next = NULL;
-
-                if (this->_it == NULL)
-                {
-                    this->_it = new_lst_it;
-                }
-                else
-                {
-                    tmp = this->_it;
-                    while (tmp->next)
-                        tmp = tmp->next;
-                    tmp->next = new_lst_it;
-                }
+                return ;
             }
             iterator getIterator()
             {
-                ft::list_iterator<T>    *tmp = NULL;
+                iterator    it;
 
-                if (this->_it == NULL)
-                    return tmp->iterator;
-                tmp = this->_it;
-                while (tmp->next != NULL)
-                    tmp = tmp->next;
-                return (tmp->iterator);
+                it.setValues(this->_values);
+                it.setPosition(0);
+                return (it);
             }
             ft::pair<Key, T>    *new_node(Key key, T value)
             {

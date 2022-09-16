@@ -36,7 +36,6 @@ std::pair<std::string, std::string> create_std_pair(std::string key, std::string
     return (to_return);
 }
 
-
 void    test_map_compile(bool is_real_container)
 {
     if (is_real_container) {
@@ -86,9 +85,9 @@ void    test_map_insert(bool is_real_container)
         std::cout << map_ft["ts"] << std::endl;
         std::cout << map_ft["py"] << std::endl;
         map_ft_2.insert(val1);
-	map_ft_2.insert(val2);
-	map_ft_2.insert(val3);
-        std::cout << map_ft_2["cpp"] << std::endl; 
+        map_ft_2.insert(val2);
+        map_ft_2.insert(val3);
+        std::cout << map_ft_2["cpp"] << std::endl;
         std::cout << map_ft_2["ts"] << std::endl;
         std::cout << map_ft_2["py"] << std::endl;
         std::cout << map_ft_2.size() << std::endl;
@@ -933,7 +932,7 @@ void    test_map_iterator_after_erase(bool is_real_container)
         map_std.erase("a");
         std::cout << map_std.size() << std::endl;
 
-        std::cout << it->first << std::endl;
+	std::cout << it->first << std::endl;
     }
     else
     {
@@ -951,7 +950,7 @@ void    test_map_iterator_after_erase(bool is_real_container)
         std::cout << map_ft.size() << std::endl;
         map_ft.erase("a");
         std::cout << map_ft.size() << std::endl;
-
-        std::cout << it->first << std::endl;
+	
+	std::cout << it->first << std::endl;
     }
 }
