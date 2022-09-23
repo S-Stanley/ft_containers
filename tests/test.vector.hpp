@@ -22,7 +22,6 @@ void    test_vector_relational_operators(bool is_real_container);
 void	test_vector_iterator_and_const_iterator(bool is_real_container);
 void	test_vector_swap(bool is_real_container);
 void	test_vector_equal(bool is_real_container);
-void	test_vector_rbegin_and_rend(bool is_real_container);
 void	test_vector_resize(bool is_real_container);
 void	test_vector_reserve(bool is_real_container);
 void	test_vector_assign(bool is_real_container);

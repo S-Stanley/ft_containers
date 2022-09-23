@@ -32,7 +32,6 @@ class RIterator: public std::iterator<std::random_access_iterator_tag, T>
 		}
 		void		setPosition(unsigned int pos)
 		{
-			std::cout << "hey: " << pos << std::endl;
 			this->_position = pos;
 		}
 		void	operator++(int)
@@ -71,7 +70,6 @@ class RIterator: public std::iterator<std::random_access_iterator_tag, T>
 				tmp_len--;
 			}
 			this->setPosition(len - 1);
-			//delete []tmp;
 			this->_index = arr_values;
 		}
 		void	setKeys(K *new_keys)

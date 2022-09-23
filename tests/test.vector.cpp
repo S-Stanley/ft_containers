@@ -238,70 +238,33 @@ void	test_vector_equal(bool is_real_container)
 {
 	if (is_real_container)
 	{
-		// std::vector<int>	vector_std;
-		// std::vector<int>	vector_std_2;
+		std::vector<int>	vector_std;
+		std::vector<int>	vector_std_2;
 
-		// vector_std.push_back(42);
+		vector_std.push_back(42);
 
-		// vector_std_2 = vector_std;
+		vector_std_2 = vector_std;
 
-		// std::cout << vector_std.size() << std::endl;
-		// std::cout << vector_std_2.size() << std::endl;
+		std::cout << vector_std.size() << std::endl;
+		std::cout << vector_std_2.size() << std::endl;
 
-		// std::cout << vector_std.at(0) << std::endl;
-		// std::cout << vector_std_2.at(0) << std::endl;
+		std::cout << vector_std.at(0) << std::endl;
+		std::cout << vector_std_2.at(0) << std::endl;
 	}
 	else
 	{
-		// ft::vector<int>	vector_ft;
-		// ft::vector<int>	vector_ft_2;
+		ft::vector<int>	vector_ft;
+		ft::vector<int>	vector_ft_2;
 
-		// vector_ft.push_back(42);
+		vector_ft.push_back(42);
 
-		// vector_ft_2 = vector_ft;
+		vector_ft_2 = vector_ft;
 
-		// vector_ft.push_back(15);
+		std::cout << vector_ft.size() << std::endl;
+		std::cout << vector_ft_2.size() << std::endl;
 
-		// std::cout << vector_ft.size() << std::endl;
-		// std::cout << vector_ft_2.size() << std::endl;
-
-		// std::cout << vector_ft.at(0) << std::endl;
-		// std::cout << "end of function \n";
-		// std::cout << vector_ft_2.at(0) << std::endl;
-	}
-}
-
-void	test_vector_rbegin_and_rend(bool is_real_container)
-{
-	if (is_real_container)
-	{
-		// std::vector<int>	vector_std;
-
-		// vector_std.push_back(24);
-		// vector_std.push_back(42);
-
-		// std::vector<int>::reverse_iterator	rit = vector_std.rbegin();
-
-		// while (rit != vector_std.rend())
-		// {
-		// 	std::cout << *rit << std::endl;
-		// 	*rit++;
-		// }
-	}
-	else
-	{
-		// ft::vector<int>	vector_ft;
-
-		// vector_ft.push_back(24);
-		// vector_ft.push_back(42);
-
-		// ft::vector<int>::reverse_iterator	rit = vector_ft.rbegin();
-
-		// while (rit != vector_ft.rend())
-		// {
-		// 	std::cout << rit << std::endl;
-		// 	rit++;
-		// }
+		std::cout << vector_ft.at(0) << std::endl;
+		std::cout << vector_ft_2.at(0) << std::endl;
 	}
 }
 

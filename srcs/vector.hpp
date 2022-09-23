@@ -50,7 +50,7 @@ namespace ft {
 					this->_pts = tmp;
 				}
 			};
-			ft::vector<T>	operator=(ft::vector<T> &src)
+			ft::vector<T>	&operator=(const ft::vector<T> &src)
 			{
 				T	*update = this->get_allocator().allocate(src._len);
 
@@ -615,20 +615,6 @@ namespace ft {
 				tmp->next = new_node;
 				return (new_node);
             }
-			iterator	get_iterator_begin(void)
-			{
-				ft::iterator_pointor<T>		*tmp = this->getIterator();
-				tmp->iterator->setArray(this->_tab, this->_len);
-				tmp->iterator->setPosition(0);
-				return (tmp->iterator);
-			}
-			iterator	get_iterator_end(void)
-			{
-				ft::iterator_pointor<T>		*tmp = this->getIterator();
-				tmp->iterator->setArray(this->_tab, this->_len);
-				tmp->iterator->setPosition(this->_len);
-				return (tmp->iterator);
-			}
 	};
 }
 
