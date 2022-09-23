@@ -12,22 +12,27 @@ class RIterator: public std::iterator<std::random_access_iterator_tag, T>
 	public:
 		RIterator(void): _index(NULL), _position(-1), _keys(NULL){};
 		virtual ~RIterator(void){
-			delete[] this->_index;
+			// delete[] this->_index;
 		};
-		RIterator	operator=(int *new_index)
+		RIterator<T>	operator=(int *new_index)
 		{
 			if (new_index)
 				this->_index = new_index;
 			return (*this);
 		}
-		RIterator	operator=(void	*tmp)
+		RIterator<T>	operator=(void	*tmp)
 		{
 			this->_index = static_cast<T *>(tmp);
 			this->_position = 0;
 			return (*this);
 		}
+		bool		operator!=(RIterator<T> comp)
+		{
+			return (this->getPosition() != comp.getPosition());
+		}
 		void		setPosition(unsigned int pos)
 		{
+			std::cout << "hey: " << pos << std::endl;
 			this->_position = pos;
 		}
 		void	operator++(int)
@@ -55,15 +60,12 @@ class RIterator: public std::iterator<std::random_access_iterator_tag, T>
 		}
 		void	setIndex(unsigned int len = 0, T *tmp = NULL)
 		{
-			if (this->_index)
-				delete this->_index;
 			unsigned int    i = 0;
-			T   *arr_values = new T[len];
+			T   arr_values[len];
 			unsigned int tmp_len = len - 1;
 
-			while (tmp_len >=  0)
+			while (tmp_len >  0)
 			{
-				std::cout << tmp[i] << std::endl;
 				arr_values[i] = tmp[i];
 				i++;
 				tmp_len--;
@@ -80,8 +82,7 @@ class RIterator: public std::iterator<std::random_access_iterator_tag, T>
 		}
 		T		*getArray(void)
 		{
-			T	*arr = this->_index;
-			return (arr);
+			return (this->_index);
 		}
 		K		*getKeys(void)
 		{
@@ -97,7 +98,7 @@ class RIterator: public std::iterator<std::random_access_iterator_tag, T>
 template <typename T>
 std::ostream	&operator<<(std::ostream &o, RIterator<T> &src)
 {
-	o << src.getIndex();
+	o << src.getArray()[src.getPosition() - 1];
 	return (o);
 }
 

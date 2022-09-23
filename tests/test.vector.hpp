@@ -21,5 +21,14 @@ void	test_vector_allocator(bool is_real_container);
 void    test_vector_relational_operators(bool is_real_container);
 void	test_vector_iterator_and_const_iterator(bool is_real_container);
 void	test_vector_swap(bool is_real_container);
+void	test_vector_equal(bool is_real_container);
+void	test_vector_rbegin_and_rend(bool is_real_container);
+void	test_vector_resize(bool is_real_container);
+void	test_vector_reserve(bool is_real_container);
+void	test_vector_assign(bool is_real_container);
+void	test_vector_pop_back(bool is_real_container);
+void	test_vector_insert(bool is_real_container);
+void	test_vector_erase(bool is_real_container);
+void	test_vector_clear(bool is_real_container);
 
 #endif
