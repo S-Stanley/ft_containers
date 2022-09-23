@@ -52,39 +52,19 @@ namespace ft {
 			};
 			ft::vector<T>	operator=(ft::vector<T> &src)
 			{
-				// T	*update = this->get_allocator().allocate(src._len);
+				T	*update = this->get_allocator().allocate(src._len);
 
-				// if (this->_tab)
-				// 	this->clear();
-				// for (unsigned int i = 0; i < src._len; i++)
-				// {
-				// 	this->get_allocator().construct(&update[i], src._tab[i]);
-				// }
-				// if (this->_tab)
-				// 	this->get_allocator().deallocate(this->_tab, this->_max_cap);
-				// this->_tab = update;
-				// this->_len = src._len;
-				// this->_max_cap = src._len;
-				iterator		first = src.begin();
-				iterator		last = src.end();
-
-				unsigned int	nb_item_to_add = (last->getPosition() - first->getPosition());
-				T   			*update = this->get_allocator().allocate(this->_max_cap + nb_item_to_add);
-				unsigned int	tab_i = 0;
-				unsigned int	new_len = this->_len + nb_item_to_add;
-				unsigned int	new_max_cap = this->_max_cap + nb_item_to_add;
-
-				while (first->getPosition() != last->getPosition())
+				if (this->_tab)
+					this->clear();
+				for (unsigned int i = 0; i < src._len; i++)
 				{
-					this->get_allocator().construct(&update[tab_i], first->getArray()[first->getPosition()]);
-					(*first)++;
-					tab_i++;
+					this->get_allocator().construct(&update[i], src._tab[i]);
 				}
 				if (this->_tab)
 					this->get_allocator().deallocate(this->_tab, this->_max_cap);
 				this->_tab = update;
-				this->_len = new_len;
-				this->_max_cap = new_max_cap;
+				this->_len = src._len;
+				this->_max_cap = src._len;
 				return *(this);
 			}
 
@@ -412,7 +392,6 @@ namespace ft {
 				T   *update = this->get_allocator().allocate(this->_max_cap);
 
 				this->_len--;
-				this->_max_cap--;
 				for (unsigned int i = 0; i < this->_len; i++)
 					this->get_allocator().construct(&update[i], this->_tab[i]);
 				this->get_allocator().deallocate(this->_tab, this->size());
@@ -439,16 +418,16 @@ namespace ft {
 					this->get_allocator().deallocate(this->_tab, this->_max_cap);
 				this->_tab = update;
 				this->_len++;
-				this->_max_cap++;
+				this->_max_cap = this->_len + 1;
 				return (position);
 			}
 			void		insert(iterator position, size_type n, const value_type &val)
 			{
-				T   			*update = this->get_allocator().allocate(this->_len + n);
+				unsigned int	new_max_cap = this->_max_cap + n;
+				T   			*update = this->get_allocator().allocate(new_max_cap);
 				unsigned int	i = 0;
 				unsigned int	tab_i = 0;
 				unsigned int	new_len = this->_len + n;
-				unsigned int	new_max_cap = this->_max_cap + n;
 
 				while (i < position->getPosition() && i < this->_len)
 				{
@@ -477,11 +456,11 @@ namespace ft {
 			void		insert(iterator position, iterator first, iterator last)
 			{
 				unsigned int	nb_item_to_add = (last->getPosition() - first->getPosition());
-				T   			*update = this->get_allocator().allocate(this->_max_cap + nb_item_to_add);
+				unsigned int	new_max_cap = this->_max_cap + nb_item_to_add;
+				T   			*update = this->get_allocator().allocate(new_max_cap);
 				unsigned int	i = 0;
 				unsigned int	tab_i = 0;
 				unsigned int	new_len = this->_len + nb_item_to_add;
-				unsigned int	new_max_cap = this->_max_cap + nb_item_to_add;
 
 				while (i < position->getPosition() && i < this->_len)
 				{
@@ -554,6 +533,7 @@ namespace ft {
 				if (this->_tab)
 					this->get_allocator().deallocate(this->_tab, this->_max_cap);
 				this->_tab = update;
+				this->_max_cap = this->_len;
 			}
 			iterator		erase(iterator position)
 			{
@@ -580,6 +560,7 @@ namespace ft {
 				T	*update = this->get_allocator().allocate(this->_max_cap - (last->getPosition() - first->getPosition()));
 				iterator index = this->begin();
 				int	count = 0;
+				this->_max_cap = this->_max_cap - (last->getPosition() - first->getPosition());
 
 				for (unsigned int i = 0; i < this->_len; i++)
 				{
