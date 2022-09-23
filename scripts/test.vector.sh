@@ -7,7 +7,7 @@ NC='\033[0m'
 mkdir .tmp/
 rm -rf .tmp/result
 
-for ((i=0; i < 8; i++))
+for ((i=0; i < 18; i++))
 do
     ./ft_containers vector $i ft > .tmp/res.vector
     ./ft_containers vector $i std > .tmp/res.vector.std
@@ -28,7 +28,7 @@ done
 
 if [[ $(uname) == 'Linux' ]]
 then
-    for ((i=0; i < 8; i++))
+    for ((i=0; i < 18; i++))
     do
         valgrind --leak-check=full --error-exitcode=1 ./ft_containers vector $i ft > /dev/null
         if [ $? -eq 0 ]

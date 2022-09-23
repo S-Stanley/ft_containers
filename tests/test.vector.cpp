@@ -233,3 +233,288 @@ void	test_vector_swap(bool is_real_container)
 		std::cout << vector_ft_2[0] << std::endl;
 	}
 }
+
+void	test_vector_equal(bool is_real_container)
+{
+	if (is_real_container)
+	{
+		// std::vector<int>	vector_std;
+		// std::vector<int>	vector_std_2;
+
+		// vector_std.push_back(42);
+
+		// vector_std_2 = vector_std;
+
+		// std::cout << vector_std.size() << std::endl;
+		// std::cout << vector_std_2.size() << std::endl;
+
+		// std::cout << vector_std.at(0) << std::endl;
+		// std::cout << vector_std_2.at(0) << std::endl;
+	}
+	else
+	{
+		// ft::vector<int>	vector_ft;
+		// ft::vector<int>	vector_ft_2;
+
+		// vector_ft.push_back(42);
+
+		// vector_ft_2 = vector_ft;
+
+		// vector_ft.push_back(15);
+
+		// std::cout << vector_ft.size() << std::endl;
+		// std::cout << vector_ft_2.size() << std::endl;
+
+		// std::cout << vector_ft.at(0) << std::endl;
+		// std::cout << "end of function \n";
+		// std::cout << vector_ft_2.at(0) << std::endl;
+	}
+}
+
+void	test_vector_rbegin_and_rend(bool is_real_container)
+{
+	if (is_real_container)
+	{
+		// std::vector<int>	vector_std;
+
+		// vector_std.push_back(24);
+		// vector_std.push_back(42);
+
+		// std::vector<int>::reverse_iterator	rit = vector_std.rbegin();
+
+		// while (rit != vector_std.rend())
+		// {
+		// 	std::cout << *rit << std::endl;
+		// 	*rit++;
+		// }
+	}
+	else
+	{
+		// ft::vector<int>	vector_ft;
+
+		// vector_ft.push_back(24);
+		// vector_ft.push_back(42);
+
+		// ft::vector<int>::reverse_iterator	rit = vector_ft.rbegin();
+
+		// while (rit != vector_ft.rend())
+		// {
+		// 	std::cout << rit << std::endl;
+		// 	rit++;
+		// }
+	}
+}
+
+void	test_vector_resize(bool is_real_container)
+{
+	if (is_real_container)
+	{
+		std::vector<int>	vector_std;
+
+		vector_std.push_back(42);
+		vector_std.push_back(15);
+		vector_std.push_back(24);
+
+		vector_std.resize(1);
+		std::cout << vector_std.size() << std::endl;
+	}
+	else
+	{
+		ft::vector<int>	vector_ft;
+
+		vector_ft.push_back(42);
+		vector_ft.push_back(15);
+		vector_ft.push_back(24);
+
+		vector_ft.resize(1);
+		std::cout << vector_ft.size() << std::endl;
+	}
+}
+
+void	test_vector_reserve(bool is_real_container)
+{
+	if (is_real_container)
+	{
+		std::vector<int>	vector_std;
+
+		std::cout << vector_std.capacity() << std::endl;
+		vector_std.reserve(10);
+		std::cout << vector_std.capacity() << std::endl;
+	}
+	else
+	{
+		ft::vector<int>	vector_ft;
+
+		std::cout << vector_ft.capacity() << std::endl;
+		vector_ft.reserve(10);
+		std::cout << vector_ft.capacity() << std::endl;
+	}
+}
+
+void	test_vector_assign(bool is_real_container)
+{
+	if (is_real_container)
+	{
+		std::vector<int>	vector_std;
+		std::vector<int>	vector_std_2;
+
+		vector_std.push_back(42);
+		vector_std.push_back(15);
+		vector_std.push_back(24);
+
+		vector_std.assign(10, 7);
+		std::cout << vector_std.size() << std::endl;
+		std::cout << vector_std.at(0) << std::endl;
+
+		vector_std_2.assign(vector_std.begin(), vector_std.end());
+		std::cout << vector_std.size() << std::endl;
+		std::cout << vector_std.at(0) << std::endl;
+	}
+	else
+	{
+		ft::vector<int>	vector_ft;
+		ft::vector<int>	vector_ft_2;
+
+		vector_ft.push_back(42);
+		vector_ft.push_back(15);
+		vector_ft.push_back(24);
+
+		vector_ft.assign(10, 7);
+		std::cout << vector_ft.size() << std::endl;
+		std::cout << vector_ft.at(0) << std::endl;
+
+		vector_ft_2.assign(vector_ft.begin(), vector_ft.end());
+		std::cout << vector_ft.size() << std::endl;
+		std::cout << vector_ft.at(0) << std::endl;
+	}
+}
+
+void	test_vector_pop_back(bool is_real_container)
+{
+	if (is_real_container)
+	{
+		std::vector<int>	vector_std;
+
+		std::cout << vector_std.size() << std::endl;
+		vector_std.push_back(42);
+
+		std::cout << vector_std.size() << std::endl;
+		vector_std.push_back(15);
+
+		vector_std.pop_back();
+		std::cout << vector_std.size() << std::endl;
+
+		vector_std.pop_back();
+		std::cout << vector_std.size() << std::endl;
+	}
+	else
+	{
+		ft::vector<int>	vector_ft;
+
+		std::cout << vector_ft.size() << std::endl;
+		vector_ft.push_back(42);
+
+		std::cout << vector_ft.size() << std::endl;
+		vector_ft.push_back(15);
+
+		vector_ft.pop_back();
+		std::cout << vector_ft.size() << std::endl;
+
+		vector_ft.pop_back();
+		std::cout << vector_ft.size() << std::endl;
+	}
+}
+
+void	test_vector_insert(bool is_real_container)
+{
+	if (is_real_container)
+	{
+		std::vector<int>	vector_std;
+		std::vector<int>	vector_std_2;
+
+		vector_std.insert(vector_std.begin(), 42);
+		std::cout << vector_std.size() << std::endl;
+
+		vector_std.insert(vector_std.begin(), 10, 15);
+		std::cout << vector_std.size() << std::endl;
+
+		vector_std_2.insert(vector_std_2.begin(), vector_std.begin(), vector_std.end());
+		std::cout << vector_std_2.size() << std::endl;
+	}
+	else
+	{
+		ft::vector<int>	vector_ft;
+		ft::vector<int>	vector_ft_2;
+
+		vector_ft.insert(vector_ft.begin(), 42);
+		std::cout << vector_ft.size() << std::endl;
+
+		vector_ft.insert(vector_ft.begin(), 10, 15);
+		std::cout << vector_ft.size() << std::endl;
+
+		vector_ft_2.insert(vector_ft_2.begin(), vector_ft.begin(), vector_ft.end());
+		std::cout << vector_ft_2.size() << std::endl;
+	}
+}
+
+void	test_vector_erase(bool is_real_container)
+{
+	if (is_real_container)
+	{
+		std::vector<int>	vector_std;
+
+		vector_std.push_back(42);
+		vector_std.push_back(15);
+		vector_std.push_back(24);
+		std::cout << vector_std.size() << std::endl;
+
+		vector_std.erase(vector_std.begin());
+		std::cout << vector_std.size() << std::endl;
+
+		vector_std.erase(vector_std.begin(), vector_std.end());
+		std::cout << vector_std.size() << std::endl;
+	}
+	else
+	{
+		ft::vector<int>	vector_ft;
+
+		vector_ft.push_back(42);
+		vector_ft.push_back(15);
+		vector_ft.push_back(24);
+		std::cout << vector_ft.size() << std::endl;
+
+		vector_ft.erase(vector_ft.begin());
+		std::cout << vector_ft.size() << std::endl;
+
+		vector_ft.erase(vector_ft.begin(), vector_ft.end());
+		std::cout << vector_ft.size() << std::endl;
+	}
+}
+
+void	test_vector_clear(bool is_real_container)
+{
+	if (is_real_container)
+	{
+		std::vector<int>	vector_std;
+
+		vector_std.push_back(42);
+		vector_std.push_back(24);
+
+		std::cout << vector_std.size() << std::endl;
+
+		vector_std.clear();
+		std::cout << vector_std.size() << std::endl;
+	}
+	else
+	{
+		ft::vector<int>	vector_ft;
+
+		vector_ft.push_back(42);
+		vector_ft.push_back(24);
+
+		std::cout << vector_ft.size() << std::endl;
+
+		vector_ft.clear();
+		std::cout << vector_ft.size() << std::endl;
+	}
+}

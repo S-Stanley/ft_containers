@@ -30,8 +30,8 @@ namespace ft {
 			typedef const value_type*	const_pointer;
 			typedef Iterator<T>*		iterator;
 			typedef const Iterator<T>*	const_iterator;
-			typedef RIterator<T>		reverse_iterator;
-			typedef const RIterator<T>	const_reverse_iterator;
+			typedef RIterator<T>*		reverse_iterator;
+			typedef const RIterator<T>*	const_reverse_iterator;
 			typedef ptrdiff_t			difference_type;
 			typedef unsigned int		size_type;
 
@@ -50,19 +50,41 @@ namespace ft {
 					this->_pts = tmp;
 				}
 			};
-			ft::vector<T>	operator=(const ft::vector<T> &src)
+			ft::vector<T>	operator=(ft::vector<T> &src)
 			{
-				T	*update = this->get_allocator().allocate(src._len);
+				// T	*update = this->get_allocator().allocate(src._len);
 
-				if (this->_tab)
-					this->clear();
-				for (unsigned int i = 0; i < src._len; i++)
+				// if (this->_tab)
+				// 	this->clear();
+				// for (unsigned int i = 0; i < src._len; i++)
+				// {
+				// 	this->get_allocator().construct(&update[i], src._tab[i]);
+				// }
+				// if (this->_tab)
+				// 	this->get_allocator().deallocate(this->_tab, this->_max_cap);
+				// this->_tab = update;
+				// this->_len = src._len;
+				// this->_max_cap = src._len;
+				iterator		first = src.begin();
+				iterator		last = src.end();
+
+				unsigned int	nb_item_to_add = (last->getPosition() - first->getPosition());
+				T   			*update = this->get_allocator().allocate(this->_max_cap + nb_item_to_add);
+				unsigned int	tab_i = 0;
+				unsigned int	new_len = this->_len + nb_item_to_add;
+				unsigned int	new_max_cap = this->_max_cap + nb_item_to_add;
+
+				while (first->getPosition() != last->getPosition())
 				{
-					this->get_allocator().construct(&update[i], src._tab[i]);
+					this->get_allocator().construct(&update[tab_i], first->getArray()[first->getPosition()]);
+					(*first)++;
+					tab_i++;
 				}
+				if (this->_tab)
+					this->get_allocator().deallocate(this->_tab, this->_max_cap);
 				this->_tab = update;
-				this->_len = src._len;
-				this->_max_cap = src._max_cap;
+				this->_len = new_len;
+				this->_max_cap = new_max_cap;
 				return *(this);
 			}
 
@@ -184,36 +206,36 @@ namespace ft {
 				this->_it_const->setPosition(this->_len + 1);
 				return (this->_it_const);
 			}
-			RIterator<T>			rbegin(void)
+			reverse_iterator			rbegin(void)
 			{
-				RIterator<T>		index;
+				reverse_iterator		index = NULL;
 
-				index = this->_tab[this->_len];
+				index->setIndex(this->_len, this->_tab);
 				index->setPosition(this->_len);
 				return (index);
 			}
-			const RIterator<T>			rbegin(void) const
+			const_reverse_iterator		rbegin(void) const
 			{
-				const RIterator<T>		index;
+				const_reverse_iterator	index = NULL;
 
-				index = this->_tab[this->_len];
+				index->setIndex(this->_len, this->_tab);
 				index->setPosition(this->_len);
 				return (index);
 			}
-			RIterator<T>			rend(void)
+			reverse_iterator			rend(void)
 			{
-				RIterator<T>		index;
+				reverse_iterator		index = NULL;
 
-				index = this->_tab[0];
-				index.setPosition(-1);
+				index->setIndex(this->_len, this->_tab);
+				index->setPosition(0);
 				return (index);
 			}
-			const RIterator<T>			rend(void) const
+			const_reverse_iterator			rend(void) const
 			{
-				const RIterator<T>		index;
+				const_reverse_iterator		index = NULL;
 
-				index = NULL;
-				index.setPosition(-1);
+				index->setIndex(this->_len, this->_tab);
+				index->setPosition(0);
 				return (index);
 			}
 
@@ -330,7 +352,7 @@ namespace ft {
 			}
 			unsigned int	capacity(void) const
 			{
-				return (this->_len);
+				return (this->_max_cap);
 			}
 			bool	empty(void) const
 			{
@@ -387,7 +409,7 @@ namespace ft {
 			}
 			void    pop_back(void)
 			{
-				T   *update = this->get_allocator().allocate(this->_len);
+				T   *update = this->get_allocator().allocate(this->_max_cap);
 
 				this->_len--;
 				this->_max_cap--;
@@ -396,9 +418,99 @@ namespace ft {
 				this->get_allocator().deallocate(this->_tab, this->size());
 				this->_tab = update;
 			}
+			iterator	insert(iterator position, const value_type &val)
+			{
+				T   			*update = this->get_allocator().allocate(this->_len + 1);
+				unsigned int	i = 0;
+
+				while (i < position->getPosition() && i < this->_len)
+				{
+					this->get_allocator().construct(&update[i], this->_tab[i]);
+					i++;
+				}
+				this->get_allocator().construct(&update[i], val);
+				i++;
+				while (i < this->_len)
+				{
+					this->get_allocator().construct(&update[i], this->_tab[i - 1]);
+					i++;
+				}
+				if (this->_tab)
+					this->get_allocator().deallocate(this->_tab, this->_max_cap);
+				this->_tab = update;
+				this->_len++;
+				this->_max_cap++;
+				return (position);
+			}
+			void		insert(iterator position, size_type n, const value_type &val)
+			{
+				T   			*update = this->get_allocator().allocate(this->_len + n);
+				unsigned int	i = 0;
+				unsigned int	tab_i = 0;
+				unsigned int	new_len = this->_len + n;
+				unsigned int	new_max_cap = this->_max_cap + n;
+
+				while (i < position->getPosition() && i < this->_len)
+				{
+					this->get_allocator().construct(&update[tab_i], this->_tab[i]);
+					i++;
+					tab_i++;
+				}
+				while (n != 0)
+				{
+					this->get_allocator().construct(&update[tab_i], val);
+					tab_i++;
+					n--;
+				}
+				while (i < this->_len)
+				{
+					this->get_allocator().construct(&update[tab_i], this->_tab[i]);
+					i++;
+					tab_i++;
+				}
+				if (this->_tab)
+					this->get_allocator().deallocate(this->_tab, this->_max_cap);
+				this->_tab = update;
+				this->_len = new_len;
+				this->_max_cap = new_max_cap;
+			}
+			void		insert(iterator position, iterator first, iterator last)
+			{
+				unsigned int	nb_item_to_add = (last->getPosition() - first->getPosition());
+				T   			*update = this->get_allocator().allocate(this->_max_cap + nb_item_to_add);
+				unsigned int	i = 0;
+				unsigned int	tab_i = 0;
+				unsigned int	new_len = this->_len + nb_item_to_add;
+				unsigned int	new_max_cap = this->_max_cap + nb_item_to_add;
+
+				while (i < position->getPosition() && i < this->_len)
+				{
+					this->get_allocator().construct(&update[tab_i], this->_tab[i]);
+					i++;
+					tab_i++;
+				}
+				while (first->getPosition() != last->getPosition())
+				{
+					this->get_allocator().construct(&update[tab_i], first->getArray()[first->getPosition()]);
+					(*first)++;
+					tab_i++;
+				}
+				while (i < this->_len)
+				{
+					this->get_allocator().construct(&update[i], this->_tab[tab_i]);
+					i++;
+					tab_i++;
+				}
+				if (this->_tab)
+					this->get_allocator().deallocate(this->_tab, this->_max_cap);
+				this->_tab = update;
+				this->_len = new_len;
+				this->_max_cap = new_max_cap;
+			}
 			void	clear(void)
 			{
-				this->get_allocator().deallocate(this->_tab, this->_max_cap);
+				if (this->_tab != NULL)
+					this->get_allocator().deallocate(this->_tab, this->_max_cap);
 				this->_len = 0;
 				this->_max_cap = 0;
 				this->_tab = NULL;
@@ -418,19 +530,20 @@ namespace ft {
 			{
 				if (N > this->_len)
 				{
-					this->get_allocator().deallocate(this->_tab);
+					this->get_allocator().deallocate(this->_tab, this->_max_cap);
 					T	*update = this->get_allocator().allocate(N);
 					this->_len = N;
 					this->_max_cap = N;
 					for (unsigned int i = 0; i < N; i++)
-						this->get_allocator().construct(&update[i], val[i]);
+						this->get_allocator().construct(&update[i], val);
+					this->_tab = update;
 				} else {
 					for (unsigned int i = 0; i < N; i++)
-						this->get_allocator().construct(&this->_tab[i], val[i]);
+						this->get_allocator().construct(&this->_tab[i], val);
 				}
 
 			}
-			void	assign(std::input_iterator_tag first, std::input_iterator_tag last)
+			void	assign(iterator first, iterator last)
 			{
 				T	*update = this->get_allocator().allocate(this->_len);
 				(void)first;
@@ -438,15 +551,16 @@ namespace ft {
 
 				for (unsigned int i = 0; i < this->_len; i++)
 					this->get_allocator().construct(&update[i], this->_tab[i]);
-				this->get_allocator().deallocate(this->_tab, this->_max_cap);
+				if (this->_tab)
+					this->get_allocator().deallocate(this->_tab, this->_max_cap);
 				this->_tab = update;
 			}
 			iterator		erase(iterator position)
 			{
-				T	*update = this->get_allocator().allocate(this->_len -1);
 				unsigned int count = 0;
+				T	*update = this->get_allocator().allocate(this->_max_cap -1);
 
-				for (unsigned int i = 0; i < this->_len; i++)
+				for (unsigned int i = 0; i < this->_len - 1; i++)
 				{
 					if (&this->_tab[i] != position->getAddress())
 					{
@@ -454,7 +568,8 @@ namespace ft {
 						count++;
 					}
 				}
-				this->get_allocator().deallocate(this->_tab, this->_max_cap);
+				if (this->_tab)
+					this->get_allocator().deallocate(this->_tab, this->_max_cap);
 				this->_tab = update;
 				this->_len--;
 				this->_max_cap--;
@@ -462,8 +577,8 @@ namespace ft {
 			}
 			iterator		erase(iterator first, iterator last)
 			{
-				T	*update = this->get_allocator().allocate(this->_len - (last->getPosition() - first->getPosition()));
-				Iterator<T>	index = new Iterator<T>;
+				T	*update = this->get_allocator().allocate(this->_max_cap - (last->getPosition() - first->getPosition()));
+				iterator index = this->begin();
 				int	count = 0;
 
 				for (unsigned int i = 0; i < this->_len; i++)
@@ -476,6 +591,10 @@ namespace ft {
 					if (i < last->getPosition())
 						index++;
 				}
+				if (this->_tab)
+					this->get_allocator().deallocate(this->_tab, this->_max_cap);
+				this->_tab = update;
+				this->_len = count;
 				return (index);
 			}
 
@@ -515,6 +634,20 @@ namespace ft {
 				tmp->next = new_node;
 				return (new_node);
             }
+			iterator	get_iterator_begin(void)
+			{
+				ft::iterator_pointor<T>		*tmp = this->getIterator();
+				tmp->iterator->setArray(this->_tab, this->_len);
+				tmp->iterator->setPosition(0);
+				return (tmp->iterator);
+			}
+			iterator	get_iterator_end(void)
+			{
+				ft::iterator_pointor<T>		*tmp = this->getIterator();
+				tmp->iterator->setArray(this->_tab, this->_len);
+				tmp->iterator->setPosition(this->_len);
+				return (tmp->iterator);
+			}
 	};
 }
 
