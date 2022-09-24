@@ -10,10 +10,8 @@ template <typename T, typename K = std::string>
 class RIterator: public std::iterator<std::random_access_iterator_tag, T>
 {
 	public:
-		RIterator(void): _index(NULL), _position(-1), _keys(NULL){};
-		virtual ~RIterator(void){
-			// delete[] this->_index;
-		};
+		RIterator(void): _index(NULL), _position(0), _keys(NULL), _len(0){};
+		virtual ~RIterator(void){};
 		RIterator<T>	operator=(int *new_index)
 		{
 			if (new_index)
@@ -26,9 +24,17 @@ class RIterator: public std::iterator<std::random_access_iterator_tag, T>
 			this->_position = 0;
 			return (*this);
 		}
+		bool		operator!=(RIterator<T> &comp)
+		{
+			return (this->getPosition() != comp.getPosition());
+		}
 		bool		operator!=(RIterator<T> comp)
 		{
 			return (this->getPosition() != comp.getPosition());
+		}
+		bool		operator!=(RIterator<T> *comp)
+		{
+			return (this->getPosition() != comp->getPosition());
 		}
 		void		setPosition(unsigned int pos)
 		{
@@ -36,7 +42,6 @@ class RIterator: public std::iterator<std::random_access_iterator_tag, T>
 		}
 		void	operator++(int)
 		{
-			this->_index--;
 			this->_position--;
 		}
 		void	operator--(int)
@@ -59,24 +64,8 @@ class RIterator: public std::iterator<std::random_access_iterator_tag, T>
 		}
 		void	setIndex(unsigned int len = 0, T *tmp = NULL)
 		{
-			unsigned int    i = 0;
-			T   arr_values[len];
-			unsigned int tmp_len = len - 1;
-
-			while (tmp_len >  0)
-			{
-				arr_values[i] = tmp[i];
-				i++;
-				tmp_len--;
-			}
-			this->setPosition(len - 1);
-			this->_index = arr_values;
-		}
-		void	setKeys(K *new_keys)
-		{
-			if (this->_keys)
-				delete this->_keys;
-			this->_keys = new_keys;
+			this->_len = len;
+			this->_index = tmp;
 		}
 		T		*getArray(void)
 		{
@@ -91,6 +80,7 @@ class RIterator: public std::iterator<std::random_access_iterator_tag, T>
 		T				*_index;
 		unsigned int	_position;
 		K				*_keys;
+		unsigned int	_len;
 };
 
 template <typename T>

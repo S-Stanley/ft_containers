@@ -29,5 +29,6 @@ void	test_vector_pop_back(bool is_real_container);
 void	test_vector_insert(bool is_real_container);
 void	test_vector_erase(bool is_real_container);
 void	test_vector_clear(bool is_real_container);
+void	test_vector_rbegin_and_rend(bool is_real_container);
 
 #endif

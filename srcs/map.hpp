@@ -239,18 +239,9 @@ namespace ft {
             typedef ptrdiff_t                       difference_type;
             typedef size_t                          size_type;
 
-            map(void): _values(NULL), _it(NULL), _len(0) {};
+            map(void): _values(NULL), _len(0) {};
             ~map(void)
             {
-                ft::list_iterator<T>        *lst;
-
-                while (this->_it != NULL)
-                {
-                    lst = this->_it->next;
-                    delete this->_it;
-                    this->_it = lst;
-                }
-
                 this->free_lst(this->_values);
                 this->_values = NULL;
             };
@@ -702,7 +693,7 @@ namespace ft {
                 else if (tmp->first == new_node->first)
                 {
                     this->_len--;
-                    delete new_node;
+                    this->get_allocator().deallocate(new_node, 1);
                     return (pts);
                 }
                 else if (new_node->first > lst->first)
@@ -714,7 +705,7 @@ namespace ft {
                             if (tmp->next->first == new_node->first)
                             {
                                 this->_len--;
-                                delete new_node;
+                                this->get_allocator().deallocate(new_node, 1);
                                 return (pts);
                             }
                         new_node->previous = tmp;
@@ -736,7 +727,7 @@ namespace ft {
                             if (tmp->previous->first == new_node->first)
                             {
                                 this->_len--;
-                                delete new_node;
+                                this->get_allocator().deallocate(new_node, 1);
                                 return (pts);
                             }
                         }

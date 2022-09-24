@@ -59,6 +59,8 @@ int     main(int argc, char **argv)
 			test_vector_erase(is_real_container);
 		if (strcmp(argv[2], "15") == 0)
 			test_vector_clear(is_real_container);
+		if (strcmp(argv[2], "16") == 0)
+			test_vector_rbegin_and_rend(is_real_container);
 	}
 	else if (strcmp(argv[1], "map") == 0) {
 		if (strcmp(argv[2], "0") == 0)

@@ -12,12 +12,6 @@
 
 namespace ft {
 
-	template <typename T>
-	struct iterator_pointor {
-		Iterator<T>			*iterator;
-		iterator_pointor	*next;
-	};
-
 	template <typename T, class Alloc = std::allocator<T> >
 	class vector {
 		public:
@@ -28,27 +22,18 @@ namespace ft {
 			typedef const value_type&	const_reference;
 			typedef value_type*			pointer;
 			typedef const value_type*	const_pointer;
-			typedef Iterator<T>*		iterator;
-			typedef const Iterator<T>*	const_iterator;
-			typedef RIterator<T>*		reverse_iterator;
-			typedef const RIterator<T>*	const_reverse_iterator;
+			typedef Iterator<T>			iterator;
+			typedef const Iterator<T>	const_iterator;
+			typedef RIterator<T>		reverse_iterator;
+			typedef const RIterator<T>	const_reverse_iterator;
 			typedef ptrdiff_t			difference_type;
 			typedef unsigned int		size_type;
 
-			vector(void): _tab(NULL), _len(0), _max_cap(0), _it(NULL), _it_const(NULL), _pts(NULL) {};
+			vector(void): _tab(NULL), _len(0), _max_cap(0){};
 			virtual ~vector(void)
 			{
-				ft::iterator_pointor<T>		*tmp;
-
 				if (this->_tab)
 					this->clear();
-				while (this->_pts)
-				{
-					tmp = this->_pts->next;
-					delete this->_pts->iterator;
-					delete this->_pts;
-					this->_pts = tmp;
-				}
 			};
 			ft::vector<T>	&operator=(const ft::vector<T> &src)
 			{
@@ -157,65 +142,62 @@ namespace ft {
 
 			iterator		begin(void)
 			{
-				ft::iterator_pointor<T>		*tmp = this->getIterator();
-				tmp->iterator->setArray(this->_tab, this->_len);
-				tmp->iterator->setPosition(0);
-				return (tmp->iterator);
+				iterator	tmp;
+				tmp.setArray(this->_tab, this->_len);
+				tmp.setPosition(0);
+				return (tmp);
 			}
 			const_iterator		begin(void) const
 			{
-				if (this->_it_const)
-					delete this->_it_const;
-				this->_it_const = new Iterator<T>;
-				this->_it_const = this->_tab;
-				return (this->_it_const);
+				const_iterator	tmp;
+				tmp.setArray(this->_tab, this->_len);
+				tmp.setPosition(0);
+				return (tmp);
 			}
 			iterator		end(void)
 			{
-				ft::iterator_pointor<T>		*tmp = this->getIterator();
-				tmp->iterator->setArray(this->_tab, this->_len);
-				tmp->iterator->setPosition(this->_len);
-				return (tmp->iterator);
+				iterator	tmp;
+				tmp.setArray(this->_tab, this->_len);
+				tmp.setPosition(this->_len);
+				return (tmp);
 			}
 			const_iterator		end(void) const
 			{
-				if (this->_it_const)
-					delete this->_it_const;
-				this->_it_const = new Iterator<T>;
-				this->_it_const->setArray(this->_tab);
-				this->_it_const->setPosition(this->_len + 1);
-				return (this->_it_const);
+				const_iterator	tmp;
+				tmp.setArray(this->_tab, this->_len);
+				tmp.setPosition(this->_len);
+				return (tmp);
 			}
 			reverse_iterator			rbegin(void)
 			{
-				reverse_iterator		index = NULL;
+				reverse_iterator	index;
 
-				index->setIndex(this->_len, this->_tab);
-				index->setPosition(this->_len);
+				index.setIndex(this->_len, this->_tab);
+				index.setPosition(this->_len);
 				return (index);
 			}
 			const_reverse_iterator		rbegin(void) const
 			{
-				const_reverse_iterator	index = NULL;
+				const_reverse_iterator	index;
 
-				index->setIndex(this->_len, this->_tab);
-				index->setPosition(this->_len);
+				index.setIndex(this->_len, this->_tab);
+				index.setPosition(this->_len);
 				return (index);
 			}
 			reverse_iterator			rend(void)
 			{
-				reverse_iterator		index = NULL;
+				reverse_iterator	index;
 
-				index->setIndex(this->_len, this->_tab);
-				index->setPosition(0);
+				index.setIndex(this->_len, this->_tab);
+				index.setPosition(0);
 				return (index);
 			}
 			const_reverse_iterator			rend(void) const
 			{
-				const_reverse_iterator		index = NULL;
+				const_reverse_iterator	index;
 
-				index->setIndex(this->_len, this->_tab);
-				index->setPosition(0);
+				index.setIndex(this->_len, this->_tab);
+				index.setPosition(0);
 				return (index);
 			}
 
@@ -402,7 +384,7 @@ namespace ft {
 				T   			*update = this->get_allocator().allocate(this->_len + 1);
 				unsigned int	i = 0;
 
-				while (i < position->getPosition() && i < this->_len)
+				while (i < position.getPosition() && i < this->_len)
 				{
 					this->get_allocator().construct(&update[i], this->_tab[i]);
 					i++;
@@ -429,7 +411,7 @@ namespace ft {
 				unsigned int	tab_i = 0;
 				unsigned int	new_len = this->_len + n;
 
-				while (i < position->getPosition() && i < this->_len)
+				while (i < position.getPosition() && i < this->_len)
 				{
 					this->get_allocator().construct(&update[tab_i], this->_tab[i]);
 					i++;
@@ -455,23 +437,23 @@ namespace ft {
 			}
 			void		insert(iterator position, iterator first, iterator last)
 			{
-				unsigned int	nb_item_to_add = (last->getPosition() - first->getPosition());
+				unsigned int	nb_item_to_add = (last.getPosition() - first.getPosition());
 				unsigned int	new_max_cap = this->_max_cap + nb_item_to_add;
 				T   			*update = this->get_allocator().allocate(new_max_cap);
 				unsigned int	i = 0;
 				unsigned int	tab_i = 0;
 				unsigned int	new_len = this->_len + nb_item_to_add;
 
-				while (i < position->getPosition() && i < this->_len)
+				while (i < position.getPosition() && i < this->_len)
 				{
 					this->get_allocator().construct(&update[tab_i], this->_tab[i]);
 					i++;
 					tab_i++;
 				}
-				while (first->getPosition() != last->getPosition())
+				while (first.getPosition() != last.getPosition())
 				{
-					this->get_allocator().construct(&update[tab_i], first->getArray()[first->getPosition()]);
-					(*first)++;
+					this->get_allocator().construct(&update[tab_i], first.getArray()[first.getPosition()]);
+					first++;
 					tab_i++;
 				}
 				while (i < this->_len)
@@ -542,7 +524,7 @@ namespace ft {
 
 				for (unsigned int i = 0; i < this->_len - 1; i++)
 				{
-					if (&this->_tab[i] != position->getAddress())
+					if (&this->_tab[i] != position.getAddress())
 					{
 						this->get_allocator().construct(&update[i], this->_tab[i]);
 						count++;
@@ -557,19 +539,19 @@ namespace ft {
 			}
 			iterator		erase(iterator first, iterator last)
 			{
-				T	*update = this->get_allocator().allocate(this->_max_cap - (last->getPosition() - first->getPosition()));
+				T	*update = this->get_allocator().allocate(this->_max_cap - (last.getPosition() - first.getPosition()));
 				iterator index = this->begin();
 				int	count = 0;
-				this->_max_cap = this->_max_cap - (last->getPosition() - first->getPosition());
+				this->_max_cap = this->_max_cap - (last.getPosition() - first.getPosition());
 
 				for (unsigned int i = 0; i < this->_len; i++)
 				{
-					if (i < first->getPosition() && i > last->getPosition())
+					if (i < first.getPosition() && i > last.getPosition())
 					{
 						this->get_allocator().construct(&update[i], this->_tab[i]);
 						count++;
 					}
-					if (i < last->getPosition())
+					if (i < last.getPosition())
 						index++;
 				}
 				if (this->_tab)
@@ -590,31 +572,6 @@ namespace ft {
 			T               		*_tab;
 			unsigned int    		_len;
 			unsigned int			_max_cap;
-			iterator				_it;
-			const_iterator			_it_const;
-			ft::iterator_pointor<T>	*_pts;
-
-            ft::iterator_pointor<T>		*getIterator(void)
-            {
-				ft::iterator_pointor<T>	*tmp;
-				ft::iterator_pointor<T>	*new_node = new ft::iterator_pointor<T>;
-				iterator				new_iterator = new Iterator<T>;
-
-				new_node->iterator = new_iterator;
-				new_node->next = NULL;
-				if (!this->_pts)
-				{
-					this->_pts = new_node;
-					return (new_node);
-				}
-				tmp = this->_pts;
-				while (tmp->next)
-				{
-					tmp = tmp->next;
-				}
-				tmp->next = new_node;
-				return (new_node);
-            }
 	};
 }
 
