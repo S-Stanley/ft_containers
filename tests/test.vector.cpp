@@ -196,10 +196,10 @@ void	test_vector_iterator_and_const_iterator(bool is_real_container)
 		ft::vector<int>::iterator			it = vector_ft.begin();
 		ft::vector<int>::const_iterator	it_end = vector_ft.end();
 
-		while ((*it) != (*it_end))
+		while (it != it_end)
 		{
-			std::cout << (*it) << std::endl;
-			(*it)++;
+			std::cout << it << std::endl;
+			it++;
 		}
 	}
 }
@@ -265,6 +265,40 @@ void	test_vector_equal(bool is_real_container)
 
 		std::cout << vector_ft.at(0) << std::endl;
 		std::cout << vector_ft_2.at(0) << std::endl;
+	}
+}
+
+void	test_vector_rbegin_and_rend(bool is_real_container)
+{
+	if (is_real_container)
+	{
+		std::vector<int>	vector_std;
+
+		vector_std.push_back(24);
+		vector_std.push_back(42);
+
+		std::vector<int>::reverse_iterator	rit = vector_std.rbegin();
+
+		while (rit != vector_std.rend())
+		{
+			std::cout << *rit << std::endl;
+			*rit++;
+		}
+	}
+	else
+	{
+		ft::vector<int>	vector_ft;
+
+		vector_ft.push_back(24);
+		vector_ft.push_back(42);
+
+		ft::vector<int>::reverse_iterator	rit = vector_ft.rbegin();
+
+		while (rit != vector_ft.rend())
+		{
+			std::cout << rit << std::endl;
+			rit++;
+		}
 	}
 }
 

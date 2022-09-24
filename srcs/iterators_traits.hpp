@@ -9,7 +9,7 @@ template <typename T, typename K = std::string>
 class Iterator: public std::iterator<std::random_access_iterator_tag, T>
 {
 	public:
-		Iterator(void): it(NULL), _index(NULL), _position(-1), _keys(NULL), _len(0){};
+		Iterator(void): it(NULL), _index(NULL), _position(0), _keys(NULL), _len(0){};
 		virtual ~Iterator(void){};
 		Iterator	operator=(int *new_index)
 		{
@@ -98,59 +98,6 @@ class Iterator: public std::iterator<std::random_access_iterator_tag, T>
 		{
 			T	*arr = this->_index;
 			return (arr);
-		}
-		K		*getKeys(void)
-		{
-			K	*arr = this->_keys;
-			ft::pair<K, T>	*new_it = new ft::pair<K, T>;
-
-			if (this->_keys && this->_index && this->getPosition() <= (sizeof(K)/sizeof(*this->_keys)) && this->getPosition() <= sizeof(T)/sizeof(*this->_index)) {
-				new_it->first = this->_keys[this->getPosition()];
-				new_it->second = this->_index[this->getPosition()];
-				this->it = new_it;
-			}
-			return (arr);
-		}
-		void	addToArr(T to_add)
-		{
-			unsigned int	size = this->_len;
-			unsigned int	i = 0;
-			T				*new_arr = new T[size + 2];
-
-			if (this->_index == NULL)
-			{
-				new_arr[0] = to_add;
-				this->_index = new_arr;
-			} else {
-				while (i < (size - 1))
-				{
-					new_arr[i] = this->_index[i];
-					i++;
-				}
-				new_arr[i] = to_add;
-				this->_index = new_arr;
-			}
-			this->_len++;
-		}
-		void	addToKeys(K to_add)
-		{
-			unsigned int	size = this->_len;
-			unsigned int	i = 0;
-			K				*new_arr = new K[size + 1];
-
-			if (!this->_keys)
-			{
-				new_arr[0] = to_add;
-				this->_keys = new_arr;
-			} else {
-				while (i < (size - 1)) {
-					new_arr[i] = this->_keys[i];
-					i++;
-				}
-				new_arr[i] = to_add;
-				delete[] this->_keys;
-				this->_keys = new_arr;
-			}
 		}
 		void	setKeys(K *keys)
 		{
