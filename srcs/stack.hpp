@@ -17,8 +17,10 @@ namespace ft {
             };
             virtual ~stack(void){
                 if (this->_data) {
-                    delete[] this->_data;
+                    this->c.get_allocator().deallocate(this->_data, this->_size);
                 }
+                this->_size = 0;
+                this->_data = NULL;
             };
 
             bool	operator==(const ft::stack<Value> &comp)
@@ -123,35 +125,35 @@ namespace ft {
             }
             void        push(const value_type &val) {
                 size_type   i = 0;
-                value_type  *new_data = new value_type[this->_size + 1];
+                value_type  *new_data = this->c.get_allocator().allocate(this->_size + 1);
 
                 if (!this->_data) {
-                    new_data[0] = val;
+                    this->c.get_allocator().construct(&new_data[0], val);
                     this->_data = new_data;
                     this->_size = 1;
                     return ;
                 }
                 while (i < this->_size) {
-                    new_data[i] = this->_data[i];
+                    this->c.get_allocator().construct(&new_data[i], this->_data[i]);
                     i++;
                 }
-                new_data[i] = val;
-                delete[] this->_data;
+                this->c.get_allocator().construct(&new_data[i], val);
+                this->c.get_allocator().deallocate(this->_data, this->_size);
                 this->_data = new_data;
                 this->_size++;
             }
             void        pop(void) {
                 size_type   i = 0;
-                value_type  *new_data = new value_type[this->_size - 1];
+                value_type  *new_data = this->c.get_allocator().allocate(this->_size - 1);
 
                 if (!this->_data) {
                     return ;
                 }
                 while (i < (this->_size - 1)) {
-                    new_data[i] = this->_data[i];
+                    this->c.get_allocator().construct(&new_data[i], this->_data[i]);
                     i++;
                 }
-                delete[] this->_data;
+                this->c.get_allocator().deallocate(this->_data, this->_size);
                 this->_data = new_data;
                 this->_size--;
             }

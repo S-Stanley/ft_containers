@@ -67,12 +67,6 @@ class RIterator: public std::iterator<std::random_access_iterator_tag, T>
 			this->_len = len;
 			this->_index = tmp;
 		}
-		void	setKeys(K *new_keys)
-		{
-			if (this->_keys)
-				delete this->_keys;
-			this->_keys = new_keys;
-		}
 		T		*getArray(void)
 		{
 			return (this->_index);
