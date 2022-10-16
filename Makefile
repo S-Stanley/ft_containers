@@ -3,7 +3,7 @@ ODIR = .obj
 OBJS = $(addprefix $(ODIR)/, $(SRCS:.cpp=.o))
 DEP = $(OBJS:.o=.d)
 CC = c++
-FLAGS = -Wall -Wextra -Werror -std=c++98
+FLAGS = -Wall -Wextra -Werror -std=c++98 -g3
 CFLAGS = $(FLAGS) -MMD
 RM = rm -rf
 NAME = ft_containers
